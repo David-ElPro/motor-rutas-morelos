@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motor de Rutas - Morelos</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+    <style>
+        body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        #map { width: 100vw; height: 100vh; z-index: 1; }
+
+        /* Panel con Glassmorphism */
+        .glass-panel {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 1000; /* Para que flote sobre el mapa */
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 20px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+            color: #1a1a1a;
+            min-width: 250px;
+        }
+
+        .glass-panel h2 { margin: 0 0 10px 0; font-size: 1.2rem; }
+        .glass-panel p { margin: 0; font-size: 0.9rem; color: #333; }
+    </style>
+</head>
+<body>
+
+<div class="glass-panel">
+    <h2><i class="fa fa-map-marked-alt"></i> Visor de Rutas</h2>
+    <p><i class="fa fa-bus"></i> Trazando: <strong>Ruta 1 Centro</strong></p>
+    <p style="margin-top: 10px; font-size: 0.8rem; color: #555;">
+        <i class="fa fa-circle-notch fa-spin" id="loading-icon"></i> Cargando coordenadas...
+    </p>
+</div>
+
+<div id="map"></div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+    // 1. Inicializamos el mapa centrado en Cuernavaca
+    const map = L.map('map').setView([18.9242, -99.2216], 13);
+
+    // 2. Agregamos la capa de calles (OpenStreetMap)
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+        maxZoom: 19,
+        attribution: '© OpenStreetMap contributors © CARTO'
+    }).addTo(map);
+
+    // 3. Hacemos fetch a tu archivo local
+    fetch('ruta_1_centro.geojson')
+        .then(response => response.json())
+        .then(data => {
+            // Quitamos el icono de carga
+            document.getElementById('loading-icon').className = 'fa fa-check text-success';
+
+            // Pintamos la línea en el mapa
+            const routeLayer = L.geoJSON(data, {
+                style: function (feature) {
+                    return { color: "#2563eb", weight: 5, opacity: 0.8 }; // Azul profesional
+                }
+            }).addTo(map);
+
+            // Ajustamos el zoom automáticamente para que se vea toda la ruta
+            map.fitBounds(routeLayer.getBounds());
+        })
+        .catch(error => {
+            console.error("Error cargando el archivo:", error);
+            document.getElementById('loading-icon').className = 'fa fa-exclamation-triangle text-danger';
+        });
+</script>
+</body>
+</html>
