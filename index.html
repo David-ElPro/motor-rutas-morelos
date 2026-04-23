@@ -822,14 +822,14 @@
     ];
 
     async function recomendarRutas() {
-        if (!userMarker) { alert("Arrástralo el pin azul a tu ubicación."); return; }
+        if (!userMarker) { alert("Arrastra el pin azul a tu ubicación."); return; }
         if (!destinoCoordenadasReal) { alert("Selecciona un destino válido."); return; }
 
         const panel = document.getElementById('recomendaciones-panel');
         const lista = document.getElementById('lista-recomendados');
         const nombreDestino = document.getElementById('destinationInput').value;
 
-        lista.innerHTML = '<div class="ramal-item" style="padding: 15px;"><i class="fa fa-spinner fa-spin"></i> Analizando 78 ramales...</div>';
+        lista.innerHTML = '<div class="ramal-item" style="padding: 15px;"><i class="fa fa-spinner fa-spin"></i> Analizando sentidos de calle y rutas...</div>';
         panel.style.display = 'block';
         document.getElementById('btnTomarRuta').style.display = 'none';
 
@@ -842,11 +842,43 @@
                 const res = await fetch(ruta.archivo); if (!res.ok) continue;
                 const data = await res.json();
 
-                const nearestAbordaje = turf.nearestPointOnLine(data, puntoOrigen);
-                const nearestDescenso = turf.nearestPointOnLine(data, puntoDestino);
+                // 1. Anclamos primero el destino
+                let nearestDescenso = turf.nearestPointOnLine(data, puntoDestino);
+
+                // 2. Buscamos el abordaje preliminar
+                let nearestAbordaje = turf.nearestPointOnLine(data, puntoOrigen);
+
+                // =========================================================
+                // MAGIA ALGORÍTMICA: DETECCIÓN DE SENTIDO DE LA CALLE
+                // =========================================================
+                const idxAbordaje = nearestAbordaje.properties.index;
+                const idxDescenso = nearestDescenso.properties.index;
+
+                // Si el índice de abordaje es mayor al de descenso, nos estamos
+                // subiendo cuando la ruta ya va de regreso.
+                if (idxAbordaje >= idxDescenso) {
+
+                    // Buscamos la línea principal dentro del GeoJSON
+                    let lineaGeo = data.features ? data.features.find(f => f.geometry.type.includes('LineString')) : data;
+
+                    if (lineaGeo) {
+                        // Obtenemos la coordenada de la base de la ruta
+                        const coordsInicio = lineaGeo.geometry.type === 'MultiLineString'
+                            ? lineaGeo.geometry.coordinates[0][0]
+                            : lineaGeo.geometry.coordinates[0];
+                        const puntoInicioRuta = turf.point(coordsInicio);
+
+                        // CORTAMOS LA RUTA: desde la base hasta el destino
+                        const tramoIda = turf.lineSlice(puntoInicioRuta, nearestDescenso, lineaGeo);
+
+                        // Recalculamos el abordaje en el tramo de ida
+                        nearestAbordaje = turf.nearestPointOnLine(tramoIda, puntoOrigen);
+                    }
+                }
+                // =========================================================
 
                 resultados.push({
-                    archivo: ruta.archivo, color: ruta.color,
+                    archivo: ruta.archivo, color: ruta.color, fullData: data,
                     nombre: ruta.archivo.replace('.geojson', '').replace(/_/g, ' ').toUpperCase(),
                     distanciaOrigenMetros: Math.round(nearestAbordaje.properties.dist * 1000),
                     distanciaDestinoMetros: Math.round(nearestDescenso.properties.dist * 1000),
@@ -854,7 +886,7 @@
                     coordAbordaje: [nearestAbordaje.geometry.coordinates[1], nearestAbordaje.geometry.coordinates[0]],
                     coordDescenso: [nearestDescenso.geometry.coordinates[1], nearestDescenso.geometry.coordinates[0]]
                 });
-            } catch (e) {}
+            } catch (e) { console.error("Error procesando ruta", e); }
         }
 
         lista.innerHTML = "";
@@ -878,6 +910,9 @@
                         </div>
                     </div>`;
             });
+
+            // Llamamos a la función de transbordos usando los datos completos
+            buscarTransbordos(puntoOrigen, mejoresOpciones);
         }
     }
 
@@ -920,14 +955,13 @@
 
             // Mostrar Botón "Tomar Ruta"
             document.getElementById('btnTomarRuta').style.display = 'flex';
-            document.getElementById('btnCancelarRuta').style.display = 'none'; // Ocultar si estaba cancelado
+            document.getElementById('btnCancelarRuta').style.display = 'none';
 
-            // ZOOM INTELIGENTE: De donde estoy, a donde me subo.
+            // ZOOM INTELIGENTE
             const userLatLng = L.latLng(userLat, userLng);
             const abordajeLatLng = L.latLng(latAbordaje, lngAbordaje);
             const zoomBounds = L.latLngBounds(userLatLng, abordajeLatLng);
 
-            // maxZoom 16 para que no se acerque exageradamente si estás a 2 metros
             map.fitBounds(zoomBounds, { maxZoom: 16, padding: [60, 60], ...getMapPadding() });
 
         } catch (e) { }
@@ -975,7 +1009,7 @@
                     accuracyCircle.setRadius(pos.coords.accuracy / 2);
                 }
 
-                // Centrar la cámara en el usuario para que vea por dónde va
+                // Centrar la cámara
                 map.setView(currentPos, 16);
 
                 if (puntoDescensoGuardado && quiereAlertaBajada) {
@@ -1005,11 +1039,92 @@
 
     function terminarAlerta() {
         document.getElementById('pantallaAlerta').style.display = 'none';
-        // Volver la app a su estado base limpiando la pantalla
         clearAllLayers();
     }
 
     setTimeout(() => { createUserMarker([18.9218, -99.2347]); }, 1000);
+
+    // ==========================================
+    // NUEVA LÓGICA: BUSCADOR DE TRANSBORDOS
+    // ==========================================
+
+    async function buscarTransbordos(puntoOrigen, mejoresDirectas) {
+        const lista = document.getElementById('lista-recomendados');
+
+        // Solo buscamos transbordo si la mejor ruta directa te hace caminar mucho (> 600m)
+        if (mejoresDirectas.length > 0 && mejoresDirectas[0].distanciaOrigenMetros < 600) return;
+
+        lista.innerHTML += `<div style="margin: 20px 0 10px 0; font-size: 0.8rem; opacity: 0.6; text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px;">¿No quieres caminar? Intenta transbordar</div>`;
+
+        // 1. Buscamos rutas "Alimentadoras" (que pasen a menos de 150m de donde estás)
+        const alimentadoras = [];
+        for (let r of todosLosRamales) {
+            const res = await fetch(r.archivo);
+            const data = await res.json();
+            const nearest = turf.nearestPointOnLine(data, puntoOrigen);
+            if (nearest.properties.dist * 1000 < 150) {
+                alimentadoras.push({ ...r, data: data, coordAbordaje: nearest.geometry.coordinates });
+            }
+            if (alimentadoras.length > 5) break;
+        }
+
+        // 2. Comparamos alimentadoras con las mejores rutas directas para hallar cruces
+        for (let alim of alimentadoras) {
+            for (let dir of mejoresDirectas) {
+                // Validación para evitar errores si no existe fullData
+                if (!alim.data || !dir.fullData) continue;
+
+                const cruce = turf.lineIntersect(alim.data, dir.fullData);
+
+                if (cruce.features.length > 0) {
+                    // Hallamos un punto de transbordo
+                    const puntoCruce = cruce.features[0].geometry.coordinates;
+
+                    lista.innerHTML += `
+                    <div class="ramal-item" style="border-left: 4px solid #9b59b6; background: rgba(155, 89, 182, 0.1); flex-direction: column; align-items: flex-start;"
+                         onclick="mostrarViajeTransbordo('${alim.archivo}', '${dir.archivo}', [${puntoCruce[1]}, ${puntoCruce[0]}], '${alim.nombre}', '${dir.nombre}')">
+                        <div style="width:100%">
+                            <span style="background: #9b59b6; color: white; padding: 2px 6px; border-radius: 4px; font-size: 0.6rem; font-weight: bold; margin-bottom: 5px; display: inline-block;">COMBO EVITA-CAMINATA</span>
+                            <div style="font-size: 0.9rem; font-weight: bold;">${alim.nombre} <i class="fa fa-arrow-right" style="font-size: 0.7rem; opacity: 0.5;"></i> ${dir.nombre}</div>
+                        </div>
+                        <div style="font-size: 0.75rem; margin-top: 5px; opacity: 0.8;">
+                            <i class="fa fa-shuffle"></i> Transborda en la intersección de ambas rutas.
+                        </div>
+                    </div>
+                `;
+                    return;
+                }
+            }
+        }
+    }
+
+    // Función para visualizar el doble viaje
+    function mostrarViajeTransbordo(archivo1, archivo2, coordCruce, nom1, nom2) {
+        clearAllLayers();
+
+        // Dibujamos ambas rutas con opacidades distintas
+        fetch(archivo1).then(r => r.json()).then(data => {
+            L.geoJSON(data, { style: { color: '#9b59b6', weight: 4, opacity: 0.5 } }).addTo(map);
+        });
+
+        fetch(archivo2).then(r => r.json()).then(data => {
+            L.geoJSON(data, { style: { color: '#3498db', weight: 6, opacity: 0.9 } }).addTo(map);
+        });
+
+        // Ponemos el pin del transbordo
+        L.marker(coordCruce, {
+            icon: L.divIcon({
+                className: 'btn-clear',
+                html: '<i class="fa fa-shuffle" style="color:white"></i>',
+                iconSize: [30, 30]
+            })
+        }).addTo(map).bindPopup(`<b>Punto de Transbordo</b><br>Bájate de la ${nom1} y sube a la ${nom2}`).openPopup();
+
+        document.getElementById('topBanner').style.display = 'flex';
+        document.getElementById('topBannerText').innerHTML = `Transbordo: ${nom1} + ${nom2}`;
+
+        map.setView(coordCruce, 15);
+    }
 </script>
 </body>
 </html>
