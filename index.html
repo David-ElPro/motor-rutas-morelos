@@ -2,29 +2,29 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movilidad Morelos - Linnegocios Beta</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Movilidad Morelos - Rutita feliz</title>
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 
     <style>
-        body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #000; }
+        body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #000; overflow: hidden; }
         #map { width: 100vw; height: 100vh; }
 
-        /* Panel Lateral Glassmorphism */
+        /* Panel Lateral Glassmorphism (Diseño Base PC) */
         .sidebar {
             position: absolute; top: 20px; left: 20px; z-index: 1000;
             width: 320px; max-height: 90vh;
-            background: rgba(30, 30, 30, 0.6);
+            background: rgba(30, 30, 30, 0.7);
             backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px;
             padding: 20px; color: #fff; overflow-y: auto;
             box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+            transition: all 0.3s ease;
         }
 
         h2 { font-size: 1.2rem; margin: 0 0 20px 0; display: flex; align-items: center; gap: 12px; font-weight: 500; }
-
         .header-controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
 
         .btn-clear {
@@ -62,7 +62,6 @@
         }
         .suggestion-item:last-child { border-bottom: none; }
         .suggestion-item:hover { background: rgba(255,255,255,0.15); }
-
         .hidden { display: none !important; }
 
         /* Rutas y Ramales */
@@ -78,11 +77,21 @@
         }
         .ramal-item {
             padding: 10px 14px; font-size: 0.9rem; cursor: pointer; display: flex;
-            align-items: center; gap: 12px; border-radius: 10px; transition: background 0.2s;
+            align-items: center; gap: 12px; border-radius: 10px; transition: all 0.3s ease;
             color: rgba(255, 255, 255, 0.7);
         }
         .ramal-item:hover { background: rgba(255, 255, 255, 0.08); }
-        .ramal-item.active { background: rgba(255, 255, 255, 0.12); color: #fff; font-weight: 600; }
+
+        /* ESTILO: RUTA SELECCIONADA */
+        .ramal-item.selected-route {
+            background: var(--route-color, #fff) !important;
+            color: #000 !important;
+            transform: scale(1.02);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            border-color: transparent !important;
+        }
+        .ramal-item.selected-route * { color: #000 !important; }
+
         .ramal-item i { font-size: 1.1rem; width: 22px; text-align: center; }
 
         /* Botón Geolocalización */
@@ -95,27 +104,101 @@
             transition: transform 0.2s;
         }
         .btn-location:active { transform: scale(0.9); }
-
-        /* Tooltip de mapa personalizado */
-        .custom-tooltip {
-            background: rgba(0,0,0,0.8); border: 1px solid rgba(255,255,255,0.2);
-            color: white; font-weight: bold; border-radius: 8px; padding: 4px 8px;
-        }
-        .sidebar::-webkit-scrollbar { width: 6px; }
-        .sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
-
-        /* Efecto de pulso para el pin del usuario */
-        .custom-user-icon div {
-            animation: pulse 2s infinite;
-        }
+        .custom-user-icon div { animation: pulse 2s infinite; }
         @keyframes pulse {
             0% { box-shadow: 0 0 0 0 rgba(0, 122, 255, 0.7); }
             70% { box-shadow: 0 0 0 10px rgba(0, 122, 255, 0); }
             100% { box-shadow: 0 0 0 0 rgba(0, 122, 255, 0); }
         }
+
+        /* UI MODO VIAJE Y ALERTA DE BAJADA */
+        .top-banner {
+            position: fixed; top: 15px; left: 50%; transform: translateX(-50%);
+            background: rgba(30, 30, 30, 0.9); backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2); padding: 12px 25px;
+            border-radius: 30px; font-weight: bold; color: #fff; z-index: 2000;
+            display: none; align-items: center; gap: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            white-space: nowrap; font-size: 0.9rem;
+        }
+
+        .btn-flotante-viaje {
+            position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%);
+            padding: 15px 30px; border-radius: 30px; font-weight: 700; font-size: 1.1rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5); cursor: pointer;
+            z-index: 2000; display: none; border: none; align-items: center; gap: 10px;
+            transition: all 0.2s; color: #000;
+        }
+        .btn-flotante-viaje:active { transform: translateX(-50%) scale(0.95); }
+        .btn-tomar-ruta { background: #3498db; color: #fff; box-shadow: 0 10px 25px rgba(52, 152, 219, 0.4); }
+        .btn-cancelar-ruta { background: #e74c3c; color: #fff; box-shadow: 0 10px 25px rgba(231, 76, 60, 0.4); }
+
+        /* MODALES */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);
+            z-index: 3000; display: none; justify-content: center; align-items: center;
+        }
+        .modal-content {
+            background: rgba(30, 30, 30, 0.95); border: 1px solid rgba(255,255,255,0.1);
+            padding: 25px; border-radius: 20px; width: 85%; max-width: 350px; text-align: center;
+            color: white; box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+        }
+        .modal-icon { font-size: 3rem; margin-bottom: 15px; }
+        .modal-btns { display: flex; gap: 10px; margin-top: 25px; }
+        .modal-btn {
+            flex: 1; padding: 12px; border-radius: 12px; border: none;
+            font-weight: bold; cursor: pointer; transition: background 0.2s;
+        }
+        .btn-primary { background: #2ecc71; color: #000; }
+        .btn-secondary { background: rgba(255,255,255,0.1); color: #fff; }
+        .btn-danger { background: #e74c3c; color: #fff; }
+
+        @keyframes flashDanger {
+            0%, 100% { background-color: rgba(231, 76, 60, 0.95); }
+            50% { background-color: rgba(192, 57, 43, 0.95); }
+        }
+        .pantalla-alerta {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: 9999; display: none; flex-direction: column;
+            justify-content: center; align-items: center; color: white;
+            animation: flashDanger 1s infinite; text-align: center; padding: 20px;
+            box-sizing: border-box; backdrop-filter: blur(10px);
+        }
+        .pantalla-alerta h1 { font-size: 3rem; margin: 0 0 20px 0; text-transform: uppercase; }
+        .pantalla-alerta p { font-size: 1.5rem; margin: 0 0 40px 0; font-weight: 300; }
+
+        .sidebar::-webkit-scrollbar { width: 6px; }
+        .sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
+
+        /* ========================================= */
+        /* DISEÑO RESPONSIVO (MÓVILES - MEDIA PANTALLA) */
+        /* ========================================= */
+        @media (max-width: 768px) {
+            .sidebar {
+                top: auto; bottom: 0; left: 0; width: 100vw;
+                height: 50vh; max-height: 50vh;
+                border-radius: 24px 24px 0 0;
+                border-left: none; border-right: none; border-bottom: none;
+                box-sizing: border-box; padding: 15px;
+            }
+            .btn-location {
+                bottom: calc(50vh + 15px); right: 15px;
+                width: 45px; height: 45px; font-size: 1.2rem;
+            }
+            .btn-flotante-viaje {
+                bottom: calc(50vh + 15px);
+                font-size: 1rem; padding: 12px 25px;
+            }
+            .leaflet-control-container .leaflet-bottom { bottom: 50vh !important; }
+            .top-banner { top: 10px; font-size: 0.8rem; padding: 10px 20px; }
+        }
     </style>
 </head>
 <body>
+
+<div id="topBanner" class="top-banner">
+    <i class="fa fa-bus-simple"></i> <span id="topBannerText">Selecciona una ruta</span>
+</div>
 
 <div class="sidebar">
     <div class="header-controls">
@@ -129,9 +212,15 @@
             <input type="text" id="destinationInput" placeholder="Ej: Sanborns, UAEM, IMSS..." autocomplete="off" oninput="buscarLugarAPI()">
             <div id="suggestionsBox" class="suggestions-box"></div>
         </div>
-        <button class="ruta-master" style="background: #ffffff; color: #000; margin-top: 10px;" onclick="recomendarRutas()">
-            <span><i class="fa fa-route"></i> Calcular Ruta Óptima</span>
-        </button>
+
+        <div style="display: flex; gap: 10px; margin-top: 10px;">
+            <button class="ruta-master" style="background: #ffffff; color: #000; flex: 1; margin-top: 0;" onclick="recomendarRutas()">
+                <span><i class="fa fa-route"></i> Calcular Ruta</span>
+            </button>
+            <button class="ruta-master" style="background: rgba(255,255,255,0.1); color: #fff; width: 50px; flex: none; justify-content: center; margin-top: 0;" onclick="invertirRuta()" title="Invertir el Regreso">
+                <i class="fa fa-retweet"></i>
+            </button>
+        </div>
 
         <div id="recomendaciones-panel" style="margin-top: 15px; display: none;">
             <div id="lista-recomendados"></div>
@@ -389,19 +478,67 @@
 
 <div id="map"></div>
 
+<button id="btnTomarRuta" class="btn-flotante-viaje btn-tomar-ruta" onclick="abrirModalAvatar()">
+    <i class="fa fa-bus"></i> Tomar Ruta
+</button>
+
+<button id="btnCancelarRuta" class="btn-flotante-viaje btn-cancelar-ruta" onclick="abrirModalCancelar()">
+    <i class="fa fa-xmark"></i> Cancelar Viaje
+</button>
+
+<div id="modalAvatar" class="modal-overlay">
+    <div class="modal-content">
+        <i class="fa fa-robot modal-icon" style="color: #3498db;"></i>
+        <h3 style="margin-top: 0;">¡Vámonos de viaje!</h3>
+        <p style="font-size: 0.95rem; opacity: 0.9;">¿Gustas que te avise cuando estés cerca de tu bajada?</p>
+        <div class="modal-btns">
+            <button class="modal-btn btn-secondary" onclick="iniciarViaje(false)">No, gracias</button>
+            <button class="modal-btn btn-primary" onclick="iniciarViaje(true)"><i class="fa fa-bell"></i> Sí, avísame</button>
+        </div>
+    </div>
+</div>
+
+<div id="modalCancelar" class="modal-overlay">
+    <div class="modal-content">
+        <i class="fa fa-triangle-exclamation modal-icon" style="color: #e74c3c;"></i>
+        <h3 style="margin-top: 0;">¿Cancelar viaje?</h3>
+        <p style="font-size: 0.95rem; opacity: 0.9;">Al cancelar el viaje todas las opciones se limpiarán.</p>
+        <div class="modal-btns">
+            <button class="modal-btn btn-secondary" onclick="cerrarModales()">Volver</button>
+            <button class="modal-btn btn-danger" onclick="confirmarCancelacion()"><i class="fa fa-trash-can"></i> Sí, cancelar</button>
+        </div>
+    </div>
+</div>
+
+<div id="pantallaAlerta" class="pantalla-alerta">
+    <h1><i class="fa fa-bullhorn"></i> ¡Atención!</h1>
+    <p>Estás a unos metros de tu destino.<br><b>Prepárate para tocar el timbre.</b></p>
+    <button class="btn-entendido" onclick="terminarAlerta()"><i class="fa fa-check"></i> Entendido, gracias</button>
+</div>
+
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
 <script>
-    const map = L.map('map').setView([18.9218, -99.2347], 13);
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; CARTO'
-    }).addTo(map);
+    // 1. CAPAS BASE: OSCURO Y SATÉLITE
+    const mapaOscuro = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', { attribution: '&copy; CARTO' });
+    const mapaSatelite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{y}/{x}/{z}', { attribution: 'Tiles &copy; Esri' });
+
+    const map = L.map('map', { center: [18.9218, -99.2347], zoom: 13, layers: [mapaOscuro], zoomControl: false });
+    L.control.zoom({ position: 'topright' }).addTo(map);
+
+    const baseMaps = { "Modo Oscuro": mapaOscuro, "Vista Satélite": mapaSatelite };
+    L.control.layers(baseMaps, null, { position: 'topright' }).addTo(map);
 
     const capasActivas = {};
     let caminataLayer = null;
     let abordajeMarker = null;
 
-    // 1. CAPAS Y MENUS
+    // VARIABLES MODO VIAJE
+    let puntoDescensoGuardado = null;
+    let modoViajeTracker = null;
+    let quiereAlertaBajada = false;
+
+    // 2. CAPAS Y MENUS
     function toggleMenu(id) {
         const menu = document.getElementById(id);
         const arrow = menu.previousElementSibling.querySelector('.fa-chevron-down');
@@ -415,11 +552,7 @@
         const groups = document.querySelectorAll('.grupo-ruta');
         groups.forEach(group => {
             const text = (group.getAttribute('data-name') || group.innerText).toLowerCase();
-            if (text.includes(input)) {
-                group.classList.remove('hidden');
-            } else {
-                group.classList.add('hidden');
-            }
+            if (text.includes(input)) { group.classList.remove('hidden'); } else { group.classList.add('hidden'); }
         });
     }
 
@@ -428,18 +561,40 @@
             map.removeLayer(capasActivas[key]);
             const item = document.getElementById(`item-${key}`);
             const icon = document.getElementById(`icon-${key}`);
-            if (item) item.classList.remove('active');
-            if (icon) {
-                icon.className = 'far fa-circle';
-                icon.style.color = 'inherit';
-            }
+            if (item) { item.classList.remove('active'); item.classList.remove('selected-route'); }
+            if (icon) { icon.className = 'far fa-circle'; icon.style.color = 'inherit'; }
         }
         for (let prop in capasActivas) delete capasActivas[prop];
+
+        // Limpiar estilos de recomendaciones
+        const recItems = document.querySelectorAll('#lista-recomendados .ramal-item');
+        recItems.forEach(el => el.classList.remove('selected-route'));
 
         if (caminataLayer) map.removeLayer(caminataLayer);
         if (abordajeMarker) map.removeLayer(abordajeMarker);
         document.getElementById('recomendaciones-panel').style.display = 'none';
         if (marcadorDestinoUI) map.removeLayer(marcadorDestinoUI);
+
+        // Resetear UI de Viaje
+        document.getElementById('btnTomarRuta').style.display = 'none';
+        document.getElementById('btnCancelarRuta').style.display = 'none';
+        document.getElementById('topBanner').style.display = 'none';
+        cerrarModales();
+        terminarAlerta();
+
+        if (modoViajeTracker) {
+            navigator.geolocation.clearWatch(modoViajeTracker);
+            modoViajeTracker = null;
+        }
+    }
+
+    // Calcular padding dinámico para móviles
+    function getMapPadding() {
+        const isMobile = window.innerWidth <= 768;
+        return {
+            paddingTopLeft: [50, 50],
+            paddingBottomRight: [50, isMobile ? (window.innerHeight * 0.55) : 50]
+        };
     }
 
     async function toggleLayer(key, archivo, color) {
@@ -449,50 +604,35 @@
         if (capasActivas[key]) {
             map.removeLayer(capasActivas[key]);
             delete capasActivas[key];
-            if(item) item.classList.remove('active');
-            if(icon) {
-                icon.className = 'far fa-circle';
-                icon.style.color = 'inherit';
-            }
+            if(item) { item.classList.remove('active'); item.classList.remove('selected-route'); }
+            if(icon) { icon.className = 'far fa-circle'; icon.style.color = 'inherit'; }
         } else {
             try {
                 const res = await fetch(archivo);
                 if (!res.ok) throw new Error("Archivo no encontrado");
                 const data = await res.json();
-
                 const nombreRutaLimpio = archivo.replace('.geojson', '').replace(/_/g, ' ').toUpperCase();
-
                 const layer = L.geoJSON(data, {
                     style: { color: color, weight: 6, opacity: 0.9, lineJoin: 'round', lineCap: 'round' }
-                }).bindTooltip(`<div style="font-size:14px;"><i class="fa fa-bus" style="color:${color}"></i> ${nombreRutaLimpio}</div>`, {
-                    className: 'custom-tooltip', sticky: true, direction: "auto"
-                }).addTo(map);
+                }).bindTooltip(`<div style="font-size:14px;"><i class="fa fa-bus" style="color:${color}"></i> ${nombreRutaLimpio}</div>`, { className: 'custom-tooltip', sticky: true, direction: "auto" }).addTo(map);
 
                 capasActivas[key] = layer;
-                if(item) item.classList.add('active');
-                if(icon) {
-                    icon.className = 'fas fa-check-circle';
-                    icon.style.color = color;
-                }
-                map.fitBounds(layer.getBounds(), { padding: [50, 50] });
-            } catch (e) {
-                console.error("Error capa", e);
-                alert("Asegúrate de que el archivo " + archivo + " esté descargado.");
-            }
+                if(item) { item.classList.add('active'); }
+                if(icon) { icon.className = 'fas fa-check-circle'; icon.style.color = color; }
+
+                map.fitBounds(layer.getBounds(), getMapPadding());
+            } catch (e) { alert("Asegúrate de que el archivo " + archivo + " esté descargado."); }
         }
     }
 
-    // ==========================================
-    // 2. GEOLOCALIZACION Y ORIGEN MANUAL (ESTILO DIDI)
-    // ==========================================
+    // 3. GEOLOCALIZACION Y ORIGEN MANUAL
     let userMarker = null;
     let accuracyCircle = null;
 
     const userIcon = L.divIcon({
         className: 'custom-user-icon',
         html: '<div style="background:#007aff; width:20px; height:20px; border-radius:50%; border:3px solid white; box-shadow: 0 0 15px rgba(0,122,255,0.8);"></div>',
-        iconSize: [26, 26],
-        iconAnchor: [13, 13]
+        iconSize: [26, 26], iconAnchor: [13, 13]
     });
 
     function createUserMarker(latlng) {
@@ -500,20 +640,11 @@
             userMarker.setLatLng(latlng);
             if (accuracyCircle) accuracyCircle.setLatLng(latlng);
         } else {
-            userMarker = L.marker(latlng, {
-                icon: userIcon,
-                draggable: true, // Magia: permite arrastrar el pin
-                zIndexOffset: 1000
-            }).addTo(map);
-
-            userMarker.bindPopup("<div style='text-align:center;'><b>Tu Origen</b><br><span style='font-size:0.8rem; opacity:0.8;'>Arrastra este pin para ajustar tu ubicación exacta</span></div>").openPopup();
-
-            // Si el usuario mueve el pin manualmente, recalculamos todo automáticamente
+            userMarker = L.marker(latlng, { icon: userIcon, draggable: true, zIndexOffset: 1000 }).addTo(map);
+            userMarker.bindPopup("<div style='text-align:center;'><b>Tu Origen</b><br><span style='font-size:0.8rem; opacity:0.8;'>Arrastra este pin para ajustar tu ubicación</span></div>").openPopup();
             userMarker.on('dragend', function() {
                 const newPos = userMarker.getLatLng();
                 if (accuracyCircle) accuracyCircle.setLatLng(newPos);
-
-                // Si ya había calculado una ruta, la actualizamos en tiempo real
                 if (destinoCoordenadasReal && document.getElementById('recomendaciones-panel').style.display === 'block') {
                     recomendarRutas();
                 }
@@ -521,38 +652,22 @@
         }
     }
 
-    function getUserLocation() {
-        map.locate({ setView: true, maxZoom: 16, enableHighAccuracy: true });
-    }
+    function getUserLocation() { map.locate({ setView: true, maxZoom: 16, enableHighAccuracy: true }); }
 
     map.on('locationfound', function(e) {
         const radius = e.accuracy / 2;
         createUserMarker(e.latlng);
-
         if (!accuracyCircle) {
-            accuracyCircle = L.circle(e.latlng, radius, {
-                color: "#007aff", fillColor: "#007aff",
-                fillOpacity: 0.15, weight: 1
-            }).addTo(map);
-        } else {
-            accuracyCircle.setRadius(radius);
-        }
+            accuracyCircle = L.circle(e.latlng, radius, { color: "#007aff", fillColor: "#007aff", fillOpacity: 0.15, weight: 1 }).addTo(map);
+        } else { accuracyCircle.setRadius(radius); }
     });
 
-    map.on('locationerror', function(e) {
-        alert("Tu GPS falló o está desactivado. Pusimos el pin azul en el centro de la pantalla, arrástralo a tu ubicación real.");
-        createUserMarker(map.getCenter());
-    });
-
-    // Truco extra: Crear/Mover el pin por defecto si el usuario toca fijo el mapa (click derecho o mantener presionado)
     map.on('contextmenu', function(e) {
         createUserMarker(e.latlng);
-        if (destinoCoordenadasReal && document.getElementById('recomendaciones-panel').style.display === 'block') {
-            recomendarRutas();
-        }
+        if (destinoCoordenadasReal && document.getElementById('recomendaciones-panel').style.display === 'block') { recomendarRutas(); }
     });
 
-    // 3. AUTOCOMPLETADO
+    // 4. AUTOCOMPLETADO
     const baseLocal = [
         { nombre: "Mercado Adolfo López Mateos (ALM)", tipo: "lugar", lat: 18.9225, lon: -99.2312 },
         { nombre: "Zócalo de Cuernavaca", tipo: "lugar", lat: 18.9218, lon: -99.2347 },
@@ -560,11 +675,7 @@
         { nombre: "IMSS Plan de Ayala", tipo: "lugar", lat: 18.9189, lon: -99.2132 },
         { nombre: "Walmart Jiutepec", tipo: "lugar", lat: 18.8833, lon: -99.1747 },
         { nombre: "CIVAC (Centro)", tipo: "lugar", lat: 18.8950, lon: -99.1820 },
-        { nombre: "Bodega Aurrera Jiutepec", tipo: "lugar", lat: 18.8856, lon: -99.1732 },
-        { nombre: "Ruta 1 - Universidad", tipo: "ruta", id: "r1_uni", archivo: "r1_universidad_guacamayas.geojson", color: "#f1c40f" },
-        { nombre: "Ruta 4 - Chulavista", tipo: "ruta", id: "r4_chu", archivo: "r4_chulavista.geojson", color: "#ff006e" },
-        { nombre: "Ruta 13 - Naranjos", tipo: "ruta", id: "r13_nar", archivo: "r13_naranjos.geojson", color: "#ff3f34" },
-        { nombre: "Ruta 19 - Yautepec", tipo: "ruta", id: "r19_yau", archivo: "r19_yautepec.geojson", color: "#5f27cd" }
+        { nombre: "Bodega Aurrera Jiutepec", tipo: "lugar", lat: 18.8856, lon: -99.1732 }
     ];
 
     let destinoCoordenadasReal = null;
@@ -574,28 +685,14 @@
     async function buscarLugarAPI() {
         const input = document.getElementById('destinationInput').value.toLowerCase();
         const box = document.getElementById('suggestionsBox');
-
         if (input.length < 2) { box.style.display = 'none'; return; }
-
         box.style.display = 'block'; box.innerHTML = '';
-
         const resultadosLocales = baseLocal.filter(item => item.nombre.toLowerCase().includes(input));
 
         resultadosLocales.forEach(item => {
-            const div = document.createElement('div');
-            div.className = 'suggestion-item';
-
-            if (item.tipo === 'ruta') {
-                div.innerHTML = `<i class="fa fa-bus" style="color: ${item.color}; margin-right: 8px;"></i> <b>${item.nombre}</b>`;
-                div.onclick = () => {
-                    toggleLayer(item.id, item.archivo, item.color);
-                    document.getElementById('destinationInput').value = item.nombre;
-                    box.style.display = 'none';
-                };
-            } else {
-                div.innerHTML = `<i class="fa fa-location-dot" style="color: #ff4757; margin-right: 8px;"></i> <b>${item.nombre}</b> <span style="opacity:0.5; font-size:0.7rem;">(Frecuente)</span>`;
-                div.onclick = () => seleccionarLugarDestino(item.lat, item.lon, item.nombre);
-            }
+            const div = document.createElement('div'); div.className = 'suggestion-item';
+            div.innerHTML = `<i class="fa fa-location-dot" style="color: #ff4757; margin-right: 8px;"></i> <b>${item.nombre}</b> <span style="opacity:0.5; font-size:0.7rem;">(Frecuente)</span>`;
+            div.onclick = () => seleccionarLugarDestino(item.lat, item.lon, item.nombre);
             box.appendChild(div);
         });
 
@@ -603,52 +700,46 @@
             clearTimeout(timeoutBusqueda);
             timeoutBusqueda = setTimeout(async () => {
                 try {
-                    const loadingDiv = document.createElement('div');
-                    loadingDiv.className = 'suggestion-item';
-                    loadingDiv.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Buscando más...';
-                    box.appendChild(loadingDiv);
-
-                    const query = encodeURIComponent(input);
-                    const viewbox = "-99.40,19.05,-98.90,18.70";
-                    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${query}&limit=5&viewbox=${viewbox}&bounded=1`;
-
-                    const res = await fetch(url);
-                    const data = await res.json();
-                    box.removeChild(loadingDiv);
-
+                    const loadingDiv = document.createElement('div'); loadingDiv.className = 'suggestion-item';
+                    loadingDiv.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Buscando más...'; box.appendChild(loadingDiv);
+                    const query = encodeURIComponent(input); const viewbox = "-99.40,19.05,-98.90,18.70";
+                    const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${query}&limit=5&viewbox=${viewbox}&bounded=1`);
+                    const data = await res.json(); box.removeChild(loadingDiv);
                     data.forEach(lugar => {
                         const nombreCorto = lugar.display_name.split(',')[0];
                         if (!resultadosLocales.some(local => local.nombre.includes(nombreCorto))) {
-                            const div = document.createElement('div');
-                            div.className = 'suggestion-item';
+                            const div = document.createElement('div'); div.className = 'suggestion-item';
                             div.innerHTML = `<i class="fa fa-map-marker-alt" style="margin-right: 8px;"></i> ${nombreCorto} <br><span style="opacity:0.5; font-size:0.7rem; margin-left: 20px;">${lugar.display_name}</span>`;
                             div.onclick = () => seleccionarLugarDestino(lugar.lat, lugar.lon, nombreCorto);
                             box.appendChild(div);
                         }
                     });
-                } catch (e) { console.error("Error API", e); }
+                } catch (e) {}
             }, 500);
         }
     }
 
     function seleccionarLugarDestino(lat, lon, nombre) {
         destinoCoordenadasReal = { lat: parseFloat(lat), lng: parseFloat(lon) };
-        document.getElementById('destinationInput').value = nombre;
-        document.getElementById('suggestionsBox').style.display = 'none';
-
+        document.getElementById('destinationInput').value = nombre; document.getElementById('suggestionsBox').style.display = 'none';
         if (marcadorDestinoUI) map.removeLayer(marcadorDestinoUI);
+        marcadorDestinoUI = L.marker([lat, lon]).addTo(map).bindPopup(`<b><i class="fa fa-flag-checkered"></i> Destino:</b><br>${nombre}`).openPopup();
 
-        marcadorDestinoUI = L.marker([lat, lon]).addTo(map)
-            .bindPopup(`<b><i class="fa fa-flag-checkered"></i> Destino:</b><br>${nombre}`).openPopup();
-        map.flyTo([lat, lon], 15);
+        const targetBounds = L.latLngBounds([lat, lon], [lat, lon]);
+        map.fitBounds(targetBounds, { maxZoom: 15, ...getMapPadding() });
 
-        // Auto-recalcular si ya tenemos origen
-        if (userMarker) {
-            recomendarRutas();
-        }
+        if (userMarker) { recomendarRutas(); }
     }
 
-    // 4. EL ASISTENTE INTELIGENTE
+    function invertirRuta() {
+        if (!userMarker || !destinoCoordenadasReal) return;
+        const viejaPosUsuario = userMarker.getLatLng();
+        const viejaPosDestino = { ...destinoCoordenadasReal };
+        createUserMarker(L.latLng(viejaPosDestino.lat, viejaPosDestino.lng));
+        seleccionarLugarDestino(viejaPosUsuario.lat, viejaPosUsuario.lng, "Punto de Retorno");
+    }
+
+    // 5. EL ASISTENTE INTELIGENTE
     const todosLosRamales = [
         { archivo: "r1_universidad_guacamayas.geojson", color: "#f1c40f" },
         { archivo: "r1_acatlipa.geojson", color: "#e67e22" },
@@ -731,16 +822,8 @@
     ];
 
     async function recomendarRutas() {
-        if (!userMarker) {
-            // Si el usuario aún no tiene pin, le creamos uno al centro
-            alert("Te hemos puesto un pin azul en el centro de la pantalla. Arrástralo a tu ubicación para calcular las rutas.");
-            createUserMarker(map.getCenter());
-            return;
-        }
-        if (!destinoCoordenadasReal) {
-            alert("Por favor, busca y selecciona un destino válido.");
-            return;
-        }
+        if (!userMarker) { alert("Arrástralo el pin azul a tu ubicación."); return; }
+        if (!destinoCoordenadasReal) { alert("Selecciona un destino válido."); return; }
 
         const panel = document.getElementById('recomendaciones-panel');
         const lista = document.getElementById('lista-recomendados');
@@ -748,6 +831,7 @@
 
         lista.innerHTML = '<div class="ramal-item" style="padding: 15px;"><i class="fa fa-spinner fa-spin"></i> Analizando 78 ramales...</div>';
         panel.style.display = 'block';
+        document.getElementById('btnTomarRuta').style.display = 'none';
 
         const puntoOrigen = turf.point([userMarker.getLatLng().lng, userMarker.getLatLng().lat]);
         const puntoDestino = turf.point([destinoCoordenadasReal.lng, destinoCoordenadasReal.lat]);
@@ -755,65 +839,40 @@
 
         for (let ruta of todosLosRamales) {
             try {
-                const res = await fetch(ruta.archivo);
-                if (!res.ok) continue;
+                const res = await fetch(ruta.archivo); if (!res.ok) continue;
                 const data = await res.json();
 
                 const nearestAbordaje = turf.nearestPointOnLine(data, puntoOrigen);
                 const nearestDescenso = turf.nearestPointOnLine(data, puntoDestino);
 
-                const distanciaAlOrigen = nearestAbordaje.properties.dist;
-                const distanciaAlDestino = nearestDescenso.properties.dist;
-
                 resultados.push({
-                    archivo: ruta.archivo,
-                    color: ruta.color,
+                    archivo: ruta.archivo, color: ruta.color,
                     nombre: ruta.archivo.replace('.geojson', '').replace(/_/g, ' ').toUpperCase(),
-                    distanciaOrigenMetros: Math.round(distanciaAlOrigen * 1000),
-                    distanciaDestinoMetros: Math.round(distanciaAlDestino * 1000),
-                    distanciaTotal: Math.round((distanciaAlOrigen + distanciaAlDestino) * 1000),
-                    coordAbordaje: [nearestAbordaje.geometry.coordinates[1], nearestAbordaje.geometry.coordinates[0]]
+                    distanciaOrigenMetros: Math.round(nearestAbordaje.properties.dist * 1000),
+                    distanciaDestinoMetros: Math.round(nearestDescenso.properties.dist * 1000),
+                    distanciaTotal: Math.round((nearestAbordaje.properties.dist + nearestDescenso.properties.dist) * 1000),
+                    coordAbordaje: [nearestAbordaje.geometry.coordinates[1], nearestAbordaje.geometry.coordinates[0]],
+                    coordDescenso: [nearestDescenso.geometry.coordinates[1], nearestDescenso.geometry.coordinates[0]]
                 });
             } catch (e) {}
         }
 
         lista.innerHTML = "";
-
         if (resultados.length > 0) {
             resultados.sort((a, b) => a.distanciaTotal - b.distanciaTotal);
             const mejoresOpciones = resultados.slice(0, 4);
 
-            lista.innerHTML += `
-                <div style="margin-bottom: 15px; padding: 12px; background: rgba(255,255,255,0.05); border-left: 3px solid #3498db; border-radius: 8px; font-size: 0.85rem; color: rgba(255,255,255,0.9); line-height: 1.5;">
-                    <i class="fa fa-map-location-dot" style="color: #3498db; margin-right: 5px;"></i>
-                    <b>Rutas hacia ${nombreDestino}:</b> Selecciona una opción para que te guiemos al punto de abordaje más cercano.
-                </div>
-            `;
+            lista.innerHTML += `<div style="margin-bottom: 15px; padding: 12px; background: rgba(255,255,255,0.05); border-left: 3px solid #3498db; border-radius: 8px; font-size: 0.85rem; color: rgba(255,255,255,0.9);"><i class="fa fa-map-location-dot" style="color: #3498db; margin-right: 5px;"></i><b>Rutas hacia ${nombreDestino}</b></div>`;
 
             mejoresOpciones.forEach((r, index) => {
-                let nivelEsfuerzo = "";
-                if (r.distanciaTotal > 2000) {
-                    nivelEsfuerzo = `<span style="float: right; font-size: 0.65rem; background: rgba(231, 76, 60, 0.2); color: #e74c3c; padding: 3px 6px; border-radius: 10px;"><i class="fa fa-person-hiking"></i> LEJOS</span>`;
-                } else if (r.distanciaTotal > 1000) {
-                    nivelEsfuerzo = `<span style="float: right; font-size: 0.65rem; background: rgba(241, 196, 15, 0.2); color: #f1c40f; padding: 3px 6px; border-radius: 10px;"><i class="fa fa-shoe-prints"></i> MEDIO</span>`;
-                } else if (index === 0) {
-                    nivelEsfuerzo = `<span style="float: right; font-size: 0.65rem; background: #2ecc71; color: #000; padding: 3px 6px; border-radius: 10px; font-weight: bold;"><i class="fa fa-star"></i> MÁS CERCANA</span>`;
-                } else {
-                    nivelEsfuerzo = `<span style="float: right; font-size: 0.65rem; background: rgba(46, 204, 113, 0.2); color: #2ecc71; padding: 3px 6px; border-radius: 10px;"><i class="fa fa-check"></i> BUENA OPCIÓN</span>`;
-                }
+                let nivelEsfuerzo = index === 0 ? `<span style="float: right; font-size: 0.65rem; background: #2ecc71; color: #000; padding: 3px 6px; border-radius: 10px; font-weight: bold;"><i class="fa fa-star"></i> MÁS CERCANA</span>` : "";
 
-                const colorReal = r.color;
-
+                // Usamos 'this' en la funcion onClick para pasar el elemento HTML
                 lista.innerHTML += `
-                    <div class="ramal-item active" style="margin-bottom:10px; background: rgba(255, 255, 255, 0.05); border: 1px solid ${colorReal}; border-left: 4px solid ${colorReal}; flex-direction: column; align-items: flex-start; padding: 12px;"
-                         onclick="mostrarRutaGuiada('${r.archivo}', '${colorReal}', ${r.coordAbordaje[0]}, ${r.coordAbordaje[1]}, ${r.distanciaOrigenMetros})">
-
-                        <div style="width: 100%; margin-bottom: 8px;">
-                            <i class="fa fa-bus" style="color: ${colorReal};"></i> <b style="font-size: 0.95rem;">${r.nombre}</b>
-                            ${nivelEsfuerzo}
-                        </div>
-
-                        <div style="font-size: 0.75rem; color: rgba(255,255,255,0.7); display: flex; flex-direction: column; gap: 4px;">
+                    <div class="ramal-item" style="margin-bottom:10px; border-left: 4px solid ${r.color}; flex-direction: column; align-items: flex-start; padding: 12px;"
+                         onclick="mostrarRutaGuiada('${r.archivo}', '${r.color}', ${r.coordAbordaje[0]}, ${r.coordAbordaje[1]}, ${r.distanciaOrigenMetros}, ${r.coordDescenso[0]}, ${r.coordDescenso[1]}, this, '${r.nombre}')">
+                        <div style="width: 100%; margin-bottom: 8px;"><i class="fa fa-bus" style="color: ${r.color};"></i> <b style="font-size: 0.95rem;">${r.nombre}</b>${nivelEsfuerzo}</div>
+                        <div style="font-size: 0.75rem; display: flex; flex-direction: column; gap: 4px;">
                             <span><i class="fa fa-person-walking"></i> Camina <b>${r.distanciaOrigenMetros} metros</b> a la parada.</span>
                             <span><i class="fa fa-map-pin"></i> Te dejará a <b>${r.distanciaDestinoMetros} metros</b> de la meta.</span>
                         </div>
@@ -822,54 +881,135 @@
         }
     }
 
-    async function mostrarRutaGuiada(archivo, color, latAbordaje, lngAbordaje, metros) {
+    async function mostrarRutaGuiada(archivo, color, latAbordaje, lngAbordaje, metros, latDescenso, lngDescenso, elementDOM, nombreRuta) {
+        // Limpiar el estado visual "Seleccionado" de las otras rutas
+        const todosLosItems = document.querySelectorAll('#lista-recomendados .ramal-item');
+        todosLosItems.forEach(el => el.classList.remove('selected-route'));
+
+        // Agregar estado activo a la seleccionada e inyectar el color por CSS Variable
+        elementDOM.style.setProperty('--route-color', color);
+        elementDOM.classList.add('selected-route');
+
+        // Mostrar el Banner Superior
+        const topBanner = document.getElementById('topBanner');
+        document.getElementById('topBannerText').innerText = nombreRuta;
+        topBanner.style.display = 'flex';
+        topBanner.style.borderLeft = `5px solid ${color}`;
+
+        // Limpiar capas previas
         for (let key in capasActivas) map.removeLayer(capasActivas[key]);
         for (let prop in capasActivas) delete capasActivas[prop];
         if (caminataLayer) map.removeLayer(caminataLayer);
         if (abordajeMarker) map.removeLayer(abordajeMarker);
 
         try {
-            const res = await fetch(archivo);
-            const data = await res.json();
+            const res = await fetch(archivo); const data = await res.json();
             const nombreLimpio = archivo.replace('.geojson', '').replace(/_/g, ' ').toUpperCase();
 
-            const layer = L.geoJSON(data, {
-                style: { color: color, weight: 6, opacity: 0.9, lineJoin: 'round', lineCap: 'round' }
-            }).bindTooltip(`<div style="font-size:14px;"><i class="fa fa-bus" style="color:${color}"></i> ${nombreLimpio}</div>`, {
-                className: 'custom-tooltip', sticky: true, direction: "auto"
-            }).addTo(map);
-
+            const layer = L.geoJSON(data, { style: { color: color, weight: 6, opacity: 0.9, lineJoin: 'round', lineCap: 'round' } })
+                .bindTooltip(`<div style="font-size:14px;"><i class="fa fa-bus" style="color:${color}"></i> ${nombreLimpio}</div>`, { className: 'custom-tooltip', sticky: true }).addTo(map);
             capasActivas['rutaOptima'] = layer;
 
-            const userLat = userMarker.getLatLng().lat;
-            const userLng = userMarker.getLatLng().lng;
+            const userLat = userMarker.getLatLng().lat; const userLng = userMarker.getLatLng().lng;
+            caminataLayer = L.polyline([[userLat, userLng], [latAbordaje, lngAbordaje]], { color: '#fff', weight: 4, dashArray: '5, 10', opacity: 0.8 }).addTo(map);
 
-            caminataLayer = L.polyline([[userLat, userLng], [latAbordaje, lngAbordaje]], {
-                color: '#fff',
-                weight: 4,
-                dashArray: '5, 10',
-                opacity: 0.8
-            }).addTo(map);
+            let pinHTML = `<div style="text-align:center;"><b style="color: ${color};"><i class="fa fa-street-view"></i> Parada</b><br><span style="font-size: 12px;">Camina ${metros}m aquí</span></div>`;
+            abordajeMarker = L.marker([latAbordaje, lngAbordaje]).addTo(map).bindPopup(pinHTML).openPopup();
 
-            let pinHTML = `<div style="text-align:center; font-family: sans-serif;">
-                            <b style="color: ${color};"><i class="fa fa-street-view"></i> Punto de Abordaje</b><br>
-                            <span style="font-size: 12px; opacity: 0.8;">Camina aprox. ${metros}m hasta aquí.</span>
-                           </div>`;
+            puntoDescensoGuardado = L.latLng(latDescenso, lngDescenso);
 
-            abordajeMarker = L.marker([latAbordaje, lngAbordaje]).addTo(map)
-                .bindPopup(pinHTML, {closeOnClick: false, autoClose: false}).openPopup();
+            // Mostrar Botón "Tomar Ruta"
+            document.getElementById('btnTomarRuta').style.display = 'flex';
+            document.getElementById('btnCancelarRuta').style.display = 'none'; // Ocultar si estaba cancelado
 
-            const bounds = layer.getBounds();
-            bounds.extend([userLat, userLng]);
-            map.fitBounds(bounds, { padding: [60, 60] });
+            // ZOOM INTELIGENTE: De donde estoy, a donde me subo.
+            const userLatLng = L.latLng(userLat, userLng);
+            const abordajeLatLng = L.latLng(latAbordaje, lngAbordaje);
+            const zoomBounds = L.latLngBounds(userLatLng, abordajeLatLng);
 
-        } catch (e) { console.error("Error cargando la ruta guiada", e); }
+            // maxZoom 16 para que no se acerque exageradamente si estás a 2 metros
+            map.fitBounds(zoomBounds, { maxZoom: 16, padding: [60, 60], ...getMapPadding() });
+
+        } catch (e) { }
     }
 
-    // Inicializamos el mapa con el pin azul en el centro de Morelos para que la gente empiece a jugar con él desde el segundo 1
-    setTimeout(() => {
-        createUserMarker([18.9218, -99.2347]);
-    }, 1000);
+    // ==========================================
+    // 6. FLUJO DE VIAJE Y MODALES
+    // ==========================================
+    function abrirModalAvatar() {
+        document.getElementById('modalAvatar').style.display = 'flex';
+    }
+
+    function abrirModalCancelar() {
+        document.getElementById('modalCancelar').style.display = 'flex';
+    }
+
+    function cerrarModales() {
+        document.getElementById('modalAvatar').style.display = 'none';
+        document.getElementById('modalCancelar').style.display = 'none';
+    }
+
+    function iniciarViaje(conAlerta) {
+        cerrarModales();
+        quiereAlertaBajada = conAlerta;
+
+        if (!navigator.geolocation) {
+            alert("Tu navegador no soporta rastreo GPS para el modo viaje."); return;
+        }
+
+        // Cambiar botones UI
+        document.getElementById('btnTomarRuta').style.display = 'none';
+        document.getElementById('btnCancelarRuta').style.display = 'flex';
+
+        // Actualizar Banner
+        const textoBanner = document.getElementById('topBannerText');
+        textoBanner.innerHTML = `${textoBanner.innerText} <span style="font-weight:400; opacity:0.8;">- Viaje Activo <i class="fa fa-circle-notch fa-spin"></i></span>`;
+
+        modoViajeTracker = navigator.geolocation.watchPosition(
+            (pos) => {
+                const currentPos = L.latLng(pos.coords.latitude, pos.coords.longitude);
+
+                userMarker.setLatLng(currentPos);
+                if (accuracyCircle) {
+                    accuracyCircle.setLatLng(currentPos);
+                    accuracyCircle.setRadius(pos.coords.accuracy / 2);
+                }
+
+                // Centrar la cámara en el usuario para que vea por dónde va
+                map.setView(currentPos, 16);
+
+                if (puntoDescensoGuardado && quiereAlertaBajada) {
+                    const distanciaFaltante = currentPos.distanceTo(puntoDescensoGuardado);
+                    if (distanciaFaltante < 250) {
+                        dispararAlerta();
+                    }
+                }
+            },
+            (err) => { console.warn("Error en seguimiento: ", err); },
+            { enableHighAccuracy: true, maximumAge: 5000 }
+        );
+    }
+
+    function confirmarCancelacion() {
+        clearAllLayers();
+    }
+
+    function dispararAlerta() {
+        document.getElementById('pantallaAlerta').style.display = 'flex';
+        if (navigator.vibrate) { navigator.vibrate([500, 250, 500, 250, 1000]); }
+        if (modoViajeTracker) {
+            navigator.geolocation.clearWatch(modoViajeTracker);
+            modoViajeTracker = null;
+        }
+    }
+
+    function terminarAlerta() {
+        document.getElementById('pantallaAlerta').style.display = 'none';
+        // Volver la app a su estado base limpiando la pantalla
+        clearAllLayers();
+    }
+
+    setTimeout(() => { createUserMarker([18.9218, -99.2347]); }, 1000);
 </script>
 </body>
 </html>
