@@ -2,82 +2,1014 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Motor de Rutas - Morelos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Movilidad Morelos - Rutita feliz</title>
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 
     <style>
-        body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        #map { width: 100vw; height: 100vh; z-index: 1; }
+        body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #000; overflow: hidden; }
+        #map { width: 100vw; height: 100vh; }
 
-        /* Panel con Glassmorphism */
-        .glass-panel {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            z-index: 1000; /* Para que flote sobre el mapa */
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            padding: 20px;
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
-            color: #1a1a1a;
-            min-width: 250px;
+        /* Panel Lateral Glassmorphism (Diseño Base PC) */
+        .sidebar {
+            position: absolute; top: 20px; left: 20px; z-index: 1000;
+            width: 320px; max-height: 90vh;
+            background: rgba(30, 30, 30, 0.7);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px;
+            padding: 20px; color: #fff; overflow-y: auto;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+            transition: all 0.3s ease;
         }
 
-        .glass-panel h2 { margin: 0 0 10px 0; font-size: 1.2rem; }
-        .glass-panel p { margin: 0; font-size: 0.9rem; color: #333; }
+        h2 { font-size: 1.2rem; margin: 0 0 20px 0; display: flex; align-items: center; gap: 12px; font-weight: 500; }
+        .header-controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+
+        .btn-clear {
+            background: rgba(255, 59, 48, 0.2); color: #ff3b30;
+            border: 1px solid #ff3b30; padding: 6px 12px;
+            border-radius: 10px; cursor: pointer; font-size: 12px; font-weight: 600;
+            transition: all 0.2s;
+        }
+        .btn-clear:hover { background: #ff3b30; color: #fff; }
+
+        /* Buscadores */
+        .search-box {
+            position: sticky; top: -20px; background: rgba(30, 30, 30, 0.1);
+            padding: 10px 0; margin-bottom: 15px; z-index: 10;
+        }
+        .search-box input, .search-destination input {
+            width: 100%; padding: 12px 15px; border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.1); color: #fff;
+            box-sizing: border-box; font-size: 14px; outline: none;
+        }
+
+        /* Sugerencias Autocompletado */
+        .suggestions-box {
+            position: absolute; top: 100%; left: 0; right: 0;
+            background: rgba(25, 25, 25, 0.95); backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2); border-radius: 12px;
+            margin-top: 5px; z-index: 2000; max-height: 220px; overflow-y: auto;
+            display: none; box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+        .suggestion-item {
+            padding: 12px 15px; border-bottom: 1px solid rgba(255,255,255,0.05);
+            cursor: pointer; font-size: 0.85rem; color: rgba(255,255,255,0.9);
+            transition: background 0.2s;
+        }
+        .suggestion-item:last-child { border-bottom: none; }
+        .suggestion-item:hover { background: rgba(255,255,255,0.15); }
+        .hidden { display: none !important; }
+
+        /* Rutas y Ramales */
+        .ruta-master {
+            width: 100%; padding: 14px; margin-top: 10px; border: none;
+            border-radius: 14px; font-weight: 600; cursor: pointer;
+            display: flex; justify-content: space-between; align-items: center;
+            transition: all 0.3s ease;
+        }
+        .ramales-container {
+            background: rgba(255, 255, 255, 0.05); margin-top: 8px;
+            border-radius: 12px; padding: 6px; display: none;
+        }
+        .ramal-item {
+            padding: 10px 14px; font-size: 0.9rem; cursor: pointer; display: flex;
+            align-items: center; gap: 12px; border-radius: 10px; transition: all 0.3s ease;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .ramal-item:hover { background: rgba(255, 255, 255, 0.08); }
+
+        /* ESTILO: RUTA SELECCIONADA */
+        .ramal-item.selected-route {
+            background: var(--route-color, #fff) !important;
+            color: #000 !important;
+            transform: scale(1.02);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            border-color: transparent !important;
+        }
+        .ramal-item.selected-route * { color: #000 !important; }
+
+        .ramal-item i { font-size: 1.1rem; width: 22px; text-align: center; }
+
+        /* Botón Geolocalización */
+        .btn-location {
+            position: absolute; bottom: 30px; right: 30px; z-index: 1000;
+            width: 50px; height: 50px; background: #007aff; color: white;
+            border: none; border-radius: 50%; cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4); display: flex;
+            align-items: center; justify-content: center; font-size: 1.5rem;
+            transition: transform 0.2s;
+        }
+        .btn-location:active { transform: scale(0.9); }
+        .custom-user-icon div { animation: pulse 2s infinite; }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 122, 255, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(0, 122, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 122, 255, 0); }
+        }
+
+        /* UI MODO VIAJE Y ALERTA DE BAJADA */
+        .top-banner {
+            position: fixed; top: 15px; left: 50%; transform: translateX(-50%);
+            background: rgba(30, 30, 30, 0.9); backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2); padding: 12px 25px;
+            border-radius: 30px; font-weight: bold; color: #fff; z-index: 2000;
+            display: none; align-items: center; gap: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            white-space: nowrap; font-size: 0.9rem;
+        }
+
+        .btn-flotante-viaje {
+            position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%);
+            padding: 15px 30px; border-radius: 30px; font-weight: 700; font-size: 1.1rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5); cursor: pointer;
+            z-index: 2000; display: none; border: none; align-items: center; gap: 10px;
+            transition: all 0.2s; color: #000;
+        }
+        .btn-flotante-viaje:active { transform: translateX(-50%) scale(0.95); }
+        .btn-tomar-ruta { background: #3498db; color: #fff; box-shadow: 0 10px 25px rgba(52, 152, 219, 0.4); }
+        .btn-cancelar-ruta { background: #e74c3c; color: #fff; box-shadow: 0 10px 25px rgba(231, 76, 60, 0.4); }
+
+        /* MODALES */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);
+            z-index: 3000; display: none; justify-content: center; align-items: center;
+        }
+        .modal-content {
+            background: rgba(30, 30, 30, 0.95); border: 1px solid rgba(255,255,255,0.1);
+            padding: 25px; border-radius: 20px; width: 85%; max-width: 350px; text-align: center;
+            color: white; box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+        }
+        .modal-icon { font-size: 3rem; margin-bottom: 15px; }
+        .modal-btns { display: flex; gap: 10px; margin-top: 25px; }
+        .modal-btn {
+            flex: 1; padding: 12px; border-radius: 12px; border: none;
+            font-weight: bold; cursor: pointer; transition: background 0.2s;
+        }
+        .btn-primary { background: #2ecc71; color: #000; }
+        .btn-secondary { background: rgba(255,255,255,0.1); color: #fff; }
+        .btn-danger { background: #e74c3c; color: #fff; }
+
+        @keyframes flashDanger {
+            0%, 100% { background-color: rgba(231, 76, 60, 0.95); }
+            50% { background-color: rgba(192, 57, 43, 0.95); }
+        }
+        .pantalla-alerta {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: 9999; display: none; flex-direction: column;
+            justify-content: center; align-items: center; color: white;
+            animation: flashDanger 1s infinite; text-align: center; padding: 20px;
+            box-sizing: border-box; backdrop-filter: blur(10px);
+        }
+        .pantalla-alerta h1 { font-size: 3rem; margin: 0 0 20px 0; text-transform: uppercase; }
+        .pantalla-alerta p { font-size: 1.5rem; margin: 0 0 40px 0; font-weight: 300; }
+
+        .sidebar::-webkit-scrollbar { width: 6px; }
+        .sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
+
+        /* ========================================= */
+        /* DISEÑO RESPONSIVO (MÓVILES - MEDIA PANTALLA) */
+        /* ========================================= */
+        @media (max-width: 768px) {
+            .sidebar {
+                top: auto; bottom: 0; left: 0; width: 100vw;
+                height: 50vh; max-height: 50vh;
+                border-radius: 24px 24px 0 0;
+                border-left: none; border-right: none; border-bottom: none;
+                box-sizing: border-box; padding: 15px;
+            }
+            .btn-location {
+                bottom: calc(50vh + 15px); right: 15px;
+                width: 45px; height: 45px; font-size: 1.2rem;
+            }
+            .btn-flotante-viaje {
+                bottom: calc(50vh + 15px);
+                font-size: 1rem; padding: 12px 25px;
+            }
+            .leaflet-control-container .leaflet-bottom { bottom: 50vh !important; }
+            .top-banner { top: 10px; font-size: 0.8rem; padding: 10px 20px; }
+        }
     </style>
 </head>
 <body>
 
-<div class="glass-panel">
-    <h2><i class="fa fa-map-marked-alt"></i> Visor de Rutas</h2>
-    <p><i class="fa fa-bus"></i> Trazando: <strong>Ruta 1 Centro</strong></p>
-    <p style="margin-top: 10px; font-size: 0.8rem; color: #555;">
-        <i class="fa fa-circle-notch fa-spin" id="loading-icon"></i> Cargando coordenadas...
-    </p>
+<div id="topBanner" class="top-banner">
+    <i class="fa fa-bus-simple"></i> <span id="topBannerText">Selecciona una ruta</span>
 </div>
+
+<div class="sidebar">
+    <div class="header-controls">
+        <h2 style="margin:0; font-size: 1.1rem;"><i class="fa fa-map-marked-alt"></i> Linnegocios <span style="font-weight: 200; font-size: 0.8rem;">Beta</span></h2>
+        <button class="btn-clear" onclick="clearAllLayers()"><i class="fa fa-trash-can"></i> Limpiar</button>
+    </div>
+
+    <div class="search-destination" style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 16px; margin-bottom: 20px;">
+        <label style="font-size: 0.85rem; opacity: 0.9; font-weight: 600;"><i class="fa fa-location-arrow"></i> ¿A dónde quieres ir?</label>
+        <div style="margin-top: 10px; position: relative;">
+            <input type="text" id="destinationInput" placeholder="Ej: Sanborns, UAEM, IMSS..." autocomplete="off" oninput="buscarLugarAPI()">
+            <div id="suggestionsBox" class="suggestions-box"></div>
+        </div>
+
+        <div style="display: flex; gap: 10px; margin-top: 10px;">
+            <button class="ruta-master" style="background: #ffffff; color: #000; flex: 1; margin-top: 0;" onclick="recomendarRutas()">
+                <span><i class="fa fa-route"></i> Calcular Ruta</span>
+            </button>
+            <button class="ruta-master" style="background: rgba(255,255,255,0.1); color: #fff; width: 50px; flex: none; justify-content: center; margin-top: 0;" onclick="invertirRuta()" title="Invertir el Regreso">
+                <i class="fa fa-retweet"></i>
+            </button>
+        </div>
+
+        <div id="recomendaciones-panel" style="margin-top: 15px; display: none;">
+            <div id="lista-recomendados"></div>
+        </div>
+    </div>
+
+    <div class="search-box">
+        <input type="text" id="routeSearch" placeholder="Catálogo manual de rutas..." onkeyup="filterRoutes()">
+    </div>
+
+    <div id="routes-list">
+        <div class="grupo-ruta" data-name="ruta 1 universidad guacamayas acatlipa jerusalen">
+            <button class="ruta-master" style="background: #f1c40f; color: #000;" onclick="toggleMenu('menu-r1')">
+                <span><i class="fa fa-bus"></i> Ruta 1</span><i class="fa fa-chevron-down" id="arrow-r1"></i>
+            </button>
+            <div id="menu-r1" class="ramales-container">
+                <div class="ramal-item" id="item-r1_uni" onclick="toggleLayer('r1_uni', 'r1_universidad_guacamayas.geojson', '#f1c40f')"><i class="far fa-circle" id="icon-r1_uni"></i> Universidad - Guacamayas</div>
+                <div class="ramal-item" id="item-r1_aca" onclick="toggleLayer('r1_aca', 'r1_acatlipa.geojson', '#e67e22')"><i class="far fa-circle" id="icon-r1_aca"></i> Acatlipa</div>
+                <div class="ramal-item" id="item-r1_jeru" onclick="toggleLayer('r1_jeru', 'r1_jerusalen.geojson', '#27ae60')"><i class="far fa-circle" id="icon-r1_jeru"></i> Jerusalén</div>
+            </div>
+        </div>
+
+        <div class="grupo-ruta" data-name="ruta 2 hernandez navarro rancho cortes domingo diez emiliano zapata chipitlan">
+            <button class="ruta-master" style="background: #00f2ff; color: #000; margin-top: 15px;" onclick="toggleMenu('menu-r2')">
+                <span><i class="fa fa-bus"></i> Ruta 2</span><i class="fa fa-chevron-down" id="arrow-r2"></i>
+            </button>
+            <div id="menu-r2" class="ramales-container">
+                <div class="ramal-item" id="item-r2_dom" onclick="toggleLayer('r2_dom', 'r2_domingo_diez.geojson', '#00f2ff')"><i class="far fa-circle" id="icon-r2_dom"></i> Hdez. Navarro - Domingo Diez</div>
+                <div class="ramal-item" id="item-r2_zap" onclick="toggleLayer('r2_zap', 'r2_emiliano_zapata.geojson', '#00d4ff')"><i class="far fa-circle" id="icon-r2_zap"></i> Hdez. Navarro - E. Zapata</div>
+                <div class="ramal-item" id="item-r2_chi" onclick="toggleLayer('r2_chi', 'r2_chipitlan.geojson', '#00a8ff')"><i class="far fa-circle" id="icon-r2_chi"></i> Hdez. Navarro - Chipitlán</div>
+            </div>
+        </div>
+
+        <div class="grupo-ruta" data-name="ruta 3 santa maria alpuyeca rancho cortes mina 5 tetela del monte buena vista calera francisco villa">
+            <button class="ruta-master" style="background: #32ff7e; color: #000; margin-top: 15px;" onclick="toggleMenu('menu-r3')">
+                <span><i class="fa fa-bus"></i> Ruta 3</span><i class="fa fa-chevron-down" id="arrow-r3"></i>
+            </button>
+            <div id="menu-r3" class="ramales-container">
+                <div class="ramal-item" id="item-r3_alp" onclick="toggleLayer('r3_alp', 'r3_alpuyeca.geojson', '#32ff7e')"><i class="far fa-circle" id="icon-r3_alp"></i> Santa María - Alpuyeca</div>
+                <div class="ramal-item" id="item-r3_min" onclick="toggleLayer('r3_min', 'r3_mina5.geojson', '#3ae374')"><i class="far fa-circle" id="icon-r3_min"></i> Santa María - Mina 5</div>
+                <div class="ramal-item" id="item-r3_tet" onclick="toggleLayer('r3_tet', 'r3_tetela.geojson', '#2ecc71')"><i class="far fa-circle" id="icon-r3_tet"></i> Tetela del Monte</div>
+                <div class="ramal-item" id="item-r3_cal" onclick="toggleLayer('r3_cal', 'r3_calera.geojson', '#26ae60')"><i class="far fa-circle" id="icon-r3_cal"></i> Santa María - Calera</div>
+                <div class="ramal-item" id="item-r3_vil" onclick="toggleLayer('r3_vil', 'r3_villa.geojson', '#1abc9c')"><i class="far fa-circle" id="icon-r3_vil"></i> Santa María - Fco. Villa</div>
+            </div>
+        </div>
+
+        <div class="grupo-ruta" data-name="ruta 4 antonio barona chulavista cuauchiles palmas el salto">
+            <button class="ruta-master" style="background: #ff006e; color: #fff; margin-top: 15px;" onclick="toggleMenu('menu-r4')">
+                <span><i class="fa fa-bus"></i> Ruta 4</span><i class="fa fa-chevron-down" id="arrow-r4"></i>
+            </button>
+            <div id="menu-r4" class="ramales-container">
+                <div class="ramal-item" id="item-r4_chu" onclick="toggleLayer('r4_chu', 'r4_chulavista.geojson', '#ff006e')"><i class="far fa-circle" id="icon-r4_chu"></i> Barona - Chulavista</div>
+                <div class="ramal-item" id="item-r4_cua" onclick="toggleLayer('r4_cua', 'r4_cuauchiles.geojson', '#ff4d94')"><i class="far fa-circle" id="icon-r4_cua"></i> Barona - Cuauchiles</div>
+                <div class="ramal-item" id="item-r4_pal" onclick="toggleLayer('r4_pal', 'r4_palmas.geojson', '#ff85b3')"><i class="far fa-circle" id="icon-r4_pal"></i> Barona - Palmas</div>
+                <div class="ramal-item" id="item-r4_sal" onclick="toggleLayer('r4_sal', 'r4_elsalto.geojson', '#ffb3d1')"><i class="far fa-circle" id="icon-r4_sal"></i> Barona - El Salto</div>
+            </div>
+        </div>
+
+        <div class="grupo-ruta" data-name="ruta 5 nueva santa maria lagunilla lomas de cortes ampliacion oriente pedregal tecomulco">
+            <button class="ruta-master" style="background: #ff7f50; color: #fff; margin-top: 15px;" onclick="toggleMenu('menu-r5')">
+                <span><i class="fa fa-bus"></i> Ruta 5</span><i class="fa fa-chevron-down" id="arrow-r5"></i>
+            </button>
+            <div id="menu-r5" class="ramales-container">
+                <div class="ramal-item" id="item-r5_ori" onclick="toggleLayer('r5_ori', 'r5_lomas_oriente.geojson', '#ff7f50')"><i class="far fa-circle" id="icon-r5_ori"></i> Lomas de Cortés - Oriente</div>
+                <div class="ramal-item" id="item-r5_ped" onclick="toggleLayer('r5_ped', 'r5_lomas_pedregal.geojson', '#ff9a76')"><i class="far fa-circle" id="icon-r5_ped"></i> Lomas de Cortés - Pedregal</div>
+                <div class="ramal-item" id="item-r5_tec" onclick="toggleLayer('r5_tec', 'r5_tecomulco.geojson', '#ffb49c')"><i class="far fa-circle" id="icon-r5_tec"></i> Lomas de Cortés - Tecomulco</div>
+            </div>
+        </div>
+
+        <div class="grupo-ruta" data-name="ruta 6 acapantzingo centro comercial tunel col del bosque jardines morelos carolina victoria la tranca atlacomulco">
+            <button class="ruta-master" style="background: #bf00ff; color: #fff; margin-top: 15px;" onclick="toggleMenu('menu-r6')">
+                <span><i class="fa fa-bus"></i> Ruta 6</span><i class="fa fa-chevron-down" id="arrow-r6"></i>
+            </button>
+            <div id="menu-r6" class="ramales-container">
+                <div class="ramal-item" id="item-r6_tun" onclick="toggleLayer('r6_tun', 'r6_tunel.geojson', '#bf00ff')"><i class="far fa-circle" id="icon-r6_tun"></i> Acapantzingo - Túnel</div>
+                <div class="ramal-item" id="item-r6_jar" onclick="toggleLayer('r6_jar', 'r6_jardines.geojson', '#d44dff')"><i class="far fa-circle" id="icon-r6_jar"></i> Acapantzingo - Jardines</div>
+                <div class="ramal-item" id="item-r6_vic" onclick="toggleLayer('r6_vic', 'r6_victoria.geojson', '#e680ff')"><i class="far fa-circle" id="icon-r6_vic"></i> Acapantzingo - Victoria</div>
+                <div class="ramal-item" id="item-r6_tra" onclick="toggleLayer('r6_tra', 'r6_tranca.geojson', '#f2b3ff')"><i class="far fa-circle" id="icon-r6_tra"></i> La Tranca</div>
+                <div class="ramal-item" id="item-r6_atl" onclick="toggleLayer('r6_atl', 'r6_atlacomulco.geojson', '#f9e6ff')"><i class="far fa-circle" id="icon-r6_atl"></i> Atlacomulco - Morelos</div>
+            </div>
+        </div>
+
+        <div class="grupo-ruta" data-name="ruta 7 tecnos tejalpa la joya independencia progreso jardin juarez">
+            <button class="ruta-master" style="background: #ef5777; color: #fff; margin-top: 15px;" onclick="toggleMenu('menu-r7')">
+                <span><i class="fa fa-bus"></i> Ruta 7</span><i class="fa fa-chevron-down" id="arrow-r7"></i>
+            </button>
+            <div id="menu-r7" class="ramales-container">
+                <div class="ramal-item" id="item-r7_tej" onclick="toggleLayer('r7_tej', 'r7_tejalpa.geojson', '#ef5777')"><i class="far fa-circle" id="icon-r7_tej"></i> Tecnos - Tejalpa</div>
+                <div class="ramal-item" id="item-r7_joy" onclick="toggleLayer('r7_joy', 'r7_joya_independencia.geojson', '#ff7979')"><i class="far fa-circle" id="icon-r7_joy"></i> La Joya - Independencia</div>
+                <div class="ramal-item" id="item-r7_pro" onclick="toggleLayer('r7_pro', 'r7_progreso.geojson', '#ff9f9f')"><i class="far fa-circle" id="icon-r7_pro"></i> Progreso - Jardín Juárez</div>
+            </div>
+        </div>
+
+        <div class="grupo-ruta" data-name="ruta 8 los pinos jacarandas altavista col plan de ayala rivera crespo chulavista">
+            <button class="ruta-master" style="background: #3867d6; color: #fff; margin-top: 15px;" onclick="toggleMenu('menu-r8')">
+                <span><i class="fa fa-bus"></i> Ruta 8</span><i class="fa fa-chevron-down" id="arrow-r8"></i>
+            </button>
+            <div id="menu-r8" class="ramales-container">
+                <div class="ramal-item" id="item-r8_jac" onclick="toggleLayer('r8_jac', 'r8_jacarandas.geojson', '#3867d6')"><i class="far fa-circle" id="icon-r8_jac"></i> Jacarandas - Altavista</div>
+                <div class="ramal-item" id="item-r8_alt" onclick="toggleLayer('r8_alt', 'r8_rivera_altavista.geojson', '#4b7bec')"><i class="far fa-circle" id="icon-r8_alt"></i> Rivera Crespo - Altavista</div>
+                <div class="ramal-item" id="item-r8_chu" onclick="toggleLayer('r8_chu', 'r8_rivera_chulavista.geojson', '#778ca3')"><i class="far fa-circle" id="icon-r8_chu"></i> Rivera - Chulavista</div>
+            </div>
+        </div>
+
+        <div class="grupo-ruta" data-name="ruta 9 flores magon cuauhtemoc acatlipa selva">
+            <button class="ruta-master" style="background: #f7b731; color: #000; margin-top: 15px;" onclick="toggleMenu('menu-r9')">
+                <span><i class="fa fa-bus"></i> Ruta 9</span><i class="fa fa-chevron-down" id="arrow-r9"></i>
+            </button>
+            <div id="menu-r9" class="ramales-container">
+                <div class="ramal-item" id="item-r9_cua" onclick="toggleLayer('r9_cua', 'r9_cuauhtemoc.geojson', '#f7b731')"><i class="far fa-circle" id="icon-r9_cua"></i> Flores Magón - Cuauhtémoc</div>
+                <div class="ramal-item" id="item-r9_sel" onclick="toggleLayer('r9_sel', 'r9_selva.geojson', '#fa983a')"><i class="far fa-circle" id="icon-r9_sel"></i> Flores Magón - Selva</div>
+            </div>
+        </div>
+
+        <div class="grupo-ruta" data-name="ruta 10 antonio barona centro aguilas ccalm plan de ayala palmas amate redondo">
+            <button class="ruta-master" style="background: #1dd1a1; color: #000; margin-top: 15px;" onclick="toggleMenu('menu-r10')">
+                <span><i class="fa fa-bus"></i> Ruta 10</span><i class="fa fa-chevron-down" id="arrow-r10"></i>
+            </button>
+            <div id="menu-r10" class="ramales-container">
+                <div class="ramal-item" id="item-r10_agu" onclick="toggleLayer('r10_agu', 'r10_barona_aguilas.geojson', '#1dd1a1')"><i class="far fa-circle" id="icon-r10_agu"></i> Barona - Centro - Águilas</div>
+                <div class="ramal-item" id="item-r10_pla" onclick="toggleLayer('r10_pla', 'r10_plan_aguilas.geojson', '#10ac84')"><i class="far fa-circle" id="icon-r10_pla"></i> Plan de Ayala - Águilas</div>
+                <div class="ramal-item" id="item-r10_pal" onclick="toggleLayer('r10_pal', 'r10_barona_palmas.geojson', '#54a0ff')"><i class="far fa-circle" id="icon-r10_pal"></i> Barona - Palmas - CCALM</div>
+                <div class="ramal-item" id="item-r10_ama" onclick="toggleLayer('r10_ama', 'r10_amate_redondo.geojson', '#00d2d3')"><i class="far fa-circle" id="icon-r10_ama"></i> Amate Redondo</div>
+            </div>
+        </div>
+
+        <div class="grupo-ruta" data-name="ruta 11 tejalpa villa de las flores 10 de abril acatlipa lazaro cardenas lauro ortega santa ursula">
+            <button class="ruta-master" style="background: #45aaf2; color: #fff; margin-top: 15px;" onclick="toggleMenu('menu-r11')">
+                <span><i class="fa fa-bus"></i> Ruta 11</span><i class="fa fa-chevron-down" id="arrow-r11"></i>
+            </button>
+            <div id="menu-r11" class="ramales-container">
+                <div class="ramal-item" id="item-r11_die" onclick="toggleLayer('r11_die', 'r11_diez_abril.geojson', '#45aaf2')"><i class="far fa-circle" id="icon-r11_die"></i> Villa de las Flores - 10 Abril</div>
+                <div class="ramal-item" id="item-r11_aca" onclick="toggleLayer('r11_aca', 'r11_acatlipa_loop.geojson', '#2d98da')"><i class="far fa-circle" id="icon-r11_aca"></i> Acatlipa - Loop</div>
+                <div class="ramal-item" id="item-r11_laz" onclick="toggleLayer('r11_laz', 'r11_lazaro_cardenas.geojson', '#4b7bec')"><i class="far fa-circle" id="icon-r11_laz"></i> Lázaro Cárdenas - Lauro Ortega</div>
+                <div class="ramal-item" id="item-r11_urs" onclick="toggleLayer('r11_urs', 'r11_santa_ursula.geojson', '#3867d6')"><i class="far fa-circle" id="icon-r11_urs"></i> Santa Úrsula</div>
+            </div>
+        </div>
+
+        <div class="grupo-ruta" data-name="ruta 12 alta palmira ejido tepuente independencia aeropuerto unidad morelos la cruz de la mision">
+            <button class="ruta-master" style="background: #8854d0; color: #fff; margin-top: 15px;" onclick="toggleMenu('menu-r12')">
+                <span><i class="fa fa-bus"></i> Ruta 12</span><i class="fa fa-chevron-down" id="arrow-r12"></i>
+            </button>
+            <div id="menu-r12" class="ramales-container">
+                <div class="ramal-item" id="item-r12_tep" onclick="toggleLayer('r12_tep', 'r12_tepuente_independencia.geojson', '#8854d0')"><i class="far fa-circle" id="icon-r12_tep"></i> Tepuente - Independencia</div>
+                <div class="ramal-item" id="item-r12_aer" onclick="toggleLayer('r12_aer', 'r12_aeropuerto_morelos.geojson', '#a55eea')"><i class="far fa-circle" id="icon-r12_aer"></i> Aeropuerto - Unidad Morelos</div>
+                <div class="ramal-item" id="item-r12_cru" onclick="toggleLayer('r12_cru', 'r12_cruz_mision.geojson', '#be2edd')"><i class="far fa-circle" id="icon-r12_cru"></i> Cruz de la Misión</div>
+                <div class="ramal-item" id="item-r12_pal" onclick="toggleLayer('r12_pal', 'r12_alta_palmira.geojson', '#d1d8e0')"><i class="far fa-circle" id="icon-r12_pal"></i> Ejido - Alta Palmira</div>
+            </div>
+        </div>
+
+        <div class="grupo-ruta" data-name="ruta 13 universidad naranjos san gaspar jiutepec las fuentes jerusalen lomas de chamilpa pochotal la rosa francisco villa">
+            <button class="ruta-master" style="background: #ff3f34; color: #fff; margin-top: 15px;" onclick="toggleMenu('menu-r13')">
+                <span><i class="fa fa-star"></i> Ruta 13</span><i class="fa fa-chevron-down" id="arrow-r13"></i>
+            </button>
+            <div id="menu-r13" class="ramales-container">
+                <div class="ramal-item" id="item-r13_nar" onclick="toggleLayer('r13_nar', 'r13_naranjos.geojson', '#ff3f34')"><i class="far fa-circle" id="icon-r13_nar"></i> Univ. - Naranjos - San Gaspar</div>
+                <div class="ramal-item" id="item-r13_fue" onclick="toggleLayer('r13_fue', 'r13_fuentes.geojson', '#ff5e57')"><i class="far fa-circle" id="icon-r13_fue"></i> Univ. - Fuentes - San Gaspar</div>
+                <div class="ramal-item" id="item-r13_poc" onclick="toggleLayer('r13_poc', 'r13_pochotal.geojson', '#ff7675')"><i class="far fa-circle" id="icon-r13_poc"></i> Jerusalén - Pochotal</div>
+                <div class="ramal-item" id="item-r13_ros" onclick="toggleLayer('r13_ros', 'r13_rosa_jiutepec.geojson', '#fab1a0')"><i class="far fa-circle" id="icon-r13_ros"></i> Universidad - La Rosa</div>
+                <div class="ramal-item" id="item-r13_vil" onclick="toggleLayer('r13_vil', 'r13_villa_jiutepec.geojson', '#e17055')"><i class="far fa-circle" id="icon-r13_vil"></i> La Rosa - Francisco Villa</div>
+            </div>
+        </div>
+
+        <div class="grupo-ruta" data-name="ruta 14 campo sotelo col las granjas bugambilias">
+            <button class="ruta-master" style="background: #0984e3; color: #fff; margin-top: 15px;" onclick="toggleMenu('menu-r14')">
+                <span><i class="fa fa-bus"></i> Ruta 14</span><i class="fa fa-chevron-down" id="arrow-r14"></i>
+            </button>
+            <div id="menu-r14" class="ramales-container">
+                <div class="ramal-item" id="item-r14_gra" onclick="toggleLayer('r14_gra', 'r14_granjas.geojson', '#0984e3')"><i class="far fa-circle" id="icon-r14_gra"></i> Campo Sotelo - Las Granjas</div>
+                <div class="ramal-item" id="item-r14_bug" onclick="toggleLayer('r14_bug', 'r14_bugambilias.geojson', '#74b9ff')"><i class="far fa-circle" id="icon-r14_bug"></i> Campo Sotelo - Bugambilias</div>
+            </div>
+        </div>
+
+        <div class="grupo-ruta" data-name="ruta 15 col porvenir ciudad chapultepec chamilpa universidad morelos sta martha maria ccalm">
+            <button class="ruta-master" style="background: #20bf6b; color: #fff; margin-top: 15px;" onclick="toggleMenu('menu-r15')">
+                <span><i class="fa fa-bus"></i> Ruta 15</span><i class="fa fa-chevron-down" id="arrow-r15"></i>
+            </button>
+            <div id="menu-r15" class="ramales-container">
+                <div class="ramal-item" id="item-r15_cha" onclick="toggleLayer('r15_cha', 'r15_chapultepec.geojson', '#20bf6b')"><i class="far fa-circle" id="icon-r15_cha"></i> Porvenir - Chapultepec - UAEM</div>
+                <div class="ramal-item" id="item-r15_mar" onclick="toggleLayer('r15_mar', 'r15_morelos_martha.geojson', '#26de81')"><i class="far fa-circle" id="icon-r15_mar"></i> Porvenir - Sta. Martha - UAEM</div>
+                <div class="ramal-item" id="item-r15_maria" onclick="toggleLayer('r15_maria', 'r15_morelos_maria_alm.geojson', '#7bed9f')"><i class="far fa-circle" id="icon-r15_maria"></i> Porvenir - Sta. María - ALM</div>
+            </div>
+        </div>
+
+        <div class="grupo-ruta" data-name="ruta 16 seccion los robles civac lomas del carril temixco pueblo viejo josefa ortiz de dominguez mirador azteca">
+            <button class="ruta-master" style="background: #574b90; color: #fff; margin-top: 15px;" onclick="toggleMenu('menu-r16')">
+                <span><i class="fa fa-bus"></i> Ruta 16</span><i class="fa fa-chevron-down" id="arrow-r16"></i>
+            </button>
+            <div id="menu-r16" class="ramales-container">
+                <div class="ramal-item" id="item-r16_rob_car" onclick="toggleLayer('r16_rob_car', 'r16_robles_carril.geojson', '#574b90')"><i class="far fa-circle" id="icon-r16_rob_car"></i> Robles - Lomas del Carril</div>
+                <div class="ramal-item" id="item-r16_rob_pue" onclick="toggleLayer('r16_rob_pue', 'r16_robles_pueblo.geojson', '#786fa6')"><i class="far fa-circle" id="icon-r16_rob_pue"></i> Robles - Pueblo Viejo</div>
+                <div class="ramal-item" id="item-r16_jos_car" onclick="toggleLayer('r16_jos_car', 'r16_josefa_carril.geojson', '#546de5')"><i class="far fa-circle" id="icon-r16_jos_car"></i> Josefa - Lomas del Carril</div>
+                <div class="ramal-item" id="item-r16_jos_pue" onclick="toggleLayer('r16_jos_pue', 'r16_josefa_pueblo.geojson', '#63cdda')"><i class="far fa-circle" id="icon-r16_jos_pue"></i> Josefa - Pueblo Viejo</div>
+                <div class="ramal-item" id="item-r16_rob_mir" onclick="toggleLayer('r16_rob_mir', 'r16_robles_mirador.geojson', '#778ca3')"><i class="far fa-circle" id="icon-r16_rob_mir"></i> Robles - Mirador (Azteca)</div>
+            </div>
+        </div>
+
+        <div class="grupo-ruta" data-name="ruta 17 otilio montaño centro la rosa campestre calera chica modesto rangel flores temixco zapata">
+            <button class="ruta-master" style="background: #f9ca24; color: #000; margin-top: 15px;" onclick="toggleMenu('menu-r17')">
+                <span><i class="fa fa-bus"></i> Ruta 17</span><i class="fa fa-chevron-down" id="arrow-r17"></i>
+            </button>
+            <div id="menu-r17" class="ramales-container">
+                <div class="ramal-item" id="item-r17_oti" onclick="toggleLayer('r17_oti', 'r17_otilio_centro.geojson', '#f9ca24')"><i class="far fa-circle" id="icon-r17_oti"></i> Otilio Montaño - Centro</div>
+                <div class="ramal-item" id="item-r17_ros" onclick="toggleLayer('r17_ros', 'r17_rosa_campestre.geojson', '#f0932b')"><i class="far fa-circle" id="icon-r17_ros"></i> La Rosa - Campestre</div>
+                <div class="ramal-item" id="item-r17_cal" onclick="toggleLayer('r17_cal', 'r17_calera_chica.geojson', '#ffbe76')"><i class="far fa-circle" id="icon-r17_cal"></i> Calera Chica - Centro</div>
+                <div class="ramal-item" id="item-r17_mod" onclick="toggleLayer('r17_mod', 'r17_modesto_flores.geojson', '#ffdd59')"><i class="far fa-circle" id="icon-r17_mod"></i> Modesto Rangel - Flores</div>
+                <div class="ramal-item" id="item-r17_tem" onclick="toggleLayer('r17_tem', 'r17_temixco_zapata.geojson', '#e056fd')"><i class="far fa-circle" id="icon-r17_tem"></i> Temixco - Zapata - Otilio</div>
+            </div>
+        </div>
+
+        <div class="grupo-ruta" data-name="ruta 18 cuauhtemoc chamilpa jiutepec francisco villa pochotal parres joyas del agua">
+            <button class="ruta-master" style="background: #0097e6; color: #fff; margin-top: 15px;" onclick="toggleMenu('menu-r18')">
+                <span><i class="fa fa-bus"></i> Ruta 18</span><i class="fa fa-chevron-down" id="arrow-r18"></i>
+            </button>
+            <div id="menu-r18" class="ramales-container">
+                <div class="ramal-item" id="item-r18_vil" onclick="toggleLayer('r18_vil', 'r18_francisco_villa.geojson', '#0097e6')"><i class="far fa-circle" id="icon-r18_vil"></i> Chamilpa - Francisco Villa</div>
+                <div class="ramal-item" id="item-r18_poc" onclick="toggleLayer('r18_poc', 'r18_pochotal.geojson', '#00a8ff')"><i class="far fa-circle" id="icon-r18_poc"></i> Chamilpa - Pochotal</div>
+                <div class="ramal-item" id="item-r18_par" onclick="toggleLayer('r18_par', 'r18_parres.geojson', '#40739e')"><i class="far fa-circle" id="icon-r18_par"></i> Chamilpa - Parres</div>
+                <div class="ramal-item" id="item-r18_joy" onclick="toggleLayer('r18_joy', 'r18_joyas_agua.geojson', '#487eb0')"><i class="far fa-circle" id="icon-r18_joy"></i> Chamilpa - Joyas del Agua</div>
+            </div>
+        </div>
+
+        <div class="grupo-ruta" data-name="ruta 19 centro comercial alm jardin juarez corona ejido chapultepec colosio alvaro leonel el puerto tetillas circuito amador salazar luna yautepec">
+            <button class="ruta-master" style="background: #3867d6; color: #fff; margin-top: 15px;" onclick="toggleMenu('menu-r19')">
+                <span><i class="fa fa-bus"></i> Ruta 19</span><i class="fa fa-chevron-down" id="arrow-r19"></i>
+            </button>
+            <div id="menu-r19" class="ramales-container">
+                <div class="ramal-item" id="item-r19_jar" onclick="toggleLayer('r19_jar', 'r19_jardin_juarez.geojson', '#3867d6')"><i class="far fa-circle" id="icon-r19_jar"></i> Jardín Juárez</div>
+                <div class="ramal-item" id="item-r19_col" onclick="toggleLayer('r19_col', 'r19_colosio.geojson', '#4b7bec')"><i class="far fa-circle" id="icon-r19_col"></i> Colosio - Chapultepec</div>
+                <div class="ramal-item" id="item-r19_alv_p" onclick="toggleLayer('r19_alv_p', 'r19_alvaro_leonel_puerto.geojson', '#2d98da')"><i class="far fa-circle" id="icon-r19_alv_p"></i> Álvaro Leonel - El Puerto</div>
+                <div class="ramal-item" id="item-r19_tet_a" onclick="toggleLayer('r19_tet_a', 'r19_tetillas_amador.geojson', '#34e7e4')"><i class="far fa-circle" id="icon-r19_tet_a"></i> Tetillas - Amador Salazar</div>
+                <div class="ramal-item" id="item-r19_tet_l" onclick="toggleLayer('r19_tet_l', 'r19_tetillas_luna.geojson', '#00d2d3')"><i class="far fa-circle" id="icon-r19_tet_l"></i> Tetillas - Luna</div>
+                <div class="ramal-item" id="item-r19_ama" onclick="toggleLayer('r19_ama', 'r19_amador_salazar.geojson', '#0fbcf9')"><i class="far fa-circle" id="icon-r19_ama"></i> Amador Salazar - Tetillas</div>
+                <div class="ramal-item" id="item-r19_yau" onclick="toggleLayer('r19_yau', 'r19_yautepec.geojson', '#5f27cd')"><i class="far fa-circle" id="icon-r19_yau"></i> Yautepec - Directo</div>
+                <div class="ramal-item" id="item-r19_alv_c" onclick="toggleLayer('r19_alv_c', 'r19_alvaro_leonel_circuito.geojson', '#54a0ff')"><i class="far fa-circle" id="icon-r19_alv_c"></i> Álvaro Leonel - Circuito</div>
+            </div>
+        </div>
+
+        <div class="grupo-ruta" data-name="ruta 20 tezoyuca zapata jiutepec centro temixco palo escrito tetecalita">
+            <button class="ruta-master" style="background: #ff7f50; color: #fff; margin-top: 15px;" onclick="toggleMenu('menu-r20')">
+                <span><i class="fa fa-bus"></i> Ruta 20</span><i class="fa fa-chevron-down" id="arrow-r20"></i>
+            </button>
+            <div id="menu-r20" class="ramales-container">
+                <div class="ramal-item" id="item-r20_tez" onclick="toggleLayer('r20_tez', 'r20_tezoyuca_loop.geojson', '#ff7f50')"><i class="far fa-circle" id="icon-r20_tez"></i> Tezoyuca - Zapata - Centro</div>
+                <div class="ramal-item" id="item-r20_pal" onclick="toggleLayer('r20_pal', 'r20_palo_escrito.geojson', '#ff6b81')"><i class="far fa-circle" id="icon-r20_pal"></i> Palo Escrito - Zapata</div>
+                <div class="ramal-item" id="item-r20_tet" onclick="toggleLayer('r20_tet', 'r20_tetecalita.geojson', '#ffa502')"><i class="far fa-circle" id="icon-r20_tet"></i> Tezoyuca - Tetecalita</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<button class="btn-location" onclick="getUserLocation()" title="Mi ubicación">
+    <i class="fa fa-location-crosshairs"></i>
+</button>
 
 <div id="map"></div>
 
+<button id="btnTomarRuta" class="btn-flotante-viaje btn-tomar-ruta" onclick="abrirModalAvatar()">
+    <i class="fa fa-bus"></i> Tomar Ruta
+</button>
+
+<button id="btnCancelarRuta" class="btn-flotante-viaje btn-cancelar-ruta" onclick="abrirModalCancelar()">
+    <i class="fa fa-xmark"></i> Cancelar Viaje
+</button>
+
+<div id="modalAvatar" class="modal-overlay">
+    <div class="modal-content">
+        <i class="fa fa-robot modal-icon" style="color: #3498db;"></i>
+        <h3 style="margin-top: 0;">¡Vámonos de viaje!</h3>
+        <p style="font-size: 0.95rem; opacity: 0.9;">¿Gustas que te avise cuando estés cerca de tu bajada?</p>
+        <div class="modal-btns">
+            <button class="modal-btn btn-secondary" onclick="iniciarViaje(false)">No, gracias</button>
+            <button class="modal-btn btn-primary" onclick="iniciarViaje(true)"><i class="fa fa-bell"></i> Sí, avísame</button>
+        </div>
+    </div>
+</div>
+
+<div id="modalCancelar" class="modal-overlay">
+    <div class="modal-content">
+        <i class="fa fa-triangle-exclamation modal-icon" style="color: #e74c3c;"></i>
+        <h3 style="margin-top: 0;">¿Cancelar viaje?</h3>
+        <p style="font-size: 0.95rem; opacity: 0.9;">Al cancelar el viaje todas las opciones se limpiarán.</p>
+        <div class="modal-btns">
+            <button class="modal-btn btn-secondary" onclick="cerrarModales()">Volver</button>
+            <button class="modal-btn btn-danger" onclick="confirmarCancelacion()"><i class="fa fa-trash-can"></i> Sí, cancelar</button>
+        </div>
+    </div>
+</div>
+
+<div id="pantallaAlerta" class="pantalla-alerta">
+    <h1><i class="fa fa-bullhorn"></i> ¡Atención!</h1>
+    <p>Estás a unos metros de tu destino.<br><b>Prepárate para tocar el timbre.</b></p>
+    <button class="btn-entendido" onclick="terminarAlerta()"><i class="fa fa-check"></i> Entendido, gracias</button>
+</div>
+
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
 <script>
-    // 1. Inicializamos el mapa centrado en Cuernavaca
-    const map = L.map('map').setView([18.9242, -99.2216], 13);
+    // 1. CAPAS BASE: OSCURO Y SATÉLITE
+    const mapaOscuro = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', { attribution: '&copy; CARTO' });
+    const mapaSatelite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{y}/{x}/{z}', { attribution: 'Tiles &copy; Esri' });
 
-    // 2. Agregamos la capa de calles (OpenStreetMap)
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-        maxZoom: 19,
-        attribution: '© OpenStreetMap contributors © CARTO'
-    }).addTo(map);
+    const map = L.map('map', { center: [18.9218, -99.2347], zoom: 13, layers: [mapaOscuro], zoomControl: false });
+    L.control.zoom({ position: 'topright' }).addTo(map);
 
-    // 3. Hacemos fetch a tu archivo local
-    fetch('ruta_1_centro.geojson')
-        .then(response => response.json())
-        .then(data => {
-            // Quitamos el icono de carga
-            document.getElementById('loading-icon').className = 'fa fa-check text-success';
+    const baseMaps = { "Modo Oscuro": mapaOscuro, "Vista Satélite": mapaSatelite };
+    L.control.layers(baseMaps, null, { position: 'topright' }).addTo(map);
 
-            // Pintamos la línea en el mapa
-            const routeLayer = L.geoJSON(data, {
-                style: function (feature) {
-                    return { color: "#2563eb", weight: 5, opacity: 0.8 }; // Azul profesional
-                }
-            }).addTo(map);
+    const capasActivas = {};
+    let caminataLayer = null;
+    let abordajeMarker = null;
 
-            // Ajustamos el zoom automáticamente para que se vea toda la ruta
-            map.fitBounds(routeLayer.getBounds());
-        })
-        .catch(error => {
-            console.error("Error cargando el archivo:", error);
-            document.getElementById('loading-icon').className = 'fa fa-exclamation-triangle text-danger';
+    // VARIABLES MODO VIAJE
+    let puntoDescensoGuardado = null;
+    let modoViajeTracker = null;
+    let quiereAlertaBajada = false;
+
+    // 2. CAPAS Y MENUS
+    function toggleMenu(id) {
+        const menu = document.getElementById(id);
+        const arrow = menu.previousElementSibling.querySelector('.fa-chevron-down');
+        const isVisible = menu.style.display === 'block';
+        menu.style.display = isVisible ? 'none' : 'block';
+        arrow.style.transform = isVisible ? 'rotate(0deg)' : 'rotate(180deg)';
+    }
+
+    function filterRoutes() {
+        const input = document.getElementById('routeSearch').value.toLowerCase();
+        const groups = document.querySelectorAll('.grupo-ruta');
+        groups.forEach(group => {
+            const text = (group.getAttribute('data-name') || group.innerText).toLowerCase();
+            if (text.includes(input)) { group.classList.remove('hidden'); } else { group.classList.add('hidden'); }
         });
+    }
+
+    function clearAllLayers() {
+        for (let key in capasActivas) {
+            map.removeLayer(capasActivas[key]);
+            const item = document.getElementById(`item-${key}`);
+            const icon = document.getElementById(`icon-${key}`);
+            if (item) { item.classList.remove('active'); item.classList.remove('selected-route'); }
+            if (icon) { icon.className = 'far fa-circle'; icon.style.color = 'inherit'; }
+        }
+        for (let prop in capasActivas) delete capasActivas[prop];
+
+        // Limpiar estilos de recomendaciones
+        const recItems = document.querySelectorAll('#lista-recomendados .ramal-item');
+        recItems.forEach(el => el.classList.remove('selected-route'));
+
+        if (caminataLayer) map.removeLayer(caminataLayer);
+        if (abordajeMarker) map.removeLayer(abordajeMarker);
+        document.getElementById('recomendaciones-panel').style.display = 'none';
+        if (marcadorDestinoUI) map.removeLayer(marcadorDestinoUI);
+
+        // Resetear UI de Viaje
+        document.getElementById('btnTomarRuta').style.display = 'none';
+        document.getElementById('btnCancelarRuta').style.display = 'none';
+        document.getElementById('topBanner').style.display = 'none';
+        cerrarModales();
+        terminarAlerta();
+
+        if (modoViajeTracker) {
+            navigator.geolocation.clearWatch(modoViajeTracker);
+            modoViajeTracker = null;
+        }
+    }
+
+    // Calcular padding dinámico para móviles
+    function getMapPadding() {
+        const isMobile = window.innerWidth <= 768;
+        return {
+            paddingTopLeft: [50, 50],
+            paddingBottomRight: [50, isMobile ? (window.innerHeight * 0.55) : 50]
+        };
+    }
+
+    async function toggleLayer(key, archivo, color) {
+        const item = document.getElementById(`item-${key}`);
+        const icon = document.getElementById(`icon-${key}`);
+
+        if (capasActivas[key]) {
+            map.removeLayer(capasActivas[key]);
+            delete capasActivas[key];
+            if(item) { item.classList.remove('active'); item.classList.remove('selected-route'); }
+            if(icon) { icon.className = 'far fa-circle'; icon.style.color = 'inherit'; }
+        } else {
+            try {
+                const res = await fetch(archivo);
+                if (!res.ok) throw new Error("Archivo no encontrado");
+                const data = await res.json();
+                const nombreRutaLimpio = archivo.replace('.geojson', '').replace(/_/g, ' ').toUpperCase();
+                const layer = L.geoJSON(data, {
+                    style: { color: color, weight: 6, opacity: 0.9, lineJoin: 'round', lineCap: 'round' }
+                }).bindTooltip(`<div style="font-size:14px;"><i class="fa fa-bus" style="color:${color}"></i> ${nombreRutaLimpio}</div>`, { className: 'custom-tooltip', sticky: true, direction: "auto" }).addTo(map);
+
+                capasActivas[key] = layer;
+                if(item) { item.classList.add('active'); }
+                if(icon) { icon.className = 'fas fa-check-circle'; icon.style.color = color; }
+
+                map.fitBounds(layer.getBounds(), getMapPadding());
+            } catch (e) { alert("Asegúrate de que el archivo " + archivo + " esté descargado."); }
+        }
+    }
+
+    // 3. GEOLOCALIZACION Y ORIGEN MANUAL
+    let userMarker = null;
+    let accuracyCircle = null;
+
+    const userIcon = L.divIcon({
+        className: 'custom-user-icon',
+        html: '<div style="background:#007aff; width:20px; height:20px; border-radius:50%; border:3px solid white; box-shadow: 0 0 15px rgba(0,122,255,0.8);"></div>',
+        iconSize: [26, 26], iconAnchor: [13, 13]
+    });
+
+    function createUserMarker(latlng) {
+        if (userMarker) {
+            userMarker.setLatLng(latlng);
+            if (accuracyCircle) accuracyCircle.setLatLng(latlng);
+        } else {
+            userMarker = L.marker(latlng, { icon: userIcon, draggable: true, zIndexOffset: 1000 }).addTo(map);
+            userMarker.bindPopup("<div style='text-align:center;'><b>Tu Origen</b><br><span style='font-size:0.8rem; opacity:0.8;'>Arrastra este pin para ajustar tu ubicación</span></div>").openPopup();
+            userMarker.on('dragend', function() {
+                const newPos = userMarker.getLatLng();
+                if (accuracyCircle) accuracyCircle.setLatLng(newPos);
+                if (destinoCoordenadasReal && document.getElementById('recomendaciones-panel').style.display === 'block') {
+                    recomendarRutas();
+                }
+            });
+        }
+    }
+
+    function getUserLocation() { map.locate({ setView: true, maxZoom: 16, enableHighAccuracy: true }); }
+
+    map.on('locationfound', function(e) {
+        const radius = e.accuracy / 2;
+        createUserMarker(e.latlng);
+        if (!accuracyCircle) {
+            accuracyCircle = L.circle(e.latlng, radius, { color: "#007aff", fillColor: "#007aff", fillOpacity: 0.15, weight: 1 }).addTo(map);
+        } else { accuracyCircle.setRadius(radius); }
+    });
+
+    map.on('contextmenu', function(e) {
+        createUserMarker(e.latlng);
+        if (destinoCoordenadasReal && document.getElementById('recomendaciones-panel').style.display === 'block') { recomendarRutas(); }
+    });
+
+    // 4. AUTOCOMPLETADO
+    const baseLocal = [
+        { nombre: "Mercado Adolfo López Mateos (ALM)", tipo: "lugar", lat: 18.9225, lon: -99.2312 },
+        { nombre: "Zócalo de Cuernavaca", tipo: "lugar", lat: 18.9218, lon: -99.2347 },
+        { nombre: "UAEM Chamilpa", tipo: "lugar", lat: 18.9833, lon: -99.2354 },
+        { nombre: "IMSS Plan de Ayala", tipo: "lugar", lat: 18.9189, lon: -99.2132 },
+        { nombre: "Walmart Jiutepec", tipo: "lugar", lat: 18.8833, lon: -99.1747 },
+        { nombre: "CIVAC (Centro)", tipo: "lugar", lat: 18.8950, lon: -99.1820 },
+        { nombre: "Bodega Aurrera Jiutepec", tipo: "lugar", lat: 18.8856, lon: -99.1732 }
+    ];
+
+    let destinoCoordenadasReal = null;
+    let timeoutBusqueda = null;
+    let marcadorDestinoUI = null;
+
+    async function buscarLugarAPI() {
+        const input = document.getElementById('destinationInput').value.toLowerCase();
+        const box = document.getElementById('suggestionsBox');
+        if (input.length < 2) { box.style.display = 'none'; return; }
+        box.style.display = 'block'; box.innerHTML = '';
+        const resultadosLocales = baseLocal.filter(item => item.nombre.toLowerCase().includes(input));
+
+        resultadosLocales.forEach(item => {
+            const div = document.createElement('div'); div.className = 'suggestion-item';
+            div.innerHTML = `<i class="fa fa-location-dot" style="color: #ff4757; margin-right: 8px;"></i> <b>${item.nombre}</b> <span style="opacity:0.5; font-size:0.7rem;">(Frecuente)</span>`;
+            div.onclick = () => seleccionarLugarDestino(item.lat, item.lon, item.nombre);
+            box.appendChild(div);
+        });
+
+        if (input.length >= 3) {
+            clearTimeout(timeoutBusqueda);
+            timeoutBusqueda = setTimeout(async () => {
+                try {
+                    const loadingDiv = document.createElement('div'); loadingDiv.className = 'suggestion-item';
+                    loadingDiv.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Buscando más...'; box.appendChild(loadingDiv);
+                    const query = encodeURIComponent(input); const viewbox = "-99.40,19.05,-98.90,18.70";
+                    const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${query}&limit=5&viewbox=${viewbox}&bounded=1`);
+                    const data = await res.json(); box.removeChild(loadingDiv);
+                    data.forEach(lugar => {
+                        const nombreCorto = lugar.display_name.split(',')[0];
+                        if (!resultadosLocales.some(local => local.nombre.includes(nombreCorto))) {
+                            const div = document.createElement('div'); div.className = 'suggestion-item';
+                            div.innerHTML = `<i class="fa fa-map-marker-alt" style="margin-right: 8px;"></i> ${nombreCorto} <br><span style="opacity:0.5; font-size:0.7rem; margin-left: 20px;">${lugar.display_name}</span>`;
+                            div.onclick = () => seleccionarLugarDestino(lugar.lat, lugar.lon, nombreCorto);
+                            box.appendChild(div);
+                        }
+                    });
+                } catch (e) {}
+            }, 500);
+        }
+    }
+
+    function seleccionarLugarDestino(lat, lon, nombre) {
+        destinoCoordenadasReal = { lat: parseFloat(lat), lng: parseFloat(lon) };
+        document.getElementById('destinationInput').value = nombre; document.getElementById('suggestionsBox').style.display = 'none';
+        if (marcadorDestinoUI) map.removeLayer(marcadorDestinoUI);
+        marcadorDestinoUI = L.marker([lat, lon]).addTo(map).bindPopup(`<b><i class="fa fa-flag-checkered"></i> Destino:</b><br>${nombre}`).openPopup();
+
+        const targetBounds = L.latLngBounds([lat, lon], [lat, lon]);
+        map.fitBounds(targetBounds, { maxZoom: 15, ...getMapPadding() });
+
+        if (userMarker) { recomendarRutas(); }
+    }
+
+    function invertirRuta() {
+        if (!userMarker || !destinoCoordenadasReal) return;
+        const viejaPosUsuario = userMarker.getLatLng();
+        const viejaPosDestino = { ...destinoCoordenadasReal };
+        createUserMarker(L.latLng(viejaPosDestino.lat, viejaPosDestino.lng));
+        seleccionarLugarDestino(viejaPosUsuario.lat, viejaPosUsuario.lng, "Punto de Retorno");
+    }
+
+    // 5. EL ASISTENTE INTELIGENTE
+    const todosLosRamales = [
+        { archivo: "r1_universidad_guacamayas.geojson", color: "#f1c40f" },
+        { archivo: "r1_acatlipa.geojson", color: "#e67e22" },
+        { archivo: "r1_jerusalen.geojson", color: "#27ae60" },
+        { archivo: "r2_domingo_diez.geojson", color: "#00f2ff" },
+        { archivo: "r2_emiliano_zapata.geojson", color: "#00d4ff" },
+        { archivo: "r2_chipitlan.geojson", color: "#00a8ff" },
+        { archivo: "r3_alpuyeca.geojson", color: "#32ff7e" },
+        { archivo: "r3_mina5.geojson", color: "#3ae374" },
+        { archivo: "r3_tetela.geojson", color: "#2ecc71" },
+        { archivo: "r3_calera.geojson", color: "#26ae60" },
+        { archivo: "r3_villa.geojson", color: "#1abc9c" },
+        { archivo: "r4_chulavista.geojson", color: "#ff006e" },
+        { archivo: "r4_cuauchiles.geojson", color: "#ff4d94" },
+        { archivo: "r4_palmas.geojson", color: "#ff85b3" },
+        { archivo: "r4_elsalto.geojson", color: "#ffb3d1" },
+        { archivo: "r5_lomas_oriente.geojson", color: "#ff7f50" },
+        { archivo: "r5_lomas_pedregal.geojson", color: "#ff9a76" },
+        { archivo: "r5_tecomulco.geojson", color: "#ffb49c" },
+        { archivo: "r6_tunel.geojson", color: "#bf00ff" },
+        { archivo: "r6_jardines.geojson", color: "#d44dff" },
+        { archivo: "r6_victoria.geojson", color: "#e680ff" },
+        { archivo: "r6_tranca.geojson", color: "#f2b3ff" },
+        { archivo: "r6_atlacomulco.geojson", color: "#f9e6ff" },
+        { archivo: "r7_tejalpa.geojson", color: "#ef5777" },
+        { archivo: "r7_joya_independencia.geojson", color: "#ff7979" },
+        { archivo: "r7_progreso.geojson", color: "#ff9f9f" },
+        { archivo: "r8_jacarandas.geojson", color: "#3867d6" },
+        { archivo: "r8_rivera_altavista.geojson", color: "#4b7bec" },
+        { archivo: "r8_rivera_chulavista.geojson", color: "#778ca3" },
+        { archivo: "r9_cuauhtemoc.geojson", color: "#f7b731" },
+        { archivo: "r9_selva.geojson", color: "#fa983a" },
+        { archivo: "r10_barona_aguilas.geojson", color: "#1dd1a1" },
+        { archivo: "r10_plan_aguilas.geojson", color: "#10ac84" },
+        { archivo: "r10_barona_palmas.geojson", color: "#54a0ff" },
+        { archivo: "r10_amate_redondo.geojson", color: "#00d2d3" },
+        { archivo: "r11_diez_abril.geojson", color: "#45aaf2" },
+        { archivo: "r11_acatlipa_loop.geojson", color: "#2d98da" },
+        { archivo: "r11_lazaro_cardenas.geojson", color: "#4b7bec" },
+        { archivo: "r11_santa_ursula.geojson", color: "#3867d6" },
+        { archivo: "r12_tepuente_independencia.geojson", color: "#8854d0" },
+        { archivo: "r12_aeropuerto_morelos.geojson", color: "#a55eea" },
+        { archivo: "r12_cruz_mision.geojson", color: "#be2edd" },
+        { archivo: "r12_alta_palmira.geojson", color: "#d1d8e0" },
+        { archivo: "r13_naranjos.geojson", color: "#ff3f34" },
+        { archivo: "r13_fuentes.geojson", color: "#ff5e57" },
+        { archivo: "r13_pochotal.geojson", color: "#ff7675" },
+        { archivo: "r13_rosa_jiutepec.geojson", color: "#fab1a0" },
+        { archivo: "r13_villa_jiutepec.geojson", color: "#e17055" },
+        { archivo: "r14_granjas.geojson", color: "#0984e3" },
+        { archivo: "r14_bugambilias.geojson", color: "#74b9ff" },
+        { archivo: "r15_chapultepec.geojson", color: "#20bf6b" },
+        { archivo: "r15_morelos_martha.geojson", color: "#26de81" },
+        { archivo: "r15_morelos_maria_alm.geojson", color: "#7bed9f" },
+        { archivo: "r16_robles_carril.geojson", color: "#574b90" },
+        { archivo: "r16_robles_pueblo.geojson", color: "#786fa6" },
+        { archivo: "r16_josefa_carril.geojson", color: "#546de5" },
+        { archivo: "r16_josefa_pueblo.geojson", color: "#63cdda" },
+        { archivo: "r16_robles_mirador.geojson", color: "#778ca3" },
+        { archivo: "r17_otilio_centro.geojson", color: "#f9ca24" },
+        { archivo: "r17_rosa_campestre.geojson", color: "#f0932b" },
+        { archivo: "r17_calera_chica.geojson", color: "#ffbe76" },
+        { archivo: "r17_modesto_flores.geojson", color: "#ffdd59" },
+        { archivo: "r17_temixco_zapata.geojson", color: "#e056fd" },
+        { archivo: "r18_francisco_villa.geojson", color: "#0097e6" },
+        { archivo: "r18_pochotal.geojson", color: "#00a8ff" },
+        { archivo: "r18_parres.geojson", color: "#40739e" },
+        { archivo: "r18_joyas_agua.geojson", color: "#487eb0" },
+        { archivo: "r19_jardin_juarez.geojson", color: "#3867d6" },
+        { archivo: "r19_colosio.geojson", color: "#4b7bec" },
+        { archivo: "r19_alvaro_leonel_puerto.geojson", color: "#2d98da" },
+        { archivo: "r19_tetillas_amador.geojson", color: "#34e7e4" },
+        { archivo: "r19_tetillas_luna.geojson", color: "#00d2d3" },
+        { archivo: "r19_amador_salazar.geojson", color: "#0fbcf9" },
+        { archivo: "r19_yautepec.geojson", color: "#5f27cd" },
+        { archivo: "r19_alvaro_leonel_circuito.geojson", color: "#54a0ff" },
+        { archivo: "r20_tezoyuca_loop.geojson", color: "#ff7f50" },
+        { archivo: "r20_palo_escrito.geojson", color: "#ff6b81" },
+        { archivo: "r20_tetecalita.geojson", color: "#ffa502" }
+    ];
+
+    async function recomendarRutas() {
+        if (!userMarker) { alert("Arrástralo el pin azul a tu ubicación."); return; }
+        if (!destinoCoordenadasReal) { alert("Selecciona un destino válido."); return; }
+
+        const panel = document.getElementById('recomendaciones-panel');
+        const lista = document.getElementById('lista-recomendados');
+        const nombreDestino = document.getElementById('destinationInput').value;
+
+        lista.innerHTML = '<div class="ramal-item" style="padding: 15px;"><i class="fa fa-spinner fa-spin"></i> Analizando 78 ramales...</div>';
+        panel.style.display = 'block';
+        document.getElementById('btnTomarRuta').style.display = 'none';
+
+        const puntoOrigen = turf.point([userMarker.getLatLng().lng, userMarker.getLatLng().lat]);
+        const puntoDestino = turf.point([destinoCoordenadasReal.lng, destinoCoordenadasReal.lat]);
+        const resultados = [];
+
+        for (let ruta of todosLosRamales) {
+            try {
+                const res = await fetch(ruta.archivo); if (!res.ok) continue;
+                const data = await res.json();
+
+                const nearestAbordaje = turf.nearestPointOnLine(data, puntoOrigen);
+                const nearestDescenso = turf.nearestPointOnLine(data, puntoDestino);
+
+                resultados.push({
+                    archivo: ruta.archivo, color: ruta.color,
+                    nombre: ruta.archivo.replace('.geojson', '').replace(/_/g, ' ').toUpperCase(),
+                    distanciaOrigenMetros: Math.round(nearestAbordaje.properties.dist * 1000),
+                    distanciaDestinoMetros: Math.round(nearestDescenso.properties.dist * 1000),
+                    distanciaTotal: Math.round((nearestAbordaje.properties.dist + nearestDescenso.properties.dist) * 1000),
+                    coordAbordaje: [nearestAbordaje.geometry.coordinates[1], nearestAbordaje.geometry.coordinates[0]],
+                    coordDescenso: [nearestDescenso.geometry.coordinates[1], nearestDescenso.geometry.coordinates[0]]
+                });
+            } catch (e) {}
+        }
+
+        lista.innerHTML = "";
+        if (resultados.length > 0) {
+            resultados.sort((a, b) => a.distanciaTotal - b.distanciaTotal);
+            const mejoresOpciones = resultados.slice(0, 4);
+
+            lista.innerHTML += `<div style="margin-bottom: 15px; padding: 12px; background: rgba(255,255,255,0.05); border-left: 3px solid #3498db; border-radius: 8px; font-size: 0.85rem; color: rgba(255,255,255,0.9);"><i class="fa fa-map-location-dot" style="color: #3498db; margin-right: 5px;"></i><b>Rutas hacia ${nombreDestino}</b></div>`;
+
+            mejoresOpciones.forEach((r, index) => {
+                let nivelEsfuerzo = index === 0 ? `<span style="float: right; font-size: 0.65rem; background: #2ecc71; color: #000; padding: 3px 6px; border-radius: 10px; font-weight: bold;"><i class="fa fa-star"></i> MÁS CERCANA</span>` : "";
+
+                // Usamos 'this' en la funcion onClick para pasar el elemento HTML
+                lista.innerHTML += `
+                    <div class="ramal-item" style="margin-bottom:10px; border-left: 4px solid ${r.color}; flex-direction: column; align-items: flex-start; padding: 12px;"
+                         onclick="mostrarRutaGuiada('${r.archivo}', '${r.color}', ${r.coordAbordaje[0]}, ${r.coordAbordaje[1]}, ${r.distanciaOrigenMetros}, ${r.coordDescenso[0]}, ${r.coordDescenso[1]}, this, '${r.nombre}')">
+                        <div style="width: 100%; margin-bottom: 8px;"><i class="fa fa-bus" style="color: ${r.color};"></i> <b style="font-size: 0.95rem;">${r.nombre}</b>${nivelEsfuerzo}</div>
+                        <div style="font-size: 0.75rem; display: flex; flex-direction: column; gap: 4px;">
+                            <span><i class="fa fa-person-walking"></i> Camina <b>${r.distanciaOrigenMetros} metros</b> a la parada.</span>
+                            <span><i class="fa fa-map-pin"></i> Te dejará a <b>${r.distanciaDestinoMetros} metros</b> de la meta.</span>
+                        </div>
+                    </div>`;
+            });
+        }
+    }
+
+    async function mostrarRutaGuiada(archivo, color, latAbordaje, lngAbordaje, metros, latDescenso, lngDescenso, elementDOM, nombreRuta) {
+        // Limpiar el estado visual "Seleccionado" de las otras rutas
+        const todosLosItems = document.querySelectorAll('#lista-recomendados .ramal-item');
+        todosLosItems.forEach(el => el.classList.remove('selected-route'));
+
+        // Agregar estado activo a la seleccionada e inyectar el color por CSS Variable
+        elementDOM.style.setProperty('--route-color', color);
+        elementDOM.classList.add('selected-route');
+
+        // Mostrar el Banner Superior
+        const topBanner = document.getElementById('topBanner');
+        document.getElementById('topBannerText').innerText = nombreRuta;
+        topBanner.style.display = 'flex';
+        topBanner.style.borderLeft = `5px solid ${color}`;
+
+        // Limpiar capas previas
+        for (let key in capasActivas) map.removeLayer(capasActivas[key]);
+        for (let prop in capasActivas) delete capasActivas[prop];
+        if (caminataLayer) map.removeLayer(caminataLayer);
+        if (abordajeMarker) map.removeLayer(abordajeMarker);
+
+        try {
+            const res = await fetch(archivo); const data = await res.json();
+            const nombreLimpio = archivo.replace('.geojson', '').replace(/_/g, ' ').toUpperCase();
+
+            const layer = L.geoJSON(data, { style: { color: color, weight: 6, opacity: 0.9, lineJoin: 'round', lineCap: 'round' } })
+                .bindTooltip(`<div style="font-size:14px;"><i class="fa fa-bus" style="color:${color}"></i> ${nombreLimpio}</div>`, { className: 'custom-tooltip', sticky: true }).addTo(map);
+            capasActivas['rutaOptima'] = layer;
+
+            const userLat = userMarker.getLatLng().lat; const userLng = userMarker.getLatLng().lng;
+            caminataLayer = L.polyline([[userLat, userLng], [latAbordaje, lngAbordaje]], { color: '#fff', weight: 4, dashArray: '5, 10', opacity: 0.8 }).addTo(map);
+
+            let pinHTML = `<div style="text-align:center;"><b style="color: ${color};"><i class="fa fa-street-view"></i> Parada</b><br><span style="font-size: 12px;">Camina ${metros}m aquí</span></div>`;
+            abordajeMarker = L.marker([latAbordaje, lngAbordaje]).addTo(map).bindPopup(pinHTML).openPopup();
+
+            puntoDescensoGuardado = L.latLng(latDescenso, lngDescenso);
+
+            // Mostrar Botón "Tomar Ruta"
+            document.getElementById('btnTomarRuta').style.display = 'flex';
+            document.getElementById('btnCancelarRuta').style.display = 'none'; // Ocultar si estaba cancelado
+
+            // ZOOM INTELIGENTE: De donde estoy, a donde me subo.
+            const userLatLng = L.latLng(userLat, userLng);
+            const abordajeLatLng = L.latLng(latAbordaje, lngAbordaje);
+            const zoomBounds = L.latLngBounds(userLatLng, abordajeLatLng);
+
+            // maxZoom 16 para que no se acerque exageradamente si estás a 2 metros
+            map.fitBounds(zoomBounds, { maxZoom: 16, padding: [60, 60], ...getMapPadding() });
+
+        } catch (e) { }
+    }
+
+    // ==========================================
+    // 6. FLUJO DE VIAJE Y MODALES
+    // ==========================================
+    function abrirModalAvatar() {
+        document.getElementById('modalAvatar').style.display = 'flex';
+    }
+
+    function abrirModalCancelar() {
+        document.getElementById('modalCancelar').style.display = 'flex';
+    }
+
+    function cerrarModales() {
+        document.getElementById('modalAvatar').style.display = 'none';
+        document.getElementById('modalCancelar').style.display = 'none';
+    }
+
+    function iniciarViaje(conAlerta) {
+        cerrarModales();
+        quiereAlertaBajada = conAlerta;
+
+        if (!navigator.geolocation) {
+            alert("Tu navegador no soporta rastreo GPS para el modo viaje."); return;
+        }
+
+        // Cambiar botones UI
+        document.getElementById('btnTomarRuta').style.display = 'none';
+        document.getElementById('btnCancelarRuta').style.display = 'flex';
+
+        // Actualizar Banner
+        const textoBanner = document.getElementById('topBannerText');
+        textoBanner.innerHTML = `${textoBanner.innerText} <span style="font-weight:400; opacity:0.8;">- Viaje Activo <i class="fa fa-circle-notch fa-spin"></i></span>`;
+
+        modoViajeTracker = navigator.geolocation.watchPosition(
+            (pos) => {
+                const currentPos = L.latLng(pos.coords.latitude, pos.coords.longitude);
+
+                userMarker.setLatLng(currentPos);
+                if (accuracyCircle) {
+                    accuracyCircle.setLatLng(currentPos);
+                    accuracyCircle.setRadius(pos.coords.accuracy / 2);
+                }
+
+                // Centrar la cámara en el usuario para que vea por dónde va
+                map.setView(currentPos, 16);
+
+                if (puntoDescensoGuardado && quiereAlertaBajada) {
+                    const distanciaFaltante = currentPos.distanceTo(puntoDescensoGuardado);
+                    if (distanciaFaltante < 250) {
+                        dispararAlerta();
+                    }
+                }
+            },
+            (err) => { console.warn("Error en seguimiento: ", err); },
+            { enableHighAccuracy: true, maximumAge: 5000 }
+        );
+    }
+
+    function confirmarCancelacion() {
+        clearAllLayers();
+    }
+
+    function dispararAlerta() {
+        document.getElementById('pantallaAlerta').style.display = 'flex';
+        if (navigator.vibrate) { navigator.vibrate([500, 250, 500, 250, 1000]); }
+        if (modoViajeTracker) {
+            navigator.geolocation.clearWatch(modoViajeTracker);
+            modoViajeTracker = null;
+        }
+    }
+
+    function terminarAlerta() {
+        document.getElementById('pantallaAlerta').style.display = 'none';
+        // Volver la app a su estado base limpiando la pantalla
+        clearAllLayers();
+    }
+
+    setTimeout(() => { createUserMarker([18.9218, -99.2347]); }, 1000);
 </script>
 </body>
 </html>
