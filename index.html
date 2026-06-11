@@ -8,23 +8,87 @@
     <meta name="apple-mobile-web-app-title" content="RutAPP Morelos">
     <meta name="theme-color" content="#0f172a">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 
     <style>
-        body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #000; overflow: hidden; }
+        :root {
+            --app-bg: #000000;
+            --surface: rgba(30, 30, 30, 0.7);
+            --surface-strong: rgba(30, 30, 30, 0.95);
+            --surface-soft: rgba(255, 255, 255, 0.08);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.72);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --shadow-color: rgba(0, 0, 0, 0.5);
+            --input-bg: rgba(255, 255, 255, 0.1);
+            --input-border: rgba(255, 255, 255, 0.2);
+            --accent: #16a34a;
+            --accent-strong: #22c55e;
+            --accent-soft: rgba(34, 197, 94, 0.14);
+            --accent-ink: #effdf3;
+        }
+        body { margin: 0; padding: 0; font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--app-bg); color: var(--text-primary); overflow: hidden; transition: background 0.25s ease, color 0.25s ease; }
+        body.theme-light {
+            --app-bg: #f6fbf7;
+            --surface: rgba(255, 255, 255, 0.9);
+            --surface-strong: rgba(255, 255, 255, 0.98);
+            --surface-soft: rgba(22, 163, 74, 0.06);
+            --text-primary: #0f172a;
+            --text-secondary: rgba(15, 23, 42, 0.7);
+            --border-color: rgba(22, 163, 74, 0.14);
+            --shadow-color: rgba(15, 23, 42, 0.16);
+            --input-bg: rgba(15, 23, 42, 0.04);
+            --input-border: rgba(15, 23, 42, 0.12);
+        }
         #map { width: 100vw; height: 100vh; }
 
         /* Panel Lateral Glassmorphism (Diseño Base PC) */
         .sidebar {
             position: absolute; top: 20px; left: 20px; z-index: 1000;
             width: 320px; max-height: 90vh;
-            background: rgba(30, 30, 30, 0.7);
+            background: var(--surface);
             backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px;
-            padding: 20px; color: #fff; overflow-y: auto;
-            box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+            border: 1px solid var(--border-color); border-radius: 24px;
+            padding: 20px; color: var(--text-primary); overflow-y: auto;
+            box-shadow: 0 12px 40px var(--shadow-color);
             transition: all 0.3s ease;
+        }
+        .header-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+            margin-bottom: 15px;
+        }
+        .header-action {
+            border: 1px solid var(--border-color);
+            background: var(--surface-soft);
+            color: var(--text-primary);
+            width: 42px;
+            height: 42px;
+            padding: 0;
+            border-radius: 14px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .header-action:hover {
+            transform: translateY(-1px);
+            background: rgba(255, 255, 255, 0.14);
+        }
+        body.theme-light .header-action:hover {
+            background: rgba(15, 23, 42, 0.08);
+        }
+        .header-action span {
+            display: none;
         }
 
         h2 { font-size: 1.2rem; margin: 0 0 20px 0; display: flex; align-items: center; gap: 12px; font-weight: 500; }
@@ -40,27 +104,28 @@
 
         /* Buscadores */
         .search-box {
-            position: sticky; top: -20px; background: rgba(30, 30, 30, 0.1);
-            padding: 10px 0; margin-bottom: 15px; z-index: 10;
+            position: sticky; top: 0; background: linear-gradient(180deg, var(--surface) 0%, rgba(0,0,0,0) 100%);
+            padding: 10px 0 12px; margin-bottom: 15px; z-index: 80;
+            backdrop-filter: blur(12px);
         }
         .search-box input, .search-destination input {
             width: 100%; padding: 12px 15px; border-radius: 12px;
             border: 1px solid rgba(255,255,255,0.2);
-            background: rgba(255,255,255,0.1); color: #fff;
+            background: var(--input-bg); color: var(--text-primary);
             box-sizing: border-box; font-size: 14px; outline: none;
         }
 
         /* Sugerencias Autocompletado */
         .suggestions-box {
             position: absolute; top: 100%; left: 0; right: 0;
-            background: rgba(25, 25, 25, 0.95); backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.2); border-radius: 12px;
+            background: var(--surface-strong); backdrop-filter: blur(10px);
+            border: 1px solid var(--input-border); border-radius: 12px;
             margin-top: 5px; z-index: 2000; max-height: 220px; overflow-y: auto;
-            display: none; box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            display: none; box-shadow: 0 10px 25px var(--shadow-color);
         }
         .suggestion-item {
             padding: 12px 15px; border-bottom: 1px solid rgba(255,255,255,0.05);
-            cursor: pointer; font-size: 0.85rem; color: rgba(255,255,255,0.9);
+            cursor: pointer; font-size: 0.85rem; color: var(--text-primary);
             transition: background 0.2s;
         }
         .suggestion-item:last-child { border-bottom: none; }
@@ -70,12 +135,13 @@
             position: fixed;
             inset: 0;
             z-index: 5000;
-            background: radial-gradient(circle at top, rgba(56, 189, 248, 0.16), transparent 40%), linear-gradient(180deg, #08111f 0%, #0f172a 55%, #111827 100%);
-            color: #fff;
+            background: linear-gradient(180deg, #ffffff 0%, #f7fff8 55%, #eefbf1 100%);
+            color: #0f172a;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            padding: 24px;
+            justify-content: flex-start;
+            padding: 34px 20px 24px;
             box-sizing: border-box;
             transition: opacity 0.35s ease, transform 0.35s ease;
         }
@@ -84,26 +150,81 @@
             pointer-events: none;
             transform: scale(1.01);
         }
-        .startup-card {
-            width: min(92vw, 420px);
+        .startup-hero {
+            width: min(92vw, 460px);
             text-align: center;
-            background: rgba(15, 23, 42, 0.68);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 28px;
-            padding: 28px 22px;
-            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
-            backdrop-filter: blur(18px);
+            padding: 10px 6px 20px;
+        }
+        .startup-hero-icon {
+            width: 148px;
+            height: 148px;
+            margin: 0 auto 10px;
+            border-radius: 42px;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.92), rgba(34, 197, 94, 0.16) 44%, rgba(22, 163, 74, 0.12));
+            border: 1px solid rgba(22, 163, 74, 0.16);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            box-shadow: 0 24px 60px rgba(22, 163, 74, 0.16);
+            position: relative;
+            overflow: hidden;
+        }
+        .startup-hero-icon i {
+            font-size: 5.4rem;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 14px 32px rgba(22, 163, 74, 0.16);
+        }
+        .startup-hero-icon::after {
+            content: "";
+            position: absolute;
+            inset: 18px;
+            border-radius: 50%;
+            border: 1px solid rgba(22, 163, 74, 0.12);
+            box-shadow: inset 0 0 0 18px rgba(255, 255, 255, 0.18);
         }
         .startup-title {
-            margin: 18px 0 8px;
-            font-size: 1.9rem;
+            margin: 16px 0 8px;
+            font-size: 2.05rem;
             line-height: 1.1;
             letter-spacing: 0.02em;
+            color: var(--accent);
+            font-weight: 800;
+        }
+        .startup-brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            padding: 7px 14px;
+            border-radius: 999px;
+            background: rgba(22, 163, 74, 0.1);
+            color: var(--accent);
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
         }
         .startup-copy {
             margin: 0;
-            color: rgba(226, 232, 240, 0.82);
+            color: rgba(15, 23, 42, 0.66);
             font-size: 0.95rem;
+        }
+        .zone-stage {
+            width: min(92vw, 460px);
+            margin-top: 12px;
+            background: rgba(255, 255, 255, 0.92);
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            border-radius: 30px;
+            padding: 24px 18px 20px;
+            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
+            backdrop-filter: blur(14px);
+        }
+        .zone-stage .startup-copy {
+            text-align: center;
+            max-width: 320px;
+            margin: 0 auto;
         }
         .splash-bus-track {
             position: relative;
@@ -118,7 +239,7 @@
             bottom: 12px;
             height: 4px;
             border-radius: 999px;
-            background: linear-gradient(90deg, transparent, rgba(148, 163, 184, 0.55), transparent);
+            background: linear-gradient(90deg, transparent, rgba(22, 163, 74, 0.22), transparent);
         }
         .splash-bus {
             position: absolute;
@@ -127,9 +248,9 @@
             width: 150px;
             height: 62px;
             border-radius: 18px 20px 12px 12px;
-            background: linear-gradient(180deg, #f8fafc 0%, #dbeafe 100%);
-            border: 2px solid rgba(15, 23, 42, 0.15);
-            box-shadow: 0 10px 28px rgba(15, 23, 42, 0.35);
+            background: linear-gradient(180deg, #f8fff9 0%, #dbf7e1 100%);
+            border: 2px solid rgba(22, 163, 74, 0.16);
+            box-shadow: 0 10px 28px rgba(22, 163, 74, 0.16);
             animation: busDrive 2.4s ease-in-out infinite;
         }
         .splash-bus::before {
@@ -140,8 +261,8 @@
             width: 34px;
             height: 22px;
             border-radius: 8px;
-            background: linear-gradient(180deg, #38bdf8 0%, #0ea5e9 100%);
-            box-shadow: 40px 0 0 #38bdf8, 80px 0 0 #38bdf8;
+            background: linear-gradient(180deg, #22c55e 0%, #16a34a 100%);
+            box-shadow: 40px 0 0 #22c55e, 80px 0 0 #22c55e;
         }
         .splash-bus::after {
             content: "";
@@ -180,42 +301,82 @@
             width: 18px;
             height: 10px;
             border-radius: 999px;
-            background: rgba(250, 204, 21, 0.92);
-            box-shadow: 0 0 0 6px rgba(250, 204, 21, 0.12);
+            background: rgba(255, 255, 255, 0.92);
+            box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.12);
             animation: pulseLight 1.1s ease-in-out infinite;
         }
         .zone-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 12px;
-            margin-top: 22px;
+            gap: 14px;
+            margin-top: 20px;
         }
         .zone-card {
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 18px;
-            padding: 16px 14px;
-            background: rgba(255, 255, 255, 0.06);
-            color: #fff;
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            border-radius: 20px;
+            padding: 16px 16px;
+            background: linear-gradient(180deg, #ffffff 0%, #f8fff9 100%);
+            color: #0f172a;
             cursor: pointer;
             text-align: left;
             display: flex;
-            flex-direction: column;
-            gap: 4px;
-            transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+            align-items: center;
+            gap: 14px;
+            transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 10px 24px rgba(15, 23, 42, 0.07);
         }
         .zone-card:hover {
             transform: translateY(-1px);
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.22);
+            border-color: rgba(22, 163, 74, 0.2);
+            box-shadow: 0 14px 28px rgba(15, 23, 42, 0.1);
+        }
+        .zone-card:active {
+            transform: scale(0.99);
+        }
+        .zone-card-ico {
+            width: 74px;
+            height: 74px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            flex: 0 0 74px;
+            background: #e8f8ee;
+            color: var(--accent);
+            overflow: hidden;
+        }
+        .zone-card-ico img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .zone-card-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            min-width: 0;
         }
         .zone-card strong {
-            font-size: 1rem;
+            font-size: 1.03rem;
             letter-spacing: 0.01em;
+            color: #0f172a;
         }
         .zone-card span {
             font-size: 0.84rem;
-            color: rgba(226, 232, 240, 0.72);
+            color: rgba(15, 23, 42, 0.56);
         }
+        .zone-card-arrow {
+            font-size: 1.15rem;
+            color: var(--accent);
+            flex: 0 0 auto;
+            margin-right: 8px;
+        }
+        .zone-card[data-zone="CENTRO"] .zone-card-ico { background: #e8f8ee; color: #16a34a; }
+        .zone-card[data-zone="ORIENTE"] .zone-card-ico { background: #effdf3; color: #22c55e; }
+        .zone-card[data-zone="SUR"] .zone-card-ico { background: #dcfce7; color: #15803d; }
         .zone-card[data-zone="CENTRO"] { border-left: 4px solid #38bdf8; }
         .zone-card[data-zone="ORIENTE"] { border-left: 4px solid #f59e0b; }
         .zone-card[data-zone="SUR"] { border-left: 4px solid #22c55e; }
@@ -225,11 +386,126 @@
             gap: 8px;
             padding: 6px 12px;
             border-radius: 999px;
-            background: rgba(255, 255, 255, 0.08);
+            background: var(--accent-soft);
+            color: var(--accent);
             margin-bottom: 12px;
             font-size: 0.82rem;
             text-transform: uppercase;
             letter-spacing: 0.08em;
+            font-weight: 700;
+        }
+        .data-modal {
+            max-width: 720px;
+            text-align: left;
+        }
+        .data-modal h3,
+        .data-modal h4 {
+            margin-top: 0;
+        }
+        .data-modal-body {
+            max-height: 58vh;
+            overflow-y: auto;
+            padding-right: 8px;
+            line-height: 1.55;
+            color: var(--text-primary);
+        }
+        .data-modal-body ul {
+            margin: 10px 0 16px 18px;
+            padding: 0;
+        }
+        .data-modal-body li {
+            margin-bottom: 8px;
+        }
+        .data-modal-body p {
+            margin: 0 0 12px;
+        }
+        .data-modal-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 18px;
+        }
+        .data-modal-actions .modal-btn {
+            flex: 1 1 180px;
+        }
+        .theme-toggle-active {
+            border-color: #38bdf8 !important;
+            color: #38bdf8 !important;
+        }
+        body.theme-light .sidebar {
+            color: #0f172a;
+        }
+        body.theme-light .sidebar h2,
+        body.theme-light .sidebar label,
+        body.theme-light .sidebar strong,
+        body.theme-light .sidebar span,
+        body.theme-light .sidebar p,
+        body.theme-light .sidebar li,
+        body.theme-light .sidebar .inline-hint,
+        body.theme-light .sidebar .zone-active-badge,
+        body.theme-light .sidebar .search-destination,
+        body.theme-light .sidebar .search-destination *,
+        body.theme-light .modal-content,
+        body.theme-light .modal-content *,
+        body.theme-light .data-modal-body,
+        body.theme-light .data-modal-body *,
+        body.theme-light .guide-modal-actions .modal-btn {
+            color: #0f172a;
+        }
+        body.theme-light .search-box input,
+        body.theme-light .search-destination input,
+        body.theme-light #routeSearch {
+            color: #0f172a;
+            background: rgba(255, 255, 255, 0.92);
+            border-color: rgba(15, 23, 42, 0.12);
+        }
+        body.theme-light .search-box input::placeholder,
+        body.theme-light .search-destination input::placeholder,
+        body.theme-light #routeSearch::placeholder {
+            color: rgba(15, 23, 42, 0.42);
+        }
+        body.theme-light .ruta-master,
+        body.theme-light .route-master {
+            color: #0f172a !important;
+        }
+        body.theme-light .adjust-confirm,
+        body.theme-light .adjust-cancel {
+            color: #0f172a;
+        }
+        body.theme-light .zone-card,
+        body.theme-light .ramal-item,
+        body.theme-light .suggestions-box,
+        body.theme-light .modal-content {
+            color: #0f172a;
+        }
+        body.theme-light .suggestion-item {
+            color: #0f172a;
+        }
+        body.theme-light .modal-content,
+        body.theme-light .suggestions-box,
+        body.theme-light .sidebar {
+            box-shadow: 0 12px 40px rgba(15, 23, 42, 0.12);
+        }
+        .guide-backdrop {
+            position: fixed;
+            inset: 0;
+            z-index: 2990;
+            display: none;
+            pointer-events: none;
+            background: rgba(3, 7, 18, 0.72);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            --guide-hole-x: 50%;
+            --guide-hole-y: 50%;
+            --guide-hole-size: 120px;
+            -webkit-mask-image: radial-gradient(circle var(--guide-hole-size) at var(--guide-hole-x) var(--guide-hole-y), transparent 0, transparent 66px, black 122px);
+            mask-image: radial-gradient(circle var(--guide-hole-size) at var(--guide-hole-x) var(--guide-hole-y), transparent 0, transparent 66px, black 122px);
+        }
+        .guide-backdrop.visible {
+            display: block;
+        }
+        body.theme-light .guide-backdrop {
+            background: rgba(2, 6, 23, 0.58);
         }
         .adjust-controls {
             display: none;
@@ -318,6 +594,21 @@
         .ramal-item.selected-route * { color: #000 !important; }
 
         .ramal-item i { font-size: 1.1rem; width: 22px; text-align: center; }
+        body.theme-light .ramales-container {
+            background: rgba(15, 23, 42, 0.04);
+        }
+        body.theme-light .ramal-item {
+            background: rgba(255, 255, 255, 0.94);
+            color: #0f172a;
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            box-shadow: 0 6px 16px rgba(15, 23, 42, 0.06);
+        }
+        body.theme-light .ramal-item:hover {
+            background: #ffffff;
+        }
+        body.theme-light .ramal-item.selected-route {
+            box-shadow: 0 8px 20px rgba(15, 23, 42, 0.1);
+        }
 
         /* Botón Geolocalización */
         .btn-location {
@@ -356,6 +647,12 @@
         .btn-flotante-viaje:active { transform: translateX(-50%) scale(0.95); }
         .btn-tomar-ruta { background: #3498db; color: #fff; box-shadow: 0 10px 25px rgba(52, 152, 219, 0.4); }
         .btn-cancelar-ruta { background: #e74c3c; color: #fff; box-shadow: 0 10px 25px rgba(231, 76, 60, 0.4); }
+        body.theme-light .btn-tomar-ruta {
+            background: linear-gradient(135deg, #2563eb, #38bdf8);
+        }
+        body.theme-light .btn-cancelar-ruta {
+            background: linear-gradient(135deg, #ef4444, #fb7185);
+        }
 
         /* MODALES */
         .modal-overlay {
@@ -364,9 +661,9 @@
             z-index: 3000; display: none; justify-content: center; align-items: center;
         }
         .modal-content {
-            background: rgba(30, 30, 30, 0.95); border: 1px solid rgba(255,255,255,0.1);
+            background: var(--surface-strong); border: 1px solid var(--border-color);
             padding: 25px; border-radius: 20px; width: 85%; max-width: 350px; text-align: center;
-            color: white; box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+            color: var(--text-primary); box-shadow: 0 15px 40px var(--shadow-color);
         }
         .modal-icon { font-size: 3rem; margin-bottom: 15px; }
         .modal-btns { display: flex; gap: 10px; margin-top: 25px; }
@@ -377,6 +674,168 @@
         .btn-primary { background: #2ecc71; color: #000; }
         .btn-secondary { background: rgba(255,255,255,0.1); color: #fff; }
         .btn-danger { background: #e74c3c; color: #fff; }
+        body.theme-light .btn-secondary {
+            background: rgba(15, 23, 42, 0.06);
+            color: #0f172a;
+        }
+        body.theme-light .btn-primary {
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: #fff;
+        }
+        body.theme-light .modal-overlay {
+            background: rgba(15, 23, 42, 0.42);
+        }
+
+        .guide-stepper {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+            margin: 10px 0 16px;
+            flex-wrap: wrap;
+        }
+        .guide-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.25);
+        }
+        .guide-dot.active {
+            background: #38bdf8;
+            box-shadow: 0 0 0 6px rgba(56, 189, 248, 0.15);
+        }
+        .guide-focus-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: rgba(56, 189, 248, 0.14);
+            color: #38bdf8;
+            font-size: 0.82rem;
+            margin-bottom: 12px;
+        }
+        .guide-brief {
+            font-size: 0.92rem;
+            line-height: 1.45;
+            margin: 0 0 10px;
+            color: var(--text-primary);
+        }
+        .guide-spotlight {
+            position: relative;
+            z-index: 4000 !important;
+            box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.26), 0 0 0 18px rgba(34, 197, 94, 0.08) !important;
+            border-radius: 18px !important;
+        }
+        .guide-highlight {
+            position: relative;
+            z-index: 1300 !important;
+            box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.34), 0 0 0 10px rgba(34, 197, 94, 0.14) !important;
+            border-color: #38bdf8 !important;
+        }
+        body.theme-light .guide-highlight {
+            box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.18), 0 0 0 10px rgba(34, 197, 94, 0.1) !important;
+        }
+        .guide-modal-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 18px;
+        }
+        .guide-modal-actions .modal-btn {
+            flex: 1 1 140px;
+        }
+        body.theme-light .guide-focus-label {
+            background: rgba(22, 163, 74, 0.1);
+            color: var(--accent);
+        }
+        body.theme-light .guide-brief,
+        body.theme-light .guide-modal-actions .modal-btn {
+            color: #0f172a;
+        }
+        body.theme-light .guide-modal-actions .btn-primary {
+            color: #fff;
+        }
+        body.theme-light .btn-clear {
+            background: rgba(239, 68, 68, 0.08);
+            border-color: rgba(239, 68, 68, 0.35);
+        }
+        body.theme-light .btn-clear:hover {
+            background: #ef4444;
+            color: #fff;
+        }
+        body.theme-light .search-box {
+            background: rgba(255, 255, 255, 0.55);
+            border-radius: 14px;
+        }
+        body.theme-light .search-destination {
+            background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(248,250,252,0.98)) !important;
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            box-shadow: 0 12px 24px rgba(15, 23, 42, 0.06);
+        }
+        .inline-hint {
+            margin-top: 8px;
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .icon-action-btn {
+            width: 52px;
+            height: 52px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            background: var(--surface-soft);
+            color: var(--accent-ink);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            flex: 0 0 52px;
+            box-shadow: 0 10px 22px rgba(0,0,0,0.12);
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+        .icon-action-btn:hover {
+            transform: translateY(-1px);
+            background: rgba(255,255,255,0.14);
+        }
+        .icon-action-btn:active {
+            transform: scale(0.96);
+        }
+        body.theme-light .icon-action-btn {
+            background: #edfdf1;
+            color: var(--accent);
+            border-color: rgba(22, 163, 74, 0.2);
+        }
+        body.theme-light .inline-hint {
+            color: rgba(15,23,42,0.58);
+        }
+        body.theme-light .zone-active-badge {
+            background: var(--accent-soft);
+            color: var(--accent);
+        }
+        body.theme-light .startup-card {
+            background: rgba(255,255,255,0.86);
+            border-color: rgba(15, 23, 42, 0.08);
+        }
+        body.theme-light .zone-stage {
+            background: rgba(255,255,255,0.96);
+        }
+        body.theme-light .startup-title,
+        body.theme-light .startup-copy {
+            color: #0f172a;
+        }
+        body.theme-light .startup-copy {
+            color: rgba(15, 23, 42, 0.7);
+        }
+        body.theme-light .suggestion-item:hover {
+            background: rgba(59, 130, 246, 0.08);
+        }
+        body.theme-light .top-banner {
+            background: rgba(255, 255, 255, 0.9);
+            color: #0f172a;
+            border-color: rgba(22, 163, 74, 0.12);
+        }
 
         @keyframes flashDanger {
             0%, 100% { background-color: rgba(231, 76, 60, 0.95); }
@@ -422,39 +881,44 @@
 <body>
 
 <div id="startupOverlay" class="startup-overlay" role="dialog" aria-modal="true" aria-labelledby="startupTitle">
-    <div class="startup-card">
-        <div id="splashStage">
-            <div class="splash-bus-track" aria-hidden="true">
-                <div class="splash-road"></div>
-                <div class="splash-bus">
-                    <div class="bus-front"></div>
-                    <div class="bus-light"></div>
-                    <div class="bus-wheel left"></div>
-                    <div class="bus-wheel right"></div>
-                </div>
-            </div>
-            <h1 id="startupTitle" class="startup-title">RutAPP Morelos</h1>
-            <p class="startup-copy">Cargando rutas, zonas y recomendaciones inteligentes.</p>
+    <div id="splashStage" class="startup-hero">
+        <div class="startup-brand"><i class="fa fa-location-dot"></i> Bienvenido a RutAPP</div>
+        <div class="startup-hero-icon" aria-hidden="true">
+            <i class="fa fa-map-location-dot startup-hero-map"></i>
         </div>
+        <h1 id="startupTitle" class="startup-title">RutAPP Morelos</h1>
+        <p class="startup-copy">Cargando rutas, zonas y recomendaciones inteligentes.</p>
+    </div>
 
-        <div id="zoneStage" class="hidden">
-            <div class="zone-pill"><i class="fa fa-location-dot"></i> Selección de zona</div>
-            <h2 style="margin: 0 0 8px; font-size: 1.45rem;">Elige tu zona de trabajo</h2>
-            <p class="startup-copy">Filtraremos rutas, caminos, sugerencias y resultados según tu zona durante toda la sesión.</p>
-            <div class="zone-grid">
-                <button class="zone-card" data-zone="CENTRO" onclick="seleccionarZona('CENTRO')">
+    <div id="zoneStage" class="zone-stage hidden">
+        <div class="zone-pill"><i class="fa fa-location-dot"></i> Selección de zona</div>
+        <h2 style="margin: 0 0 8px; font-size: 1.45rem; text-align: center;">Elige tu zona de trabajo</h2>
+        <p class="startup-copy">Filtraremos rutas, caminos, sugerencias y resultados según tu zona durante toda la sesión.</p>
+        <div class="zone-grid">
+            <button class="zone-card" data-zone="CENTRO" onclick="seleccionarZona('CENTRO')">
+                <div class="zone-card-ico"><img src="assets/zones/zona-centro.png" alt="Zona Centro"></div>
+                <div class="zone-card-body">
                     <strong>Zona Centro</strong>
                     <span>Cuernavaca, Jiutepec y corredores centrales.</span>
-                </button>
-                <button class="zone-card" data-zone="ORIENTE" onclick="seleccionarZona('ORIENTE')">
+                </div>
+                <i class="fa fa-chevron-right zone-card-arrow"></i>
+            </button>
+            <button class="zone-card" data-zone="ORIENTE" onclick="seleccionarZona('ORIENTE')">
+                <div class="zone-card-ico"><img src="assets/zones/zona-oriente.png" alt="Zona Oriente"></div>
+                <div class="zone-card-body">
                     <strong>Zona Oriente</strong>
                     <span>Cuautla, Yecapixtla, Yautepec y alrededores.</span>
-                </button>
-                <button class="zone-card" data-zone="SUR" onclick="seleccionarZona('SUR')">
+                </div>
+                <i class="fa fa-chevron-right zone-card-arrow"></i>
+            </button>
+            <button class="zone-card" data-zone="SUR" onclick="seleccionarZona('SUR')">
+                <div class="zone-card-ico"><img src="assets/zones/zona-sur.png" alt="Zona Sur"></div>
+                <div class="zone-card-body">
                     <strong>Zona Sur</strong>
                     <span>Jojutla, Zacatepec, Puente de Ixtla y región sur.</span>
-                </button>
-            </div>
+                </div>
+                <i class="fa fa-chevron-right zone-card-arrow"></i>
+            </button>
         </div>
     </div>
 </div>
@@ -466,28 +930,39 @@
 <div class="sidebar">
     <div class="header-controls">
         <h2 style="margin:0; font-size: 1.1rem;"><i class="fa fa-map-marked-alt"></i> RutAPP Morelos</h2>
-        <button class="btn-clear" onclick="clearAllLayers()"><i class="fa fa-trash-can"></i> Limpiar</button>
+        <button id="btnLimpiar" class="btn-clear" onclick="clearAllLayers()"><i class="fa fa-trash-can"></i> Limpiar</button>
+    </div>
+    <div class="header-actions">
+        <button id="btnInicio" class="header-action" onclick="volverInicio()" title="Inicio" aria-label="Inicio"><i class="fa fa-house"></i></button>
+        <button id="btnGuia" class="header-action" onclick="abrirGuiaUsuario()" title="Guía" aria-label="Guía"><i class="fa fa-circle-question"></i></button>
+        <button id="btnPrivacidad" class="header-action" onclick="abrirAvisoPrivacidad()" title="Privacidad" aria-label="Privacidad"><i class="fa fa-file-shield"></i></button>
+        <button id="themeToggleBtn" class="header-action" onclick="toggleTheme()" title="Modo Oscuro" aria-label="Modo Oscuro"><i class="fa fa-moon"></i></button>
     </div>
     <div id="zonaActualBadge" class="zone-active-badge hidden"></div>
 
     <div class="search-destination" style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 16px; margin-bottom: 20px;">
         <label style="font-size: 0.85rem; opacity: 0.9; font-weight: 600;"><i class="fa fa-location-arrow"></i> ¿A dónde quieres ir?</label>
         <div style="margin-top: 10px; position: relative;">
-            <input type="text" id="destinationInput" placeholder="Ej: Sanborns, UAEM, IMSS..." autocomplete="off" oninput="buscarLugarAPI()">
-            <div id="suggestionsBox" class="suggestions-box"></div>
+            <div style="display: flex; gap: 10px; align-items: center;">
+                <div style="position: relative; flex: 1;">
+                    <input type="text" id="destinationInput" placeholder="Ej: Sanborns, UAEM, IMSS..." autocomplete="off" oninput="buscarLugarAPI()">
+                    <div id="suggestionsBox" class="suggestions-box"></div>
+                </div>
+                <button id="btnAjustarDestino" class="icon-action-btn" onclick="activarAjusteDestinoManual()" title="Ajustar destino manualmente" aria-label="Ajustar destino manualmente">
+                    <i class="fa fa-location-crosshairs"></i>
+                </button>
+            </div>
+            <div class="inline-hint"><i class="fa fa-hand-pointer"></i> Si no aparece la dirección, fija el destino manualmente.</div>
         </div>
 
         <div style="display: flex; gap: 10px; margin-top: 10px;">
-            <button class="ruta-master" style="background: #ffffff; color: #000; flex: 1; margin-top: 0;" onclick="recomendarRutas()">
+            <button id="btnCalcularRuta" class="ruta-master" style="background: #ffffff; color: #000; flex: 1; margin-top: 0;" onclick="recomendarRutas()">
                 <span><i class="fa fa-route"></i> Calcular Ruta</span>
             </button>
-            <button class="ruta-master" style="background: rgba(255,255,255,0.1); color: #fff; width: 50px; flex: none; justify-content: center; margin-top: 0;" onclick="invertirRuta()" title="Invertir el Regreso">
+            <button id="btnInvertirRuta" class="ruta-master" style="background: rgba(255,255,255,0.1); color: #fff; width: 50px; flex: none; justify-content: center; margin-top: 0;" onclick="invertirRuta()" title="Invertir el Regreso">
                 <i class="fa fa-retweet"></i>
             </button>
         </div>
-        <button class="ruta-master" style="background: rgba(56, 189, 248, 0.15); color: #bae6fd; margin-top: 10px;" onclick="activarAjusteDestinoManual()">
-            <span><i class="fa fa-arrows-alt"></i> Ajustar destino manualmente</span>
-        </button>
         <div id="adjustDestinationControls" class="adjust-controls">
             <button class="adjust-confirm" onclick="confirmarAjusteDestino()">Confirmar ubicación</button>
             <button class="adjust-cancel" onclick="cancelarAjusteDestino()">Cancelar ajuste</button>
@@ -781,6 +1256,75 @@
     </div>
 </div>
 
+<div id="modalAvisoPrivacidad" class="modal-overlay">
+    <div class="modal-content data-modal">
+        <i class="fa fa-shield-halved modal-icon" style="color: #38bdf8;"></i>
+        <h3>Bienvenido a RutAPP Morelos</h3>
+        <div class="data-modal-body">
+            <p>RutAPP Morelos es una aplicación de carácter informativo diseñada para ayudar a los usuarios a consultar rutas de transporte público y obtener sugerencias de trayectos dentro de las zonas disponibles de la aplicación.</p>
+            <p>La información mostrada se basa en datos recopilados y actualizados periódicamente; sin embargo, puede presentar variaciones por causas ajenas a la aplicación.</p>
+            <p>Entre estas circunstancias pueden encontrarse cambios de rutas, obras públicas, accidentes viales, cierres de calles, manifestaciones, eventos especiales, desastres naturales, condiciones climáticas, modificaciones de concesionarios o autoridades, e información desactualizada o incompleta.</p>
+            <p>Las recomendaciones de subida, descenso y trayectos deben considerarse únicamente como una guía de apoyo para el usuario.</p>
+            <p>El uso de la aplicación implica la aceptación de este aviso.</p>
+        </div>
+        <div class="data-modal-actions">
+            <button class="modal-btn btn-primary" onclick="aceptarAvisoPrivacidad()"><i class="fa fa-check"></i> Aceptar</button>
+            <button class="modal-btn btn-secondary" onclick="abrirAvisoPrivacidadCompleto()"><i class="fa fa-file-lines"></i> Aviso de Privacidad Completo</button>
+        </div>
+    </div>
+</div>
+
+<div id="modalAvisoPrivacidadCompleto" class="modal-overlay">
+    <div class="modal-content data-modal">
+        <i class="fa fa-file-shield modal-icon" style="color: #22c55e;"></i>
+        <h3>Aviso de Privacidad Completo</h3>
+        <div class="data-modal-body">
+            <p>La ubicación se utiliza únicamente para calcular rutas y mejorar las recomendaciones. No se comparte con terceros ni se vende información personal.</p>
+            <p>El usuario puede revocar los permisos desde la configuración del dispositivo en cualquier momento.</p>
+            <p>RutAPP Morelos no garantiza que rutas, horarios, recorridos o sugerencias estén disponibles en todo momento. La información puede cambiar por causas ajenas a la aplicación.</p>
+            <p>Al usar la aplicación aceptas que las recomendaciones son de apoyo y que debes verificar las condiciones reales de la ruta, el sentido de circulación y la disponibilidad del transporte al momento del viaje.</p>
+            <ul>
+                <li>La ubicación solo se usa para calcular rutas y recomendaciones.</li>
+                <li>No se comparte la ubicación con terceros.</li>
+                <li>No se vende información personal.</li>
+                <li>Los permisos se pueden revocar desde el sistema operativo.</li>
+            </ul>
+        </div>
+        <div class="data-modal-actions">
+            <button class="modal-btn btn-secondary" onclick="cerrarAvisoPrivacidadCompleto()"><i class="fa fa-arrow-left"></i> Volver</button>
+        </div>
+    </div>
+</div>
+
+<div id="modalGuiaUsuario" class="modal-overlay">
+    <div class="modal-content data-modal">
+        <i class="fa fa-map-location-dot modal-icon" style="color: #22c55e; font-size: 3.4rem;"></i>
+        <h3>Guía breve</h3>
+        <div class="data-modal-body">
+            <p>Te mostraremos solo lo esencial y resaltaremos cada campo al que debas prestar atención.</p>
+        </div>
+        <div class="data-modal-actions">
+            <button class="modal-btn btn-secondary" onclick="cerrarGuiaUsuario()"><i class="fa fa-check"></i> Entendido</button>
+        </div>
+    </div>
+</div>
+<div id="guideBackdrop" class="guide-backdrop" aria-hidden="true"></div>
+
+<div id="modalPermisoUbicacion" class="modal-overlay">
+    <div class="modal-content data-modal">
+        <i class="fa fa-location-crosshairs modal-icon" style="color: #38bdf8;"></i>
+        <h3>Permiso de ubicación</h3>
+        <div class="data-modal-body">
+            <p>Usaremos tu ubicación únicamente para calcular rutas y mejorar la recomendación de subida y descenso.</p>
+            <p>Si aceptas, centraremos el mapa en tu posición actual. Si no aceptas, podrás colocar tu origen manualmente sobre el mapa.</p>
+        </div>
+        <div class="data-modal-actions">
+            <button class="modal-btn btn-primary" onclick="aceptarUbicacionInicial()"><i class="fa fa-check"></i> Permitir ubicación</button>
+            <button class="modal-btn btn-secondary" onclick="rechazarUbicacionInicial()"><i class="fa fa-hand"></i> Usar manualmente</button>
+        </div>
+    </div>
+</div>
+
 <div id="pantallaAlerta" class="pantalla-alerta">
     <h1><i class="fa fa-bullhorn"></i> ¡Atención!</h1>
     <p>Estás a unos metros de tu destino.<br><b>Prepárate para tocar el timbre.</b></p>
@@ -792,18 +1336,36 @@
 <script>
     // 1. CAPAS BASE: OSCURO Y SATÉLITE
     const mapaOscuro = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', { attribution: '&copy; CARTO' });
+    const mapaClaro = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', { attribution: '&copy; CARTO' });
     const mapaSatelite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{y}/{x}/{z}', { attribution: 'Tiles &copy; Esri' });
 
-    const map = L.map('map', { center: [18.9218, -99.2347], zoom: 13, layers: [mapaOscuro], zoomControl: false });
+    const MAPA_INICIAL = { center: [18.9218, -99.2347], zoom: 13 };
+    const map = L.map('map', { center: MAPA_INICIAL.center, zoom: MAPA_INICIAL.zoom, layers: [mapaOscuro], zoomControl: false });
     L.control.zoom({ position: 'topright' }).addTo(map);
 
-    const baseMaps = { "Modo Oscuro": mapaOscuro, "Vista Satélite": mapaSatelite };
+    const baseMaps = { "Modo Oscuro": mapaOscuro, "Modo Claro": mapaClaro, "Vista Satélite": mapaSatelite };
     L.control.layers(baseMaps, null, { position: 'topright' }).addTo(map);
+    let capaBaseActual = mapaOscuro;
+
+    function establecerBaseMapa(capaBase) {
+        if (capaBaseActual === capaBase && map.hasLayer(capaBaseActual)) return;
+        [mapaOscuro, mapaClaro, mapaSatelite].forEach((capa) => {
+            if (map.hasLayer(capa)) map.removeLayer(capa);
+        });
+        capaBaseActual = capaBase;
+        if (!map.hasLayer(capaBaseActual)) map.addLayer(capaBaseActual);
+    }
 
     const capasActivas = {};
     let caminataLayer = null;
     let abordajeMarker = null;
     let flechasRutaLayer = null;
+    let locationPromptShown = false;
+    let privacyAccepted = false;
+    let routeCatalogManifest = null;
+    let routeCatalogZoneCache = {};
+    let requestedInitialLocation = false;
+    let currentTheme = localStorage.getItem('rutapp.theme') || 'dark';
 
     // VARIABLES MODO VIAJE
     let puntoDescensoGuardado = null;
@@ -850,18 +1412,44 @@
         limpiarFlechasRuta();
         document.getElementById('recomendaciones-panel').style.display = 'none';
         if (marcadorDestinoUI) map.removeLayer(marcadorDestinoUI);
+        marcadorDestinoUI = null;
+        if (userMarker) map.removeLayer(userMarker);
+        if (accuracyCircle) map.removeLayer(accuracyCircle);
+        userMarker = null;
+        accuracyCircle = null;
+        destinoCoordenadasReal = null;
+        destinoAnteriorAjuste = null;
+        modoAjusteDestino = false;
+        puntoDescensoGuardado = null;
+        const controls = document.getElementById('adjustDestinationControls');
+        if (controls) controls.classList.remove('active');
+        const destinationInput = document.getElementById('destinationInput');
+        if (destinationInput) destinationInput.value = '';
+        clearTimeout(timeoutBusqueda);
+        const suggestionsBox = document.getElementById('suggestionsBox');
+        if (suggestionsBox) {
+            suggestionsBox.innerHTML = '';
+            suggestionsBox.style.display = 'none';
+        }
+        const lista = document.getElementById('lista-recomendados');
+        if (lista) lista.innerHTML = '';
 
         // Resetear UI de Viaje
         document.getElementById('btnTomarRuta').style.display = 'none';
         document.getElementById('btnCancelarRuta').style.display = 'none';
         document.getElementById('topBanner').style.display = 'none';
         cerrarModales();
-        terminarAlerta();
+        document.getElementById('pantallaAlerta').style.display = 'none';
 
         if (modoViajeTracker) {
             navigator.geolocation.clearWatch(modoViajeTracker);
             modoViajeTracker = null;
         }
+    }
+
+    function resetearMapaInicial() {
+        clearAllLayers();
+        map.setView(MAPA_INICIAL.center, MAPA_INICIAL.zoom);
     }
 
     // Calcular padding dinámico para móviles
@@ -871,6 +1459,212 @@
             paddingTopLeft: [50, 50],
             paddingBottomRight: [50, isMobile ? (window.innerHeight * 0.55) : 50]
         };
+    }
+
+    function aplicarTema(nombreTema) {
+        currentTheme = nombreTema === 'light' ? 'light' : 'dark';
+        document.body.classList.toggle('theme-light', currentTheme === 'light');
+        localStorage.setItem('rutapp.theme', currentTheme);
+        establecerBaseMapa(currentTheme === 'light' ? mapaClaro : mapaOscuro);
+
+        const themeBtn = document.getElementById('themeToggleBtn');
+        if (themeBtn) {
+            themeBtn.innerHTML = currentTheme === 'light'
+                ? '<i class="fa fa-sun"></i>'
+                : '<i class="fa fa-moon"></i>';
+            themeBtn.title = currentTheme === 'light' ? 'Modo Claro' : 'Modo Oscuro';
+            themeBtn.setAttribute('aria-label', themeBtn.title);
+            themeBtn.classList.toggle('theme-toggle-active', currentTheme === 'light');
+        }
+
+        const themeColor = currentTheme === 'light' ? '#f8fafc' : '#0f172a';
+        let themeMeta = document.querySelector('meta[name="theme-color"]');
+        if (themeMeta) themeMeta.setAttribute('content', themeColor);
+    }
+
+    function toggleTheme() {
+        aplicarTema(currentTheme === 'light' ? 'dark' : 'light');
+    }
+
+    function cerrarModalPorId(id) {
+        const modal = document.getElementById(id);
+        if (modal) modal.style.display = 'none';
+    }
+
+    const GUIA_VERSION = '2026-06-11';
+    const GUIA_TUTORIAL = [
+        {
+            title: 'Bienvenido a RutAPP Morelos',
+            focus: null,
+            icon: 'fa-map-location-dot',
+            color: '#38bdf8',
+            text: 'Primero elige una zona para que la app cargue solo sus rutas y catálogos. Después podrás buscar tu destino con una navegación más precisa.',
+            bullets: [
+                'Zona Centro, Oriente o Sur.',
+                'La recomendación se ajusta a la zona seleccionada.',
+                'Puedes regresar al inicio cuando quieras.'
+            ]
+        },
+        {
+            title: 'Escribe tu destino',
+            focus: '#destinationInput',
+            icon: 'fa-location-dot',
+            color: '#38bdf8',
+            text: 'Aquí introduces el lugar al que quieres llegar. Puedes escribir una colonia, un punto conocido o usar una sugerencia para llenar el campo más rápido.',
+            bullets: [
+                'Empieza a escribir y verás sugerencias.',
+                'La app filtra resultados por zona.',
+                'Si ya conoces tu destino, selecciónalo de la lista.'
+            ]
+        },
+        {
+            title: 'Calcula la ruta',
+            focus: '#btnCalcularRuta',
+            icon: 'fa-route',
+            color: '#22c55e',
+            text: 'Cuando ya tengas el destino, presiona Calcular Ruta para que la app analice el sentido, la subida, la bajada y la caminata final.',
+            bullets: [
+                'La app busca la opción más conveniente.',
+                'También evita rutas que se alejan de tu destino.',
+                'El resultado te muestra la mejor parada para subir y bajar.'
+            ]
+        },
+        {
+            title: 'Revisa las recomendaciones',
+            focus: '#recomendaciones-panel',
+            icon: 'fa-list-check',
+            color: '#f59e0b',
+            text: 'Aquí aparecen las rutas recomendadas. La primera suele ser la mejor opción y te muestra cuánto caminar, dónde subir y dónde bajar.',
+            bullets: [
+                'La mejor opción se marca como recomendación principal.',
+                'Cada tarjeta incluye la caminata y la bajada sugerida.',
+                'Toca una opción para verla trazada en el mapa.'
+            ]
+        },
+        {
+            title: 'Ajusta el destino manualmente',
+            focus: '#btnAjustarDestino',
+            icon: 'fa-arrows-up-down-left-right',
+            color: '#a855f7',
+            text: 'Si no sabes la dirección exacta, usa Ajustar destino manualmente para mover el marcador en el mapa. Confirma solo cuando el punto esté bien colocado.',
+            bullets: [
+                'Arrastra el pin hasta el lugar correcto.',
+                'Confirma para recalcular la ruta.',
+                'Cancela si quieres volver al punto anterior.'
+            ]
+        },
+        {
+            title: 'Explora el menú',
+            focus: '#btnLimpiar',
+            icon: 'fa-screwdriver-wrench',
+            color: '#ef4444',
+            text: 'Usa Inicio para cambiar de zona, Privacidad para consultar el aviso, Guía para volver a este tutorial y Limpiar para reiniciar todo el mapa.',
+            bullets: [
+                'Inicio regresa al selector de zonas.',
+                'Privacidad muestra el aviso completo.',
+                'Limpiar borra origen, destino y resultados.'
+            ]
+        }
+    ];
+    let pasoGuiaActual = 0;
+    let guiaObjetivoAnterior = null;
+
+    function limpiarResaltadoGuia() {
+        if (guiaObjetivoAnterior) {
+            const anterior = document.querySelector(guiaObjetivoAnterior);
+            if (anterior) anterior.classList.remove('guide-highlight');
+            guiaObjetivoAnterior = null;
+        }
+    }
+
+    function renderizarGuiaPaso() {
+        const paso = GUIA_TUTORIAL[pasoGuiaActual];
+        const titulo = document.getElementById('guideTitle');
+        const texto = document.getElementById('guideText');
+        const lista = document.getElementById('guideList');
+        const stepper = document.getElementById('guideStepper');
+        const focusLabel = document.getElementById('guideFocusLabel');
+        const btnBack = document.getElementById('guideBackBtn');
+        const btnNext = document.getElementById('guideNextBtn');
+
+        if (!paso || !titulo || !texto || !lista || !stepper || !focusLabel) return;
+
+        titulo.textContent = paso.title;
+        texto.textContent = paso.text;
+        lista.innerHTML = (paso.bullets || []).map((bullet) => `<li>${bullet}</li>`).join('');
+        focusLabel.innerHTML = `<i class="fa ${paso.icon}"></i> ${paso.focus ? 'Foco activo' : 'Recorrido general'}`;
+        focusLabel.style.color = paso.color;
+        focusLabel.style.background = `${paso.color}1c`;
+
+        stepper.innerHTML = GUIA_TUTORIAL.map((_, index) => `<span class="guide-dot ${index === pasoGuiaActual ? 'active' : ''}"></span>`).join('');
+
+        if (btnBack) btnBack.disabled = pasoGuiaActual === 0;
+        if (btnBack) btnBack.style.opacity = pasoGuiaActual === 0 ? '0.45' : '1';
+        if (btnNext) {
+            const ultimoPaso = pasoGuiaActual >= GUIA_TUTORIAL.length - 1;
+            btnNext.innerHTML = ultimoPaso ? '<i class="fa fa-flag-checkered"></i> Terminar' : '<i class="fa fa-arrow-right"></i> Siguiente';
+            btnNext.onclick = ultimoPaso ? cerrarGuiaUsuario : () => irPasoGuia(1);
+        }
+
+        limpiarResaltadoGuia();
+        if (paso.focus) {
+            const objetivo = document.querySelector(paso.focus);
+            if (objetivo) {
+                objetivo.classList.add('guide-highlight');
+                guiaObjetivoAnterior = paso.focus;
+                if (typeof objetivo.scrollIntoView === 'function') {
+                    objetivo.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
+                }
+                if (typeof objetivo.focus === 'function' && objetivo.tagName === 'INPUT') {
+                    setTimeout(() => objetivo.focus({ preventScroll: true }), 150);
+                }
+            }
+        }
+    }
+
+    function irPasoGuia(delta) {
+        pasoGuiaActual = Math.min(GUIA_TUTORIAL.length - 1, Math.max(0, pasoGuiaActual + delta));
+        renderizarGuiaPaso();
+    }
+
+    function abrirGuiaUsuario() {
+        pasoGuiaActual = 0;
+        document.getElementById('modalGuiaUsuario').style.display = 'flex';
+        renderizarGuiaPaso();
+    }
+
+    function cerrarGuiaUsuario() {
+        limpiarResaltadoGuia();
+        localStorage.setItem('rutapp.guide.version', GUIA_VERSION);
+        cerrarModalPorId('modalGuiaUsuario');
+    }
+
+    function mostrarGuiaInicialSiHaceFalta() {
+        const guideVersion = localStorage.getItem('rutapp.guide.version');
+        if (guideVersion === GUIA_VERSION) return;
+        setTimeout(() => abrirGuiaUsuario(), 800);
+    }
+
+    function montarGuiaUsuario() {
+        const modal = document.getElementById('modalGuiaUsuario');
+        if (!modal || modal.dataset.montada === '1') return;
+        modal.innerHTML = `
+            <div class="modal-content data-modal">
+                <i class="fa fa-circle-question modal-icon" style="color: #f59e0b;"></i>
+                <h3 id="guideTitle">Guía de uso</h3>
+                <div id="guideFocusLabel" class="guide-focus-label"><i class="fa fa-bullseye"></i> Foco activo</div>
+                <div id="guideStepper" class="guide-stepper"></div>
+                <div class="data-modal-body">
+                    <p id="guideText"></p>
+                    <ul id="guideList"></ul>
+                </div>
+                <div class="guide-modal-actions">
+                    <button id="guideBackBtn" class="modal-btn btn-secondary" onclick="irPasoGuia(-1)"><i class="fa fa-arrow-left"></i> Atrás</button>
+                    <button id="guideNextBtn" class="modal-btn btn-primary" onclick="irPasoGuia(1)"><i class="fa fa-arrow-right"></i> Siguiente</button>
+                    <button class="modal-btn btn-secondary" onclick="cerrarGuiaUsuario()"><i class="fa fa-check"></i> Entendido</button>
+                </div>
+            </div>`;
+        modal.dataset.montada = '1';
     }
 
     function limpiarFlechasRuta() {
@@ -907,6 +1701,11 @@
         return (Math.atan2(y, x) * 180 / Math.PI + 360) % 360;
     }
 
+    function diferenciaAngular(a, b) {
+        const diff = Math.abs(a - b) % 360;
+        return diff > 180 ? 360 - diff : diff;
+    }
+
     function agregarFlechasRuta(data, color) {
         const coordinates = obtenerCoordenadasLinea(data);
         if (coordinates.length < 2) return;
@@ -938,6 +1737,12 @@
     async function toggleLayer(key, archivo, color) {
         const item = document.getElementById(`item-${key}`);
         const icon = document.getElementById(`icon-${key}`);
+        const zonaRuta = obtenerZonaRutaPorArchivo(archivo);
+
+        if (!rutaVisibleEnZona(zonaRuta)) {
+            alert('Esa ruta no pertenece a la zona seleccionada.');
+            return;
+        }
 
         if (capasActivas[key]) {
             map.removeLayer(capasActivas[key]);
@@ -990,7 +1795,13 @@
         }
     }
 
-    function getUserLocation() { map.locate({ setView: true, maxZoom: 16, enableHighAccuracy: true }); }
+    function getUserLocation() {
+        if (!navigator.geolocation) {
+            alert('Tu navegador no soporta geolocalización. Podrás marcar tu origen manualmente.');
+            return;
+        }
+        map.locate({ setView: true, maxZoom: 16, enableHighAccuracy: true });
+    }
 
     map.on('locationfound', function(e) {
         const radius = e.accuracy / 2;
@@ -998,11 +1809,28 @@
         if (!accuracyCircle) {
             accuracyCircle = L.circle(e.latlng, radius, { color: "#007aff", fillColor: "#007aff", fillOpacity: 0.15, weight: 1 }).addTo(map);
         } else { accuracyCircle.setRadius(radius); }
+        map.setView(e.latlng, Math.max(map.getZoom(), 16));
+    });
+
+    map.on('locationerror', function(e) {
+        console.warn('Error de ubicación:', e && e.message ? e.message : e);
+        localStorage.setItem('rutapp.location.preference', 'manual');
+        alert('No pudimos obtener tu ubicación. Puedes colocar tu origen manualmente tocando el mapa.');
     });
 
     map.on('contextmenu', function(e) {
         createUserMarker(e.latlng);
         if (destinoCoordenadasReal && document.getElementById('recomendaciones-panel').style.display === 'block') { recomendarRutas(); }
+    });
+
+    map.on('click', function(e) {
+        const preferenciaUbicacion = localStorage.getItem('rutapp.location.preference');
+        if (preferenciaUbicacion === 'manual' || !userMarker) {
+            createUserMarker(e.latlng);
+            if (destinoCoordenadasReal && document.getElementById('recomendaciones-panel').style.display === 'block') {
+                recomendarRutas();
+            }
+        }
     });
 
     // 4. AUTOCOMPLETADO
@@ -1013,7 +1841,13 @@
         { nombre: "IMSS Plan de Ayala", tipo: "lugar", lat: 18.9189, lon: -99.2132, zonas: ['CENTRO'] },
         { nombre: "Walmart Jiutepec", tipo: "lugar", lat: 18.8833, lon: -99.1747, zonas: ['CENTRO'] },
         { nombre: "CIVAC (Centro)", tipo: "lugar", lat: 18.8950, lon: -99.1820, zonas: ['CENTRO'] },
-        { nombre: "Bodega Aurrera Jiutepec", tipo: "lugar", lat: 18.8856, lon: -99.1732, zonas: ['CENTRO'] }
+        { nombre: "Bodega Aurrera Jiutepec", tipo: "lugar", lat: 18.8856, lon: -99.1732, zonas: ['CENTRO'] },
+        { nombre: "Zócalo de Cuautla", tipo: "lugar", lat: 18.8100, lon: -98.9350, zonas: ['ORIENTE'] },
+        { nombre: "Hospital General de Cuautla", tipo: "lugar", lat: 18.8045, lon: -98.9379, zonas: ['ORIENTE'] },
+        { nombre: "Centro de Yautepec", tipo: "lugar", lat: 18.8837, lon: -99.0597, zonas: ['ORIENTE'] },
+        { nombre: "Zócalo de Jojutla", tipo: "lugar", lat: 18.6175, lon: -99.1768, zonas: ['SUR'] },
+        { nombre: "Centro de Zacatepec", tipo: "lugar", lat: 18.6587, lon: -99.1901, zonas: ['SUR'] },
+        { nombre: "Centro de Puente de Ixtla", tipo: "lugar", lat: 18.6129, lon: -99.3194, zonas: ['SUR'] }
     ];
 
     const ZONAS_APP = ['CENTRO', 'ORIENTE', 'SUR'];
@@ -1029,7 +1863,15 @@
     }
 
     function obtenerZonaGrupo(elemento) {
-        return normalizarZona(elemento?.dataset?.zone || 'ALL') || 'ALL';
+        const zonaDirecta = normalizarZona(elemento?.dataset?.zone || '');
+        if (zonaDirecta) return zonaDirecta;
+        const texto = normalizarZona(elemento?.dataset?.name || elemento?.innerText || '');
+        const match = texto.match(/RUTA\s+(\d+)/i);
+        if (match) {
+            const numero = parseInt(match[1], 10);
+            if (numero >= 1 && numero <= 20) return 'CENTRO';
+        }
+        return 'ALL';
     }
 
     function rutaVisibleEnZona(rutaZona) {
@@ -1047,6 +1889,25 @@
             case 'CENTRO':
             default:
                 return '-99.40,19.05,-98.90,18.70';
+        }
+    }
+
+    function obtenerBoundsZona() {
+        switch (zonaSeleccionada) {
+            case 'ORIENTE':
+                return L.latLngBounds([[18.99, -99.08], [18.53, -98.72]]);
+            case 'SUR':
+                return L.latLngBounds([[18.73, -99.42], [18.34, -98.98]]);
+            case 'CENTRO':
+            default:
+                return L.latLngBounds([[19.03, -99.37], [18.70, -98.98]]);
+        }
+    }
+
+    function centrarMapaPorZona() {
+        const bounds = obtenerBoundsZona();
+        if (bounds && bounds.isValid()) {
+            map.fitBounds(bounds, getMapPadding());
         }
     }
 
@@ -1081,14 +1942,126 @@
         const overlay = document.getElementById('startupOverlay');
         if (!overlay) return;
         overlay.classList.add('hidden');
-        setTimeout(() => overlay.remove(), 400);
+    }
+
+    function mostrarSelectorZona() {
+        const overlay = document.getElementById('startupOverlay');
+        const splashStage = document.getElementById('splashStage');
+        const zoneStage = document.getElementById('zoneStage');
+        if (!overlay) return;
+        overlay.classList.remove('hidden');
+        if (splashStage) splashStage.classList.add('hidden');
+        if (zoneStage) zoneStage.classList.remove('hidden');
+    }
+
+    async function cargarZonaActiva(zona) {
+        zonaSeleccionada = normalizarZona(zona);
+        sessionStorage.setItem('rutapp.zona', zonaSeleccionada);
+        await asegurarCatalogosZona(zonaSeleccionada);
+        aplicarFiltroZonaUI();
+        centrarMapaPorZona();
+        cerrarStartupOverlay();
+        mostrarGuiaInicialSiHaceFalta();
     }
 
     function seleccionarZona(zona) {
-        zonaSeleccionada = normalizarZona(zona);
-        sessionStorage.setItem('rutapp.zona', zonaSeleccionada);
+        cargarZonaActiva(zona);
+    }
+
+    function volverInicio() {
+        zoneSessionReset();
+        mostrarSelectorZona();
+        resetearMapaInicial();
+    }
+
+    function zoneSessionReset() {
+        zonaSeleccionada = '';
+        sessionStorage.removeItem('rutapp.zona');
         aplicarFiltroZonaUI();
-        cerrarStartupOverlay();
+        clearAllLayers();
+    }
+
+    function abrirAvisoPrivacidad() {
+        document.getElementById('modalAvisoPrivacidad').style.display = 'flex';
+    }
+
+    function cerrarAvisoPrivacidad() {
+        cerrarModalPorId('modalAvisoPrivacidad');
+    }
+
+    function abrirAvisoPrivacidadCompleto() {
+        cerrarAvisoPrivacidad();
+        document.getElementById('modalAvisoPrivacidadCompleto').style.display = 'flex';
+    }
+
+    function cerrarAvisoPrivacidadCompleto() {
+        cerrarModalPorId('modalAvisoPrivacidadCompleto');
+        document.getElementById('modalAvisoPrivacidad').style.display = 'flex';
+    }
+
+    function aceptarAvisoPrivacidad() {
+        privacyAccepted = true;
+        localStorage.setItem('rutapp.privacy.version', '2026-06-11');
+        cerrarAvisoPrivacidad();
+        if (zonaSeleccionada) {
+            aplicarFiltroZonaUI();
+            centrarMapaPorZona();
+            setTimeout(() => mostrarPermisoUbicacionSiHaceFalta(), 300);
+            return;
+        }
+        const overlay = document.getElementById('startupOverlay');
+        const splashStage = document.getElementById('splashStage');
+        const zoneStage = document.getElementById('zoneStage');
+        if (overlay) overlay.classList.remove('hidden');
+        if (splashStage) splashStage.classList.add('hidden');
+        if (zoneStage) zoneStage.classList.remove('hidden');
+    }
+
+    function rechazarUbicacionInicial() {
+        localStorage.setItem('rutapp.location.preference', 'manual');
+        cerrarModalPorId('modalPermisoUbicacion');
+        if (!userMarker) {
+            alert('Perfecto. Podrás colocar tu ubicación manualmente tocando el mapa o moviendo el marcador cuando se habilite.');
+        }
+    }
+
+    function aceptarUbicacionInicial() {
+        localStorage.setItem('rutapp.location.preference', 'granted');
+        cerrarModalPorId('modalPermisoUbicacion');
+        requestedInitialLocation = true;
+        getUserLocation();
+    }
+
+    function mostrarAvisoPrivacidadInicialSiHaceFalta() {
+        const versionActual = '2026-06-11';
+        const versionAceptada = localStorage.getItem('rutapp.privacy.version');
+        privacyAccepted = versionAceptada === versionActual;
+        if (!privacyAccepted) {
+            abrirAvisoPrivacidad();
+            return true;
+        }
+        return false;
+    }
+
+    function mostrarPermisoUbicacionSiHaceFalta() {
+        if (locationPromptShown) return;
+        locationPromptShown = true;
+        const preferencia = localStorage.getItem('rutapp.location.preference');
+        if (preferencia === 'manual' || preferencia === 'granted') return;
+        document.getElementById('modalPermisoUbicacion').style.display = 'flex';
+    }
+
+    function prepararFlujoInicial() {
+        if (zonaSeleccionada) {
+            aplicarFiltroZonaUI();
+            setTimeout(() => mostrarPermisoUbicacionSiHaceFalta(), 700);
+            return;
+        }
+
+        const splashStage = document.getElementById('splashStage');
+        const zoneStage = document.getElementById('zoneStage');
+        if (splashStage) splashStage.classList.add('hidden');
+        if (zoneStage) zoneStage.classList.remove('hidden');
     }
 
     function activarAjusteDestinoManual() {
@@ -1214,7 +2187,7 @@
     }
 
     // 5. EL ASISTENTE INTELIGENTE
-    let todosLosRamales = [
+    const todosLosRamalesBase = [
         { archivo: "r1_universidad_guacamayas.geojson", color: "#f1c40f" },
         { archivo: "r1_acatlipa.geojson", color: "#e67e22" },
         { archivo: "r1_jerusalen.geojson", color: "#27ae60" },
@@ -1295,10 +2268,44 @@
         { archivo: "r20_tetecalita.geojson", color: "#ffa502" }
     ];
 
-    todosLosRamales = todosLosRamales.map((ruta) => ({
+    function inferirZonaBase(archivo) {
+        const match = String(archivo || '').match(/^r(\d+)_/i);
+        const numero = match ? parseInt(match[1], 10) : NaN;
+        if (numero >= 1 && numero <= 20) return 'CENTRO';
+        return 'ALL';
+    }
+
+    const todosLosRamales = todosLosRamalesBase.map((ruta) => ({
         ...ruta,
-        zona: ruta.zona || 'ALL'
+        zona: ruta.zona || inferirZonaBase(ruta.archivo),
+        nombre: ruta.nombre || ruta.archivo.replace('.geojson', '').replace(/_/g, ' ').toUpperCase()
     }));
+
+    function obtenerRutasActivas() {
+        return todosLosRamales.filter((ruta) => rutaVisibleEnZona(ruta.zona));
+    }
+
+    function obtenerZonaRutaPorArchivo(archivo) {
+        const ruta = todosLosRamales.find((item) => item.archivo === archivo);
+        if (ruta && ruta.zona) return ruta.zona;
+        return inferirZonaBase(archivo);
+    }
+
+    function registrarRutasZona(zona, rutas) {
+        const registros = rutas.map((ruta) => ({
+            ...ruta,
+            zona: normalizarZona(zona)
+        }));
+
+        const existentes = new Set(todosLosRamales.map((ruta) => `${ruta.archivo}:${ruta.zona}`));
+        registros.forEach((ruta) => {
+            const firma = `${ruta.archivo}:${ruta.zona}`;
+            if (!existentes.has(firma)) {
+                todosLosRamales.push(ruta);
+                existentes.add(firma);
+            }
+        });
+    }
 
     const catalogosAdicionalesPromise = cargarCatalogosAdicionales();
 
@@ -1339,37 +2346,53 @@
 
     async function cargarCatalogosAdicionales() {
         try {
+            if (routeCatalogManifest) return routeCatalogManifest;
             const res = await fetch('catalogos-zonas-adicionales.json');
-            if (!res.ok) return [];
+            if (!res.ok) return null;
 
-            const data = await res.json();
-            const contenedor = document.getElementById('routes-list');
-            const extras = [];
-            const html = [];
+            routeCatalogManifest = await res.json();
+            return routeCatalogManifest;
+        } catch (e) {
+            console.warn('No se pudieron cargar los catálogos adicionales', e);
+            return null;
+        }
+    }
 
-            data.zones.forEach((zona, indiceZona) => {
-                zona.groups.forEach((grupo, indiceGrupo) => {
-                    html.push(crearGrupoCatalogoHTML(zona.zone, grupo, indiceZona, indiceGrupo));
-                    grupo.routes.forEach((ruta, indiceRuta) => {
-                        extras.push({
-                            archivo: ruta.archivo,
-                            color: tonoPorIndice(indiceRuta, indiceGrupo * 17 + indiceZona * 53),
-                            nombre: ruta.label,
-                            grupo: grupo.group,
-                            zona: normalizarZona(zona.zone)
-                        });
+    async function asegurarCatalogosZona(zona) {
+        const zonaNormalizada = normalizarZona(zona);
+        if (!zonaNormalizada) return [];
+        await cargarCatalogosAdicionales();
+        if (!routeCatalogManifest || routeCatalogZoneCache[zonaNormalizada]) {
+            return routeCatalogZoneCache[zonaNormalizada] || [];
+        }
+
+        const contenedor = document.getElementById('routes-list');
+        const zonas = routeCatalogManifest.zones.filter((item) => normalizarZona(item.zone) === zonaNormalizada);
+        const extras = [];
+        const html = [];
+
+        zonas.forEach((zonaItem, indiceZona) => {
+            zonaItem.groups.forEach((grupo, indiceGrupo) => {
+                html.push(crearGrupoCatalogoHTML(zonaItem.zone, grupo, indiceZona, indiceGrupo));
+                grupo.routes.forEach((ruta, indiceRuta) => {
+                    extras.push({
+                        archivo: ruta.archivo,
+                        color: tonoPorIndice(indiceRuta, indiceGrupo * 17 + indiceZona * 53),
+                        nombre: ruta.label,
+                        grupo: grupo.group,
+                        zona: zonaNormalizada
                     });
                 });
             });
+        });
 
+        if (html.length > 0) {
             contenedor.insertAdjacentHTML('beforeend', html.join(''));
-            todosLosRamales.push(...extras.map((ruta) => ({ ...ruta, zona: ruta.zona || 'ALL' })));
-            aplicarFiltroZonaUI();
-            return extras;
-        } catch (e) {
-            console.warn('No se pudieron cargar los catálogos adicionales', e);
-            return [];
         }
+        registrarRutasZona(zonaNormalizada, extras);
+        routeCatalogZoneCache[zonaNormalizada] = extras;
+        aplicarFiltroZonaUI();
+        return extras;
     }
 
     function obtenerLineaPrincipal(data) {
@@ -1412,8 +2435,12 @@
             const distanciaActualDestino = turf.distance(puntoActual, puntoDestino, { units: 'kilometers' }) * 1000;
             const distanciaSiguienteDestino = turf.distance(puntoSiguiente, puntoDestino, { units: 'kilometers' }) * 1000;
             const penalizacionSalida = Math.max(0, Math.round(distanciaSiguienteDestino - distanciaActualDestino));
-            const distanciaTotal = distanciaOrigenMetros + distanciaDestinoMetros + penalizacionSalida;
-            const score = (distanciaOrigenMetros * 1.15) + (distanciaDestinoMetros * 1.05) + (penalizacionSalida * 1.4);
+            const rumboRuta = calcularRumbo(coords[indiceAbordaje], coords[siguienteIndice] || coords[indiceAbordaje]);
+            const rumboDestino = calcularRumbo(coords[indiceAbordaje], [puntoDestino.geometry.coordinates[0], puntoDestino.geometry.coordinates[1]]);
+            const diferenciaRumbo = diferenciaAngular(rumboRuta, rumboDestino);
+            const penalizacionDireccion = diferenciaRumbo > 90 ? Math.round((diferenciaRumbo - 90) * 12) : 0;
+            const distanciaTotal = distanciaOrigenMetros + distanciaDestinoMetros + penalizacionSalida + penalizacionDireccion;
+            const score = (distanciaOrigenMetros * 1.18) + (distanciaDestinoMetros * 1.08) + (penalizacionSalida * 1.45) + (penalizacionDireccion * 1.25);
 
             const resultado = {
                 lineaGeo,
@@ -1424,6 +2451,7 @@
                 distanciaDestinoMetros,
                 distanciaTotal,
                 penalizacionSalida,
+                penalizacionDireccion,
                 score
             };
 
@@ -1447,6 +2475,7 @@
             distanciaDestinoMetros: Math.round(nearestDescenso.properties.dist * 1000),
             distanciaTotal: Math.round((nearestAbordaje.properties.dist + nearestDescenso.properties.dist) * 1000),
             penalizacionSalida: 0,
+            penalizacionDireccion: 0,
             score: Math.round((nearestAbordaje.properties.dist + nearestDescenso.properties.dist) * 1000)
         };
     }
@@ -1455,6 +2484,7 @@
         await catalogosAdicionalesPromise;
         if (!userMarker) { alert("Arrastra el pin azul a tu ubicaci?n."); return; }
         if (!destinoCoordenadasReal) { alert("Selecciona un destino v?lido."); return; }
+        if (!zonaSeleccionada) { alert("Primero elige una zona para calcular rutas."); return; }
 
         const panel = document.getElementById('recomendaciones-panel');
         const lista = document.getElementById('lista-recomendados');
@@ -1467,9 +2497,9 @@
         const puntoOrigen = turf.point([userMarker.getLatLng().lng, userMarker.getLatLng().lat]);
         const puntoDestino = turf.point([destinoCoordenadasReal.lng, destinoCoordenadasReal.lat]);
         const resultados = [];
+        const rutasEvaluables = obtenerRutasActivas();
 
-        for (let ruta of todosLosRamales) {
-            if (!rutaVisibleEnZona(ruta.zona)) continue;
+        for (let ruta of rutasEvaluables) {
             try {
                 const res = await fetch(ruta.archivo); if (!res.ok) continue;
                 const data = await res.json();
@@ -1484,6 +2514,7 @@
                     distanciaTotal: evaluada.distanciaTotal,
                     score: evaluada.score,
                     penalizacionSalida: evaluada.penalizacionSalida,
+                    penalizacionDireccion: evaluada.penalizacionDireccion,
                     direccionCorrecta: evaluada.direccionCorrecta,
                     coordAbordaje: [evaluada.nearestAbordaje.geometry.coordinates[1], evaluada.nearestAbordaje.geometry.coordinates[0]],
                     coordDescenso: [evaluada.nearestDescenso.geometry.coordinates[1], evaluada.nearestDescenso.geometry.coordinates[0]]
@@ -1495,6 +2526,7 @@
         if (resultados.length > 0) {
             resultados.sort((a, b) => {
                 if (a.direccionCorrecta !== b.direccionCorrecta) return a.direccionCorrecta ? -1 : 1;
+                if (a.distanciaDestinoMetros !== b.distanciaDestinoMetros) return a.distanciaDestinoMetros - b.distanciaDestinoMetros;
                 return a.score - b.score;
             });
             const mejoresOpciones = resultados.slice(0, 4);
@@ -1521,6 +2553,11 @@
         }
     }
     async function mostrarRutaGuiada(archivo, color, latAbordaje, lngAbordaje, metros, latDescenso, lngDescenso, elementDOM, nombreRuta) {
+        if (!rutaVisibleEnZona(obtenerZonaRutaPorArchivo(archivo))) {
+            alert('Esa recomendación no pertenece a la zona seleccionada.');
+            return;
+        }
+
         // Limpiar el estado visual "Seleccionado" de las otras rutas
         const todosLosItems = document.querySelectorAll('#lista-recomendados .ramal-item');
         todosLosItems.forEach(el => el.classList.remove('selected-route'));
@@ -1586,6 +2623,10 @@
     function cerrarModales() {
         document.getElementById('modalAvatar').style.display = 'none';
         document.getElementById('modalCancelar').style.display = 'none';
+        cerrarModalPorId('modalAvisoPrivacidad');
+        cerrarModalPorId('modalAvisoPrivacidadCompleto');
+        cerrarModalPorId('modalGuiaUsuario');
+        cerrarModalPorId('modalPermisoUbicacion');
     }
 
     function iniciarViaje(conAlerta) {
@@ -1647,7 +2688,8 @@
         clearAllLayers();
     }
 
-    setTimeout(() => { createUserMarker([18.9218, -99.2347]); }, 1000);
+    montarGuiaUsuario();
+    aplicarTema(currentTheme);
 
     setTimeout(() => {
         const splashStage = document.getElementById('splashStage');
@@ -1656,6 +2698,8 @@
         if (zonaSeleccionada) {
             cerrarStartupOverlay();
             aplicarFiltroZonaUI();
+            centrarMapaPorZona();
+            mostrarPermisoUbicacionSiHaceFalta();
             return;
         }
 
@@ -1663,8 +2707,14 @@
         if (zoneStage) zoneStage.classList.remove('hidden');
     }, 2400);
 
-    if (zonaSeleccionada) {
+    if (mostrarAvisoPrivacidadInicialSiHaceFalta()) {
+        // El flujo se reanuda cuando el usuario acepta el aviso.
+    } else if (zonaSeleccionada) {
         aplicarFiltroZonaUI();
+        centrarMapaPorZona();
+        setTimeout(() => mostrarPermisoUbicacionSiHaceFalta(), 1500);
+    } else {
+        prepararFlujoInicial();
     }
 
     // ==========================================
@@ -1673,6 +2723,7 @@
 
     async function buscarTransbordos(puntoOrigen, mejoresDirectas) {
         const lista = document.getElementById('lista-recomendados');
+        const rutasEvaluables = obtenerRutasActivas();
 
         // Solo buscamos transbordo si la mejor ruta directa te hace caminar mucho (> 600m)
         if (mejoresDirectas.length > 0 && mejoresDirectas[0].distanciaOrigenMetros < 600) return;
@@ -1681,8 +2732,7 @@
 
         // 1. Buscamos rutas "Alimentadoras" (que pasen a menos de 150m de donde estás)
         const alimentadoras = [];
-        for (let r of todosLosRamales) {
-            if (!rutaVisibleEnZona(r.zona)) continue;
+        for (let r of rutasEvaluables) {
             const res = await fetch(r.archivo);
             const data = await res.json();
             const nearest = turf.nearestPointOnLine(data, puntoOrigen);
