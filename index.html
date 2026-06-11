@@ -489,12 +489,12 @@
         .guide-backdrop {
             position: fixed;
             inset: 0;
-            z-index: 2990;
+            z-index: 900;
             display: none;
             pointer-events: none;
-            background: rgba(3, 7, 18, 0.72);
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
+            background: rgba(3, 7, 18, 0.34);
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(2px);
             --guide-hole-x: 50%;
             --guide-hole-y: 50%;
             --guide-hole-size: 120px;
@@ -505,7 +505,7 @@
             display: block;
         }
         body.theme-light .guide-backdrop {
-            background: rgba(2, 6, 23, 0.58);
+            background: rgba(2, 6, 23, 0.28);
         }
         .adjust-controls {
             display: none;
@@ -686,11 +686,52 @@
             background: rgba(15, 23, 42, 0.42);
         }
 
+        #modalGuiaUsuario.modal-overlay {
+            align-items: flex-start;
+            justify-content: center;
+            background: transparent;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+            pointer-events: none;
+            padding-top: 18px;
+            box-sizing: border-box;
+            z-index: 5000;
+        }
+        #modalGuiaUsuario .modal-content {
+            pointer-events: auto;
+            width: min(90vw, 330px);
+            max-width: 330px;
+            padding: 16px;
+            border-radius: 18px;
+            text-align: center;
+        }
+        #modalGuiaUsuario .modal-icon {
+            font-size: 2rem !important;
+            margin-bottom: 8px;
+        }
+        #modalGuiaUsuario h3 {
+            margin: 0 0 8px;
+            font-size: 1rem;
+        }
+        #modalGuiaUsuario .data-modal-body {
+            max-height: none;
+            overflow: visible;
+            padding-right: 0;
+        }
+        #modalGuiaUsuario #guideText {
+            margin: 0;
+            font-size: 0.88rem;
+            line-height: 1.35;
+        }
+        #modalGuiaUsuario #guideList {
+            display: none;
+        }
+
         .guide-stepper {
             display: flex;
             gap: 6px;
             justify-content: center;
-            margin: 10px 0 16px;
+            margin: 8px 0 10px;
             flex-wrap: wrap;
         }
         .guide-dot {
@@ -707,12 +748,12 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 8px 12px;
+            padding: 6px 10px;
             border-radius: 999px;
             background: rgba(56, 189, 248, 0.14);
             color: #38bdf8;
-            font-size: 0.82rem;
-            margin-bottom: 12px;
+            font-size: 0.74rem;
+            margin-bottom: 4px;
         }
         .guide-brief {
             font-size: 0.92rem;
@@ -722,13 +763,13 @@
         }
         .guide-spotlight {
             position: relative;
-            z-index: 4000 !important;
-            box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.26), 0 0 0 18px rgba(34, 197, 94, 0.08) !important;
+            z-index: 1100 !important;
+            box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.42), 0 0 22px rgba(34, 197, 94, 0.42) !important;
             border-radius: 18px !important;
         }
         .guide-highlight {
             position: relative;
-            z-index: 1300 !important;
+            z-index: 1100 !important;
             box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.34), 0 0 0 10px rgba(34, 197, 94, 0.14) !important;
             border-color: #38bdf8 !important;
         }
@@ -737,12 +778,14 @@
         }
         .guide-modal-actions {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             flex-wrap: wrap;
-            margin-top: 18px;
+            margin-top: 12px;
         }
         .guide-modal-actions .modal-btn {
-            flex: 1 1 140px;
+            flex: 1 1 120px;
+            padding: 10px;
+            font-size: 0.82rem;
         }
         body.theme-light .guide-focus-label {
             background: rgba(22, 163, 74, 0.1);
@@ -883,8 +926,14 @@
 <div id="startupOverlay" class="startup-overlay" role="dialog" aria-modal="true" aria-labelledby="startupTitle">
     <div id="splashStage" class="startup-hero">
         <div class="startup-brand"><i class="fa fa-location-dot"></i> Bienvenido a RutAPP</div>
-        <div class="startup-hero-icon" aria-hidden="true">
-            <i class="fa fa-map-location-dot startup-hero-map"></i>
+        <div class="splash-bus-track" aria-hidden="true">
+            <div class="splash-road"></div>
+            <div class="splash-bus">
+                <span class="bus-front"></span>
+                <span class="bus-wheel left"></span>
+                <span class="bus-wheel right"></span>
+                <span class="bus-light"></span>
+            </div>
         </div>
         <h1 id="startupTitle" class="startup-title">RutAPP Morelos</h1>
         <p class="startup-copy">Cargando rutas, zonas y recomendaciones inteligentes.</p>
@@ -935,7 +984,7 @@
     <div class="header-actions">
         <button id="btnInicio" class="header-action" onclick="volverInicio()" title="Inicio" aria-label="Inicio"><i class="fa fa-house"></i></button>
         <button id="btnGuia" class="header-action" onclick="abrirGuiaUsuario()" title="Guía" aria-label="Guía"><i class="fa fa-circle-question"></i></button>
-        <button id="btnPrivacidad" class="header-action" onclick="abrirAvisoPrivacidad()" title="Privacidad" aria-label="Privacidad"><i class="fa fa-file-shield"></i></button>
+        <button id="btnPrivacidad" class="header-action" onclick="abrirAvisoPrivacidad()" title="Privacidad" aria-label="Privacidad"><i class="fa fa-lock"></i></button>
         <button id="themeToggleBtn" class="header-action" onclick="toggleTheme()" title="Modo Oscuro" aria-label="Modo Oscuro"><i class="fa fa-moon"></i></button>
     </div>
     <div id="zonaActualBadge" class="zone-active-badge hidden"></div>
@@ -1258,7 +1307,7 @@
 
 <div id="modalAvisoPrivacidad" class="modal-overlay">
     <div class="modal-content data-modal">
-        <i class="fa fa-shield-halved modal-icon" style="color: #38bdf8;"></i>
+        <i class="fa fa-lock modal-icon" style="color: #38bdf8;"></i>
         <h3>Bienvenido a RutAPP Morelos</h3>
         <div class="data-modal-body">
             <p>RutAPP Morelos es una aplicación de carácter informativo diseñada para ayudar a los usuarios a consultar rutas de transporte público y obtener sugerencias de trayectos dentro de las zonas disponibles de la aplicación.</p>
@@ -1276,7 +1325,7 @@
 
 <div id="modalAvisoPrivacidadCompleto" class="modal-overlay">
     <div class="modal-content data-modal">
-        <i class="fa fa-file-shield modal-icon" style="color: #22c55e;"></i>
+        <i class="fa fa-lock modal-icon" style="color: #22c55e;"></i>
         <h3>Aviso de Privacidad Completo</h3>
         <div class="data-modal-body">
             <p>La ubicación se utiliza únicamente para calcular rutas y mejorar las recomendaciones. No se comparte con terceros ni se vende información personal.</p>
@@ -1340,8 +1389,26 @@
     const mapaSatelite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{y}/{x}/{z}', { attribution: 'Tiles &copy; Esri' });
 
     const MAPA_INICIAL = { center: [18.9218, -99.2347], zoom: 13 };
-    const map = L.map('map', { center: MAPA_INICIAL.center, zoom: MAPA_INICIAL.zoom, layers: [mapaOscuro], zoomControl: false });
+    const MORELOS_BOUNDS = L.latLngBounds([[18.32, -99.62], [19.16, -98.54]]);
+    const MORELOS_VIEWBOX = '-99.62,19.16,-98.54,18.32';
+    const map = L.map('map', {
+        center: MAPA_INICIAL.center,
+        zoom: MAPA_INICIAL.zoom,
+        layers: [mapaOscuro],
+        zoomControl: false,
+        maxBounds: MORELOS_BOUNDS,
+        maxBoundsViscosity: 1.0,
+        minZoom: 9
+    });
     L.control.zoom({ position: 'topright' }).addTo(map);
+    L.rectangle(MORELOS_BOUNDS, {
+        color: '#22c55e',
+        weight: 2,
+        opacity: 0.8,
+        fillOpacity: 0,
+        dashArray: '8 8',
+        interactive: false
+    }).addTo(map);
 
     const baseMaps = { "Modo Oscuro": mapaOscuro, "Modo Claro": mapaClaro, "Vista Satélite": mapaSatelite };
     L.control.layers(baseMaps, null, { position: 'topright' }).addTo(map);
@@ -1566,15 +1633,49 @@
             ]
         }
     ];
+    const GUIA_RESUMIDA = [
+        { focus: '#destinationInput', text: 'Empieza escribiendo tu destino. La zona ya esta filtrada.' },
+        { focus: '#destinationInput', text: 'Escribe un lugar y toca una sugerencia si aparece.' },
+        { focus: '#btnCalcularRuta', text: 'Pulsa calcular para buscar la ruta conveniente.' },
+        { focus: '#recomendaciones-panel', text: 'Aqui aparecera la mejor opcion para subir y bajar.' },
+        { focus: '#btnAjustarDestino', text: 'Si no sabes la direccion, mueve el pin manualmente.' },
+        { focus: '#btnLimpiar', text: 'Inicio cambia zona, Guia repite esto y Limpiar reinicia.' }
+    ];
+    GUIA_TUTORIAL.forEach((paso, index) => {
+        if (!GUIA_RESUMIDA[index]) return;
+        paso.focus = GUIA_RESUMIDA[index].focus;
+        paso.text = GUIA_RESUMIDA[index].text;
+        paso.bullets = [];
+    });
     let pasoGuiaActual = 0;
     let guiaObjetivoAnterior = null;
 
     function limpiarResaltadoGuia() {
         if (guiaObjetivoAnterior) {
             const anterior = document.querySelector(guiaObjetivoAnterior);
-            if (anterior) anterior.classList.remove('guide-highlight');
+            if (anterior) anterior.classList.remove('guide-highlight', 'guide-spotlight');
             guiaObjetivoAnterior = null;
         }
+        const guideBackdrop = document.getElementById('guideBackdrop');
+        if (guideBackdrop) guideBackdrop.classList.remove('visible');
+    }
+
+    function actualizarSpotlightGuia(paso) {
+        const guideBackdrop = document.getElementById('guideBackdrop');
+        if (!guideBackdrop || !paso) return;
+
+        const objetivo = paso.focus ? document.querySelector(paso.focus) : null;
+        if (!objetivo) {
+            guideBackdrop.classList.add('visible');
+            return;
+        }
+
+        const rect = objetivo.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height) / 2 + 44;
+        guideBackdrop.style.setProperty('--guide-hole-x', `${Math.round(rect.left + rect.width / 2)}px`);
+        guideBackdrop.style.setProperty('--guide-hole-y', `${Math.round(rect.top + rect.height / 2)}px`);
+        guideBackdrop.style.setProperty('--guide-hole-size', `${Math.round(size)}px`);
+        guideBackdrop.classList.add('visible');
     }
 
     function renderizarGuiaPaso() {
@@ -1610,16 +1711,19 @@
         if (paso.focus) {
             const objetivo = document.querySelector(paso.focus);
             if (objetivo) {
-                objetivo.classList.add('guide-highlight');
+                objetivo.classList.add('guide-highlight', 'guide-spotlight');
                 guiaObjetivoAnterior = paso.focus;
                 if (typeof objetivo.scrollIntoView === 'function') {
                     objetivo.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
                 }
                 if (typeof objetivo.focus === 'function' && objetivo.tagName === 'INPUT') {
-                    setTimeout(() => objetivo.focus({ preventScroll: true }), 150);
+                    setTimeout(() => objetivo.focus({ preventScroll: true }), 120);
                 }
+                setTimeout(() => actualizarSpotlightGuia(paso), 100);
+                return;
             }
         }
+        actualizarSpotlightGuia(paso);
     }
 
     function irPasoGuia(delta) {
@@ -1629,6 +1733,8 @@
 
     function abrirGuiaUsuario() {
         pasoGuiaActual = 0;
+        const guideBackdrop = document.getElementById('guideBackdrop');
+        if (guideBackdrop) guideBackdrop.classList.add('visible');
         document.getElementById('modalGuiaUsuario').style.display = 'flex';
         renderizarGuiaPaso();
     }
@@ -1637,6 +1743,8 @@
         limpiarResaltadoGuia();
         localStorage.setItem('rutapp.guide.version', GUIA_VERSION);
         cerrarModalPorId('modalGuiaUsuario');
+        const guideBackdrop = document.getElementById('guideBackdrop');
+        if (guideBackdrop) guideBackdrop.classList.remove('visible');
     }
 
     function mostrarGuiaInicialSiHaceFalta() {
@@ -1650,7 +1758,7 @@
         if (!modal || modal.dataset.montada === '1') return;
         modal.innerHTML = `
             <div class="modal-content data-modal">
-                <i class="fa fa-circle-question modal-icon" style="color: #f59e0b;"></i>
+                <i class="fa fa-map-location-dot modal-icon" style="color: #22c55e; font-size: 2rem;"></i>
                 <h3 id="guideTitle">Guía de uso</h3>
                 <div id="guideFocusLabel" class="guide-focus-label"><i class="fa fa-bullseye"></i> Foco activo</div>
                 <div id="guideStepper" class="guide-stepper"></div>
@@ -1880,7 +1988,18 @@
         return !zonaNormalizada || zonaNormalizada === 'ALL' || zonaNormalizada === zonaSeleccionada;
     }
 
+    function latLngEnMorelos(latlng) {
+        if (!latlng) return false;
+        const punto = L.latLng(latlng.lat ?? latlng[0], latlng.lng ?? latlng.lon ?? latlng[1]);
+        return MORELOS_BOUNDS.contains(punto);
+    }
+
+    function avisarFueraDeMorelos() {
+        alert('RutAPP Morelos solo funciona dentro del estado de Morelos.');
+    }
+
     function obtenerViewboxZona() {
+        if (!zonaSeleccionada) return MORELOS_VIEWBOX;
         switch (zonaSeleccionada) {
             case 'ORIENTE':
                 return '-98.99,18.98,-98.46,18.56';
