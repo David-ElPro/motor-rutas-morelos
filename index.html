@@ -740,7 +740,7 @@
     }
 
     // 5. EL ASISTENTE INTELIGENTE
-    const todosLosRamales = [
+    let todosLosRamales = [
         { archivo: "r1_universidad_guacamayas.geojson", color: "#f1c40f" },
         { archivo: "r1_acatlipa.geojson", color: "#e67e22" },
         { archivo: "r1_jerusalen.geojson", color: "#27ae60" },
@@ -821,9 +821,147 @@
         { archivo: "r20_tetecalita.geojson", color: "#ffa502" }
     ];
 
+    const catalogosAdicionalesPromise = cargarCatalogosAdicionales();
+
+    function tonoPorIndice(indice, offset = 0) {
+        return `hsl(${(offset + (indice * 37)) % 360}, 82%, 58%)`;
+    }
+
+    function slugSimple(valor) {
+        return valor
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, '_')
+            .replace(/^_+|_+$/g, '')
+            .replace(/_+/g, '_');
+    }
+
+    function crearGrupoCatalogoHTML(zona, grupo, indiceZona, indiceGrupo) {
+        const menuId = `menu-${slugSimple(zona)}-${indiceGrupo}`;
+        const colorBase = tonoPorIndice(indiceGrupo, indiceZona * 53);
+        const rutas = grupo.routes.map((ruta, indiceRuta) => {
+            const colorRuta = tonoPorIndice(indiceRuta, indiceGrupo * 17 + indiceZona * 53);
+            const itemId = `item-${slugSimple(zona)}-${indiceGrupo}-${indiceRuta}`;
+            const iconId = `icon-${slugSimple(zona)}-${indiceGrupo}-${indiceRuta}`;
+            return `<div class="ramal-item" id="${itemId}" onclick="toggleLayer('${itemId}', '${ruta.archivo}', '${colorRuta}')"><i class="far fa-circle" id="${iconId}"></i> ${ruta.label}</div>`;
+        }).join('');
+
+        return `
+        <div class="grupo-ruta" data-name="zona ${zona.toLowerCase()} ${grupo.group.toLowerCase()} ${grupo.routes.map(r => r.label.toLowerCase()).join(' ')}">
+            <button class="ruta-master" style="background: ${colorBase}; color: #000; margin-top: 15px;" onclick="toggleMenu('${menuId}')">
+                <span><i class="fa fa-bus"></i> ${zona} - ${grupo.group}</span><i class="fa fa-chevron-down" id="arrow-${slugSimple(zona)}-${indiceGrupo}"></i>
+            </button>
+            <div id="${menuId}" class="ramales-container">
+                ${rutas}
+            </div>
+        </div>`;
+    }
+
+    async function cargarCatalogosAdicionales() {
+        try {
+            const res = await fetch('catalogos-zonas-adicionales.json');
+            if (!res.ok) return [];
+
+            const data = await res.json();
+            const contenedor = document.getElementById('routes-list');
+            const extras = [];
+            const html = [];
+
+            data.zones.forEach((zona, indiceZona) => {
+                zona.groups.forEach((grupo, indiceGrupo) => {
+                    html.push(crearGrupoCatalogoHTML(zona.zone, grupo, indiceZona, indiceGrupo));
+                    grupo.routes.forEach((ruta, indiceRuta) => {
+                        extras.push({
+                            archivo: ruta.archivo,
+                            color: tonoPorIndice(indiceRuta, indiceGrupo * 17 + indiceZona * 53),
+                            nombre: ruta.label,
+                            grupo: grupo.group,
+                            zona: zona.zone
+                        });
+                    });
+                });
+            });
+
+            contenedor.insertAdjacentHTML('beforeend', html.join(''));
+            todosLosRamales.push(...extras);
+            return extras;
+        } catch (e) {
+            console.warn('No se pudieron cargar los catálogos adicionales', e);
+            return [];
+        }
+    }
+
+    function obtenerLineaPrincipal(data) {
+        if (!data) return null;
+        return data.features ? data.features.find(f => f.geometry && f.geometry.type && f.geometry.type.includes('LineString')) : data;
+    }
+
+    function invertirLinea(lineaGeo) {
+        const copia = JSON.parse(JSON.stringify(lineaGeo));
+        if (!copia || !copia.geometry) return copia;
+        if (copia.geometry.type === 'LineString') {
+            copia.geometry.coordinates = [...copia.geometry.coordinates].reverse();
+        } else if (copia.geometry.type === 'MultiLineString') {
+            copia.geometry.coordinates = copia.geometry.coordinates.map(tramo => [...tramo].reverse()).reverse();
+        }
+        return copia;
+    }
+
+    function evaluarRuta(data, puntoOrigen, puntoDestino) {
+        const lineaOriginal = obtenerLineaPrincipal(data);
+        if (!lineaOriginal) return null;
+
+        const candidatos = [lineaOriginal, invertirLinea(lineaOriginal)];
+        let mejor = null;
+
+        for (const lineaGeo of candidatos) {
+            const nearestDescenso = turf.nearestPointOnLine(lineaGeo, puntoDestino);
+            const nearestAbordaje = turf.nearestPointOnLine(lineaGeo, puntoOrigen);
+            const direccionCorrecta = nearestAbordaje.properties.index <= nearestDescenso.properties.index;
+
+            if (!direccionCorrecta) continue;
+
+            const distanciaOrigenMetros = Math.round(nearestAbordaje.properties.dist * 1000);
+            const distanciaDestinoMetros = Math.round(nearestDescenso.properties.dist * 1000);
+            const distanciaTotal = distanciaOrigenMetros + distanciaDestinoMetros;
+
+            const resultado = {
+                lineaGeo,
+                nearestAbordaje,
+                nearestDescenso,
+                direccionCorrecta,
+                distanciaOrigenMetros,
+                distanciaDestinoMetros,
+                distanciaTotal
+            };
+
+            if (!mejor || resultado.distanciaOrigenMetros < mejor.distanciaOrigenMetros || (resultado.distanciaOrigenMetros === mejor.distanciaOrigenMetros && resultado.distanciaDestinoMetros < mejor.distanciaDestinoMetros)) {
+                mejor = resultado;
+            }
+        }
+
+        if (mejor) return mejor;
+
+        const lineaGeo = lineaOriginal;
+        const nearestDescenso = turf.nearestPointOnLine(lineaGeo, puntoDestino);
+        const nearestAbordaje = turf.nearestPointOnLine(lineaGeo, puntoOrigen);
+
+        return {
+            lineaGeo,
+            nearestAbordaje,
+            nearestDescenso,
+            direccionCorrecta: nearestAbordaje.properties.index <= nearestDescenso.properties.index,
+            distanciaOrigenMetros: Math.round(nearestAbordaje.properties.dist * 1000),
+            distanciaDestinoMetros: Math.round(nearestDescenso.properties.dist * 1000),
+            distanciaTotal: Math.round((nearestAbordaje.properties.dist + nearestDescenso.properties.dist) * 1000)
+        };
+    }
+
     async function recomendarRutas() {
-        if (!userMarker) { alert("Arrastra el pin azul a tu ubicación."); return; }
-        if (!destinoCoordenadasReal) { alert("Selecciona un destino válido."); return; }
+        await catalogosAdicionalesPromise;
+        if (!userMarker) { alert("Arrastra el pin azul a tu ubicaci?n."); return; }
+        if (!destinoCoordenadasReal) { alert("Selecciona un destino v?lido."); return; }
 
         const panel = document.getElementById('recomendaciones-panel');
         const lista = document.getElementById('lista-recomendados');
@@ -841,81 +979,50 @@
             try {
                 const res = await fetch(ruta.archivo); if (!res.ok) continue;
                 const data = await res.json();
-
-                // 1. Anclamos primero el destino
-                let nearestDescenso = turf.nearestPointOnLine(data, puntoDestino);
-
-                // 2. Buscamos el abordaje preliminar
-                let nearestAbordaje = turf.nearestPointOnLine(data, puntoOrigen);
-
-                // =========================================================
-                // MAGIA ALGORÍTMICA: DETECCIÓN DE SENTIDO DE LA CALLE
-                // =========================================================
-                const idxAbordaje = nearestAbordaje.properties.index;
-                const idxDescenso = nearestDescenso.properties.index;
-
-                // Si el índice de abordaje es mayor al de descenso, nos estamos
-                // subiendo cuando la ruta ya va de regreso.
-                if (idxAbordaje >= idxDescenso) {
-
-                    // Buscamos la línea principal dentro del GeoJSON
-                    let lineaGeo = data.features ? data.features.find(f => f.geometry.type.includes('LineString')) : data;
-
-                    if (lineaGeo) {
-                        // Obtenemos la coordenada de la base de la ruta
-                        const coordsInicio = lineaGeo.geometry.type === 'MultiLineString'
-                            ? lineaGeo.geometry.coordinates[0][0]
-                            : lineaGeo.geometry.coordinates[0];
-                        const puntoInicioRuta = turf.point(coordsInicio);
-
-                        // CORTAMOS LA RUTA: desde la base hasta el destino
-                        const tramoIda = turf.lineSlice(puntoInicioRuta, nearestDescenso, lineaGeo);
-
-                        // Recalculamos el abordaje en el tramo de ida
-                        nearestAbordaje = turf.nearestPointOnLine(tramoIda, puntoOrigen);
-                    }
-                }
-                // =========================================================
+                const evaluada = evaluarRuta(data, puntoOrigen, puntoDestino);
+                if (!evaluada) continue;
 
                 resultados.push({
                     archivo: ruta.archivo, color: ruta.color, fullData: data,
-                    nombre: ruta.archivo.replace('.geojson', '').replace(/_/g, ' ').toUpperCase(),
-                    distanciaOrigenMetros: Math.round(nearestAbordaje.properties.dist * 1000),
-                    distanciaDestinoMetros: Math.round(nearestDescenso.properties.dist * 1000),
-                    distanciaTotal: Math.round((nearestAbordaje.properties.dist + nearestDescenso.properties.dist) * 1000),
-                    coordAbordaje: [nearestAbordaje.geometry.coordinates[1], nearestAbordaje.geometry.coordinates[0]],
-                    coordDescenso: [nearestDescenso.geometry.coordinates[1], nearestDescenso.geometry.coordinates[0]]
+                    nombre: ruta.nombre || ruta.archivo.replace('.geojson', '').replace(/_/g, ' ').toUpperCase(),
+                    distanciaOrigenMetros: evaluada.distanciaOrigenMetros,
+                    distanciaDestinoMetros: evaluada.distanciaDestinoMetros,
+                    distanciaTotal: evaluada.distanciaTotal,
+                    direccionCorrecta: evaluada.direccionCorrecta,
+                    coordAbordaje: [evaluada.nearestAbordaje.geometry.coordinates[1], evaluada.nearestAbordaje.geometry.coordinates[0]],
+                    coordDescenso: [evaluada.nearestDescenso.geometry.coordinates[1], evaluada.nearestDescenso.geometry.coordinates[0]]
                 });
             } catch (e) { console.error("Error procesando ruta", e); }
         }
 
         lista.innerHTML = "";
         if (resultados.length > 0) {
-            resultados.sort((a, b) => a.distanciaTotal - b.distanciaTotal);
+            resultados.sort((a, b) => {
+                if (a.direccionCorrecta !== b.direccionCorrecta) return a.direccionCorrecta ? -1 : 1;
+                if (a.distanciaOrigenMetros !== b.distanciaOrigenMetros) return a.distanciaOrigenMetros - b.distanciaOrigenMetros;
+                if (a.distanciaDestinoMetros !== b.distanciaDestinoMetros) return a.distanciaDestinoMetros - b.distanciaDestinoMetros;
+                return a.distanciaTotal - b.distanciaTotal;
+            });
             const mejoresOpciones = resultados.slice(0, 4);
 
             lista.innerHTML += `<div style="margin-bottom: 15px; padding: 12px; background: rgba(255,255,255,0.05); border-left: 3px solid #3498db; border-radius: 8px; font-size: 0.85rem; color: rgba(255,255,255,0.9);"><i class="fa fa-map-location-dot" style="color: #3498db; margin-right: 5px;"></i><b>Rutas hacia ${nombreDestino}</b></div>`;
 
             mejoresOpciones.forEach((r, index) => {
-                let nivelEsfuerzo = index === 0 ? `<span style="float: right; font-size: 0.65rem; background: #2ecc71; color: #000; padding: 3px 6px; border-radius: 10px; font-weight: bold;"><i class="fa fa-star"></i> MÁS CERCANA</span>` : "";
-
-                // Usamos 'this' en la funcion onClick para pasar el elemento HTML
+                let nivelEsfuerzo = index === 0 ? `<span style="float: right; font-size: 0.65rem; background: #2ecc71; color: #000; padding: 3px 6px; border-radius: 10px; font-weight: bold;"><i class="fa fa-star"></i> M?S CERCANA</span>` : "";
                 lista.innerHTML += `
                     <div class="ramal-item" style="margin-bottom:10px; border-left: 4px solid ${r.color}; flex-direction: column; align-items: flex-start; padding: 12px;"
                          onclick="mostrarRutaGuiada('${r.archivo}', '${r.color}', ${r.coordAbordaje[0]}, ${r.coordAbordaje[1]}, ${r.distanciaOrigenMetros}, ${r.coordDescenso[0]}, ${r.coordDescenso[1]}, this, '${r.nombre}')">
                         <div style="width: 100%; margin-bottom: 8px;"><i class="fa fa-bus" style="color: ${r.color};"></i> <b style="font-size: 0.95rem;">${r.nombre}</b>${nivelEsfuerzo}</div>
                         <div style="font-size: 0.75rem; display: flex; flex-direction: column; gap: 4px;">
                             <span><i class="fa fa-person-walking"></i> Camina <b>${r.distanciaOrigenMetros} metros</b> a la parada.</span>
-                            <span><i class="fa fa-map-pin"></i> Te dejará a <b>${r.distanciaDestinoMetros} metros</b> de la meta.</span>
+                            <span><i class="fa fa-map-pin"></i> Te dejar? a <b>${r.distanciaDestinoMetros} metros</b> de la meta.</span>
                         </div>
                     </div>`;
             });
 
-            // Llamamos a la función de transbordos usando los datos completos
             buscarTransbordos(puntoOrigen, mejoresOpciones);
         }
     }
-
     async function mostrarRutaGuiada(archivo, color, latAbordaje, lngAbordaje, metros, latDescenso, lngDescenso, elementDOM, nombreRuta) {
         // Limpiar el estado visual "Seleccionado" de las otras rutas
         const todosLosItems = document.querySelectorAll('#lista-recomendados .ramal-item');

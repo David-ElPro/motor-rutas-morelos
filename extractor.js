@@ -3,7 +3,7 @@ const { DOMParser } = require('@xmldom/xmldom');
 const toGeoJSON = require('@tmcw/togeojson');
 const fs = require('fs/promises');
 
-async function extractRouteData(mapId, routeName) {
+async function extractRouteData(mapId, routeName, outputFileName) {
     try {
         // Mantenemos la URL que ya nos funcionó
         const kmlUrl = `https://www.google.com/maps/d/kml?mid=${mapId}&forcekml=1`;
@@ -18,7 +18,7 @@ async function extractRouteData(mapId, routeName) {
         const geoJson = toGeoJSON.kml(kmlDom);
 
         // Normalizamos el nombre del archivo para que sea r1_nombre.geojson
-        const fileName = `${routeName.toLowerCase().replace(/\s+/g, '_')}.geojson`;
+        const fileName = outputFileName || `${routeName.toLowerCase().replace(/\s+/g, "_")}.geojson`;
 
         await fs.writeFile(fileName, JSON.stringify(geoJson, null, 2));
 
@@ -134,12 +134,33 @@ const ramalesRuta1 = [
 
 ];
 
+async function cargarRutasAdicionales() {
+    try {
+        const manifest = JSON.parse(await fs.readFile('catalogos-zonas-adicionales.json', 'utf8'));
+        return manifest.zones.flatMap((zona) =>
+            zona.groups.flatMap((grupo) =>
+                grupo.routes.map((ruta) => ({
+                    id: ruta.mid,
+                    nombre: ruta.archivo.replace('.geojson', ''),
+                    archivo: ruta.archivo,
+                }))
+            )
+        );
+    } catch (error) {
+        console.warn('[WARN] No se pudo leer el manifiesto adicional:', error.message);
+        return [];
+    }
+}
+
 async function iniciarDescarga() {
     console.log('--- Iniciando descarga de Ramales Ruta 1 ---');
-    for (const ruta of ramalesRuta1) {
-        await extractRouteData(ruta.id, ruta.nombre);
+    const rutasAdicionales = await cargarRutasAdicionales();
+    const todasLasRutas = [...ramalesRuta1, ...rutasAdicionales];
+
+    for (const ruta of todasLasRutas) {
+        await extractRouteData(ruta.id, ruta.nombre, ruta.archivo);
     }
-    console.log('--- Proceso finalizado con éxito ---');
+    console.log('--- Proceso finalizado con ?xito ---');
 }
 
 iniciarDescarga();
