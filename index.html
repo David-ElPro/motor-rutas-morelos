@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Movilidad Morelos - Rutita feliz</title>
+    <title>RutAPP Morelos</title>
+    <meta name="application-name" content="RutAPP Morelos">
+    <meta name="apple-mobile-web-app-title" content="RutAPP Morelos">
+    <meta name="theme-color" content="#0f172a">
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
@@ -63,6 +66,228 @@
         .suggestion-item:last-child { border-bottom: none; }
         .suggestion-item:hover { background: rgba(255,255,255,0.15); }
         .hidden { display: none !important; }
+        .startup-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 5000;
+            background: radial-gradient(circle at top, rgba(56, 189, 248, 0.16), transparent 40%), linear-gradient(180deg, #08111f 0%, #0f172a 55%, #111827 100%);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            box-sizing: border-box;
+            transition: opacity 0.35s ease, transform 0.35s ease;
+        }
+        .startup-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(1.01);
+        }
+        .startup-card {
+            width: min(92vw, 420px);
+            text-align: center;
+            background: rgba(15, 23, 42, 0.68);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 28px;
+            padding: 28px 22px;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(18px);
+        }
+        .startup-title {
+            margin: 18px 0 8px;
+            font-size: 1.9rem;
+            line-height: 1.1;
+            letter-spacing: 0.02em;
+        }
+        .startup-copy {
+            margin: 0;
+            color: rgba(226, 232, 240, 0.82);
+            font-size: 0.95rem;
+        }
+        .splash-bus-track {
+            position: relative;
+            width: 240px;
+            height: 120px;
+            margin: 0 auto;
+        }
+        .splash-road {
+            position: absolute;
+            left: 18px;
+            right: 18px;
+            bottom: 12px;
+            height: 4px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, transparent, rgba(148, 163, 184, 0.55), transparent);
+        }
+        .splash-bus {
+            position: absolute;
+            bottom: 28px;
+            left: 30px;
+            width: 150px;
+            height: 62px;
+            border-radius: 18px 20px 12px 12px;
+            background: linear-gradient(180deg, #f8fafc 0%, #dbeafe 100%);
+            border: 2px solid rgba(15, 23, 42, 0.15);
+            box-shadow: 0 10px 28px rgba(15, 23, 42, 0.35);
+            animation: busDrive 2.4s ease-in-out infinite;
+        }
+        .splash-bus::before {
+            content: "";
+            position: absolute;
+            top: 10px;
+            left: 12px;
+            width: 34px;
+            height: 22px;
+            border-radius: 8px;
+            background: linear-gradient(180deg, #38bdf8 0%, #0ea5e9 100%);
+            box-shadow: 40px 0 0 #38bdf8, 80px 0 0 #38bdf8;
+        }
+        .splash-bus::after {
+            content: "";
+            position: absolute;
+            inset: auto 16px 12px 16px;
+            height: 6px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, #0f172a 0 28%, transparent 28% 74%, #0f172a 74% 100%);
+            opacity: 0.18;
+        }
+        .bus-front {
+            position: absolute;
+            top: 15px;
+            right: -10px;
+            width: 12px;
+            height: 30px;
+            border-radius: 8px;
+            background: linear-gradient(180deg, #94a3b8 0%, #cbd5e1 100%);
+        }
+        .bus-wheel {
+            position: absolute;
+            bottom: -10px;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #0f172a;
+            border: 4px solid #cbd5e1;
+            animation: wheelSpin 0.8s linear infinite;
+        }
+        .bus-wheel.left { left: 22px; }
+        .bus-wheel.right { right: 24px; }
+        .bus-light {
+            position: absolute;
+            top: 24px;
+            right: -18px;
+            width: 18px;
+            height: 10px;
+            border-radius: 999px;
+            background: rgba(250, 204, 21, 0.92);
+            box-shadow: 0 0 0 6px rgba(250, 204, 21, 0.12);
+            animation: pulseLight 1.1s ease-in-out infinite;
+        }
+        .zone-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin-top: 22px;
+        }
+        .zone-card {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 18px;
+            padding: 16px 14px;
+            background: rgba(255, 255, 255, 0.06);
+            color: #fff;
+            cursor: pointer;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+        }
+        .zone-card:hover {
+            transform: translateY(-1px);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.22);
+        }
+        .zone-card strong {
+            font-size: 1rem;
+            letter-spacing: 0.01em;
+        }
+        .zone-card span {
+            font-size: 0.84rem;
+            color: rgba(226, 232, 240, 0.72);
+        }
+        .zone-card[data-zone="CENTRO"] { border-left: 4px solid #38bdf8; }
+        .zone-card[data-zone="ORIENTE"] { border-left: 4px solid #f59e0b; }
+        .zone-card[data-zone="SUR"] { border-left: 4px solid #22c55e; }
+        .zone-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.08);
+            margin-bottom: 12px;
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+        .adjust-controls {
+            display: none;
+            gap: 10px;
+            margin-top: 12px;
+        }
+        .adjust-controls.active {
+            display: flex;
+        }
+        .ruta-arrow-icon {
+            background: transparent;
+            border: none;
+        }
+        .ruta-arrow-icon div {
+            font-size: 16px;
+            font-weight: 800;
+            text-shadow: 0 0 8px rgba(0, 0, 0, 0.65);
+            transform-origin: center center;
+        }
+        .adjust-controls button {
+            flex: 1;
+            border: none;
+            border-radius: 12px;
+            padding: 12px 14px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .adjust-confirm {
+            background: #2ecc71;
+            color: #08111f;
+        }
+        .adjust-cancel {
+            background: rgba(255, 255, 255, 0.12);
+            color: #fff;
+        }
+        .zone-active-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 10px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: rgba(56, 189, 248, 0.14);
+            color: #bae6fd;
+            font-size: 0.8rem;
+        }
+        @keyframes busDrive {
+            0%, 100% { transform: translateX(0) rotate(-1deg); }
+            50% { transform: translateX(72px) rotate(1deg); }
+        }
+        @keyframes wheelSpin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        @keyframes pulseLight {
+            0%, 100% { opacity: 0.75; }
+            50% { opacity: 1; }
+        }
 
         /* Rutas y Ramales */
         .ruta-master {
@@ -196,15 +421,54 @@
 </head>
 <body>
 
+<div id="startupOverlay" class="startup-overlay" role="dialog" aria-modal="true" aria-labelledby="startupTitle">
+    <div class="startup-card">
+        <div id="splashStage">
+            <div class="splash-bus-track" aria-hidden="true">
+                <div class="splash-road"></div>
+                <div class="splash-bus">
+                    <div class="bus-front"></div>
+                    <div class="bus-light"></div>
+                    <div class="bus-wheel left"></div>
+                    <div class="bus-wheel right"></div>
+                </div>
+            </div>
+            <h1 id="startupTitle" class="startup-title">RutAPP Morelos</h1>
+            <p class="startup-copy">Cargando rutas, zonas y recomendaciones inteligentes.</p>
+        </div>
+
+        <div id="zoneStage" class="hidden">
+            <div class="zone-pill"><i class="fa fa-location-dot"></i> Selección de zona</div>
+            <h2 style="margin: 0 0 8px; font-size: 1.45rem;">Elige tu zona de trabajo</h2>
+            <p class="startup-copy">Filtraremos rutas, caminos, sugerencias y resultados según tu zona durante toda la sesión.</p>
+            <div class="zone-grid">
+                <button class="zone-card" data-zone="CENTRO" onclick="seleccionarZona('CENTRO')">
+                    <strong>Zona Centro</strong>
+                    <span>Cuernavaca, Jiutepec y corredores centrales.</span>
+                </button>
+                <button class="zone-card" data-zone="ORIENTE" onclick="seleccionarZona('ORIENTE')">
+                    <strong>Zona Oriente</strong>
+                    <span>Cuautla, Yecapixtla, Yautepec y alrededores.</span>
+                </button>
+                <button class="zone-card" data-zone="SUR" onclick="seleccionarZona('SUR')">
+                    <strong>Zona Sur</strong>
+                    <span>Jojutla, Zacatepec, Puente de Ixtla y región sur.</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div id="topBanner" class="top-banner">
     <i class="fa fa-bus-simple"></i> <span id="topBannerText">Selecciona una ruta</span>
 </div>
 
 <div class="sidebar">
     <div class="header-controls">
-        <h2 style="margin:0; font-size: 1.1rem;"><i class="fa fa-map-marked-alt"></i> Linnegocios <span style="font-weight: 200; font-size: 0.8rem;">Beta</span></h2>
+        <h2 style="margin:0; font-size: 1.1rem;"><i class="fa fa-map-marked-alt"></i> RutAPP Morelos</h2>
         <button class="btn-clear" onclick="clearAllLayers()"><i class="fa fa-trash-can"></i> Limpiar</button>
     </div>
+    <div id="zonaActualBadge" class="zone-active-badge hidden"></div>
 
     <div class="search-destination" style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 16px; margin-bottom: 20px;">
         <label style="font-size: 0.85rem; opacity: 0.9; font-weight: 600;"><i class="fa fa-location-arrow"></i> ¿A dónde quieres ir?</label>
@@ -220,6 +484,13 @@
             <button class="ruta-master" style="background: rgba(255,255,255,0.1); color: #fff; width: 50px; flex: none; justify-content: center; margin-top: 0;" onclick="invertirRuta()" title="Invertir el Regreso">
                 <i class="fa fa-retweet"></i>
             </button>
+        </div>
+        <button class="ruta-master" style="background: rgba(56, 189, 248, 0.15); color: #bae6fd; margin-top: 10px;" onclick="activarAjusteDestinoManual()">
+            <span><i class="fa fa-arrows-alt"></i> Ajustar destino manualmente</span>
+        </button>
+        <div id="adjustDestinationControls" class="adjust-controls">
+            <button class="adjust-confirm" onclick="confirmarAjusteDestino()">Confirmar ubicación</button>
+            <button class="adjust-cancel" onclick="cancelarAjusteDestino()">Cancelar ajuste</button>
         </div>
 
         <div id="recomendaciones-panel" style="margin-top: 15px; display: none;">
@@ -532,6 +803,7 @@
     const capasActivas = {};
     let caminataLayer = null;
     let abordajeMarker = null;
+    let flechasRutaLayer = null;
 
     // VARIABLES MODO VIAJE
     let puntoDescensoGuardado = null;
@@ -552,7 +824,10 @@
         const groups = document.querySelectorAll('.grupo-ruta');
         groups.forEach(group => {
             const text = (group.getAttribute('data-name') || group.innerText).toLowerCase();
-            if (text.includes(input)) { group.classList.remove('hidden'); } else { group.classList.add('hidden'); }
+            const groupZone = obtenerZonaGrupo(group);
+            const matchesText = text.includes(input);
+            const matchesZone = rutaVisibleEnZona(groupZone);
+            if (matchesText && matchesZone) { group.classList.remove('hidden'); } else { group.classList.add('hidden'); }
         });
     }
 
@@ -572,6 +847,7 @@
 
         if (caminataLayer) map.removeLayer(caminataLayer);
         if (abordajeMarker) map.removeLayer(abordajeMarker);
+        limpiarFlechasRuta();
         document.getElementById('recomendaciones-panel').style.display = 'none';
         if (marcadorDestinoUI) map.removeLayer(marcadorDestinoUI);
 
@@ -595,6 +871,68 @@
             paddingTopLeft: [50, 50],
             paddingBottomRight: [50, isMobile ? (window.innerHeight * 0.55) : 50]
         };
+    }
+
+    function limpiarFlechasRuta() {
+        if (flechasRutaLayer) {
+            map.removeLayer(flechasRutaLayer);
+            flechasRutaLayer = null;
+        }
+    }
+
+    function obtenerCoordenadasLinea(data) {
+        if (!data) return [];
+        if (data.type === 'FeatureCollection') {
+            const feature = data.features.find((item) => item.geometry && (item.geometry.type === 'LineString' || item.geometry.type === 'MultiLineString'));
+            return obtenerCoordenadasLinea(feature);
+        }
+        if (data.type === 'Feature') {
+            return obtenerCoordenadasLinea(data.geometry);
+        }
+        if (data.type === 'LineString') {
+            return data.coordinates || [];
+        }
+        if (data.type === 'MultiLineString') {
+            return (data.coordinates || []).flat();
+        }
+        return [];
+    }
+
+    function calcularRumbo(origen, destino) {
+        const lat1 = origen[1] * Math.PI / 180;
+        const lat2 = destino[1] * Math.PI / 180;
+        const deltaLon = (destino[0] - origen[0]) * Math.PI / 180;
+        const y = Math.sin(deltaLon) * Math.cos(lat2);
+        const x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(deltaLon);
+        return (Math.atan2(y, x) * 180 / Math.PI + 360) % 360;
+    }
+
+    function agregarFlechasRuta(data, color) {
+        const coordinates = obtenerCoordenadasLinea(data);
+        if (coordinates.length < 2) return;
+
+        limpiarFlechasRuta();
+        flechasRutaLayer = L.layerGroup().addTo(map);
+
+        const paso = Math.max(1, Math.floor(coordinates.length / 7));
+        for (let index = 0; index < coordinates.length - 1; index += paso) {
+            const origen = coordinates[index];
+            const destino = coordinates[Math.min(index + 1, coordinates.length - 1)];
+            if (!origen || !destino) continue;
+
+            const rumbo = calcularRumbo(origen, destino);
+            const arrowIcon = L.divIcon({
+                className: 'ruta-arrow-icon',
+                html: `<div style="color:${color}; transform: rotate(${rumbo}deg);">➤</div>`,
+                iconSize: [18, 18],
+                iconAnchor: [9, 9]
+            });
+
+            L.marker([origen[1], origen[0]], {
+                icon: arrowIcon,
+                interactive: false
+            }).addTo(flechasRutaLayer);
+        }
     }
 
     async function toggleLayer(key, archivo, color) {
@@ -669,25 +1007,158 @@
 
     // 4. AUTOCOMPLETADO
     const baseLocal = [
-        { nombre: "Mercado Adolfo López Mateos (ALM)", tipo: "lugar", lat: 18.9225, lon: -99.2312 },
-        { nombre: "Zócalo de Cuernavaca", tipo: "lugar", lat: 18.9218, lon: -99.2347 },
-        { nombre: "UAEM Chamilpa", tipo: "lugar", lat: 18.9833, lon: -99.2354 },
-        { nombre: "IMSS Plan de Ayala", tipo: "lugar", lat: 18.9189, lon: -99.2132 },
-        { nombre: "Walmart Jiutepec", tipo: "lugar", lat: 18.8833, lon: -99.1747 },
-        { nombre: "CIVAC (Centro)", tipo: "lugar", lat: 18.8950, lon: -99.1820 },
-        { nombre: "Bodega Aurrera Jiutepec", tipo: "lugar", lat: 18.8856, lon: -99.1732 }
+        { nombre: "Mercado Adolfo López Mateos (ALM)", tipo: "lugar", lat: 18.9225, lon: -99.2312, zonas: ['CENTRO'] },
+        { nombre: "Zócalo de Cuernavaca", tipo: "lugar", lat: 18.9218, lon: -99.2347, zonas: ['CENTRO'] },
+        { nombre: "UAEM Chamilpa", tipo: "lugar", lat: 18.9833, lon: -99.2354, zonas: ['CENTRO'] },
+        { nombre: "IMSS Plan de Ayala", tipo: "lugar", lat: 18.9189, lon: -99.2132, zonas: ['CENTRO'] },
+        { nombre: "Walmart Jiutepec", tipo: "lugar", lat: 18.8833, lon: -99.1747, zonas: ['CENTRO'] },
+        { nombre: "CIVAC (Centro)", tipo: "lugar", lat: 18.8950, lon: -99.1820, zonas: ['CENTRO'] },
+        { nombre: "Bodega Aurrera Jiutepec", tipo: "lugar", lat: 18.8856, lon: -99.1732, zonas: ['CENTRO'] }
     ];
 
+    const ZONAS_APP = ['CENTRO', 'ORIENTE', 'SUR'];
+    let zonaSeleccionada = sessionStorage.getItem('rutapp.zona') || '';
     let destinoCoordenadasReal = null;
     let timeoutBusqueda = null;
     let marcadorDestinoUI = null;
+    let modoAjusteDestino = false;
+    let destinoAnteriorAjuste = null;
+
+    function normalizarZona(valor) {
+        return String(valor || '').trim().toUpperCase();
+    }
+
+    function obtenerZonaGrupo(elemento) {
+        return normalizarZona(elemento?.dataset?.zone || 'ALL') || 'ALL';
+    }
+
+    function rutaVisibleEnZona(rutaZona) {
+        if (!zonaSeleccionada) return true;
+        const zonaNormalizada = normalizarZona(rutaZona);
+        return !zonaNormalizada || zonaNormalizada === 'ALL' || zonaNormalizada === zonaSeleccionada;
+    }
+
+    function obtenerViewboxZona() {
+        switch (zonaSeleccionada) {
+            case 'ORIENTE':
+                return '-98.99,18.98,-98.46,18.56';
+            case 'SUR':
+                return '-99.58,18.78,-99.05,18.34';
+            case 'CENTRO':
+            default:
+                return '-99.40,19.05,-98.90,18.70';
+        }
+    }
+
+    function actualizarBadgeZona() {
+        const badge = document.getElementById('zonaActualBadge');
+        if (!badge) return;
+        if (!zonaSeleccionada) {
+            badge.classList.add('hidden');
+            badge.innerHTML = '';
+            return;
+        }
+
+        badge.classList.remove('hidden');
+        badge.innerHTML = `<i class="fa fa-location-dot"></i> Zona activa: ${zonaSeleccionada}`;
+    }
+
+    function aplicarFiltroZonaUI() {
+        document.querySelectorAll('.grupo-ruta').forEach((grupo) => {
+            const visible = rutaVisibleEnZona(obtenerZonaGrupo(grupo));
+            grupo.classList.toggle('hidden', !visible);
+        });
+
+        actualizarBadgeZona();
+
+        const panel = document.getElementById('recomendaciones-panel');
+        if (panel && panel.style.display === 'block' && userMarker && destinoCoordenadasReal) {
+            recomendarRutas();
+        }
+    }
+
+    function cerrarStartupOverlay() {
+        const overlay = document.getElementById('startupOverlay');
+        if (!overlay) return;
+        overlay.classList.add('hidden');
+        setTimeout(() => overlay.remove(), 400);
+    }
+
+    function seleccionarZona(zona) {
+        zonaSeleccionada = normalizarZona(zona);
+        sessionStorage.setItem('rutapp.zona', zonaSeleccionada);
+        aplicarFiltroZonaUI();
+        cerrarStartupOverlay();
+    }
+
+    function activarAjusteDestinoManual() {
+        if (!marcadorDestinoUI) {
+            alert('Primero selecciona un destino.');
+            return;
+        }
+
+        destinoAnteriorAjuste = { ...destinoCoordenadasReal };
+        modoAjusteDestino = true;
+        document.getElementById('adjustDestinationControls').classList.add('active');
+
+        if (marcadorDestinoUI.dragging) {
+            marcadorDestinoUI.dragging.enable();
+        }
+
+        marcadorDestinoUI.bindTooltip('Ajusta tu destino manualmente', {
+            permanent: true,
+            direction: 'top',
+            offset: [0, -12],
+            className: 'custom-tooltip'
+        }).openTooltip();
+    }
+
+    function finalizarAjusteDestino(aplicarCambio) {
+        document.getElementById('adjustDestinationControls').classList.remove('active');
+        modoAjusteDestino = false;
+
+        if (!marcadorDestinoUI) return;
+
+        marcadorDestinoUI.closeTooltip();
+        marcadorDestinoUI.unbindTooltip();
+
+        if (marcadorDestinoUI.dragging) {
+            marcadorDestinoUI.dragging.disable();
+        }
+
+        if (!aplicarCambio && destinoAnteriorAjuste) {
+            marcadorDestinoUI.setLatLng([destinoAnteriorAjuste.lat, destinoAnteriorAjuste.lng]);
+            destinoCoordenadasReal = { ...destinoAnteriorAjuste };
+        } else {
+            const destinoNuevo = marcadorDestinoUI.getLatLng();
+            destinoCoordenadasReal = { lat: destinoNuevo.lat, lng: destinoNuevo.lng };
+        }
+
+        destinoAnteriorAjuste = null;
+
+        if (userMarker) {
+            recomendarRutas();
+        }
+    }
+
+    function confirmarAjusteDestino() {
+        finalizarAjusteDestino(true);
+    }
+
+    function cancelarAjusteDestino() {
+        finalizarAjusteDestino(false);
+    }
 
     async function buscarLugarAPI() {
         const input = document.getElementById('destinationInput').value.toLowerCase();
         const box = document.getElementById('suggestionsBox');
         if (input.length < 2) { box.style.display = 'none'; return; }
         box.style.display = 'block'; box.innerHTML = '';
-        const resultadosLocales = baseLocal.filter(item => item.nombre.toLowerCase().includes(input));
+        const resultadosLocales = baseLocal.filter(item => {
+            const coincideTexto = item.nombre.toLowerCase().includes(input);
+            const coincideZona = !zonaSeleccionada || !item.zonas || item.zonas.includes(zonaSeleccionada);
+            return coincideTexto && coincideZona;
+        });
 
         resultadosLocales.forEach(item => {
             const div = document.createElement('div'); div.className = 'suggestion-item';
@@ -702,7 +1173,7 @@
                 try {
                     const loadingDiv = document.createElement('div'); loadingDiv.className = 'suggestion-item';
                     loadingDiv.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Buscando más...'; box.appendChild(loadingDiv);
-                    const query = encodeURIComponent(input); const viewbox = "-99.40,19.05,-98.90,18.70";
+                    const query = encodeURIComponent(input); const viewbox = obtenerViewboxZona();
                     const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${query}&limit=5&viewbox=${viewbox}&bounded=1`);
                     const data = await res.json(); box.removeChild(loadingDiv);
                     data.forEach(lugar => {
@@ -723,7 +1194,10 @@
         destinoCoordenadasReal = { lat: parseFloat(lat), lng: parseFloat(lon) };
         document.getElementById('destinationInput').value = nombre; document.getElementById('suggestionsBox').style.display = 'none';
         if (marcadorDestinoUI) map.removeLayer(marcadorDestinoUI);
-        marcadorDestinoUI = L.marker([lat, lon]).addTo(map).bindPopup(`<b><i class="fa fa-flag-checkered"></i> Destino:</b><br>${nombre}`).openPopup();
+        marcadorDestinoUI = L.marker([lat, lon], { draggable: false }).addTo(map).bindPopup(`<b><i class="fa fa-flag-checkered"></i> Destino:</b><br>${nombre}`).openPopup();
+        if (modoAjusteDestino && marcadorDestinoUI.dragging) {
+            marcadorDestinoUI.dragging.enable();
+        }
 
         const targetBounds = L.latLngBounds([lat, lon], [lat, lon]);
         map.fitBounds(targetBounds, { maxZoom: 15, ...getMapPadding() });
@@ -821,6 +1295,11 @@
         { archivo: "r20_tetecalita.geojson", color: "#ffa502" }
     ];
 
+    todosLosRamales = todosLosRamales.map((ruta) => ({
+        ...ruta,
+        zona: ruta.zona || 'ALL'
+    }));
+
     const catalogosAdicionalesPromise = cargarCatalogosAdicionales();
 
     function tonoPorIndice(indice, offset = 0) {
@@ -848,7 +1327,7 @@
         }).join('');
 
         return `
-        <div class="grupo-ruta" data-name="zona ${zona.toLowerCase()} ${grupo.group.toLowerCase()} ${grupo.routes.map(r => r.label.toLowerCase()).join(' ')}">
+        <div class="grupo-ruta" data-zone="${normalizarZona(zona)}" data-name="zona ${zona.toLowerCase()} ${grupo.group.toLowerCase()} ${grupo.routes.map(r => r.label.toLowerCase()).join(' ')}">
             <button class="ruta-master" style="background: ${colorBase}; color: #000; margin-top: 15px;" onclick="toggleMenu('${menuId}')">
                 <span><i class="fa fa-bus"></i> ${zona} - ${grupo.group}</span><i class="fa fa-chevron-down" id="arrow-${slugSimple(zona)}-${indiceGrupo}"></i>
             </button>
@@ -877,14 +1356,15 @@
                             color: tonoPorIndice(indiceRuta, indiceGrupo * 17 + indiceZona * 53),
                             nombre: ruta.label,
                             grupo: grupo.group,
-                            zona: zona.zone
+                            zona: normalizarZona(zona.zone)
                         });
                     });
                 });
             });
 
             contenedor.insertAdjacentHTML('beforeend', html.join(''));
-            todosLosRamales.push(...extras);
+            todosLosRamales.push(...extras.map((ruta) => ({ ...ruta, zona: ruta.zona || 'ALL' })));
+            aplicarFiltroZonaUI();
             return extras;
         } catch (e) {
             console.warn('No se pudieron cargar los catálogos adicionales', e);
@@ -924,7 +1404,16 @@
 
             const distanciaOrigenMetros = Math.round(nearestAbordaje.properties.dist * 1000);
             const distanciaDestinoMetros = Math.round(nearestDescenso.properties.dist * 1000);
-            const distanciaTotal = distanciaOrigenMetros + distanciaDestinoMetros;
+            const coords = lineaGeo.geometry.coordinates || [];
+            const indiceAbordaje = Math.max(0, Math.min(coords.length - 1, nearestAbordaje.properties.index || 0));
+            const siguienteIndice = Math.min(coords.length - 1, indiceAbordaje + 1);
+            const puntoActual = turf.point(coords[indiceAbordaje]);
+            const puntoSiguiente = turf.point(coords[siguienteIndice] || coords[indiceAbordaje]);
+            const distanciaActualDestino = turf.distance(puntoActual, puntoDestino, { units: 'kilometers' }) * 1000;
+            const distanciaSiguienteDestino = turf.distance(puntoSiguiente, puntoDestino, { units: 'kilometers' }) * 1000;
+            const penalizacionSalida = Math.max(0, Math.round(distanciaSiguienteDestino - distanciaActualDestino));
+            const distanciaTotal = distanciaOrigenMetros + distanciaDestinoMetros + penalizacionSalida;
+            const score = (distanciaOrigenMetros * 1.15) + (distanciaDestinoMetros * 1.05) + (penalizacionSalida * 1.4);
 
             const resultado = {
                 lineaGeo,
@@ -933,10 +1422,12 @@
                 direccionCorrecta,
                 distanciaOrigenMetros,
                 distanciaDestinoMetros,
-                distanciaTotal
+                distanciaTotal,
+                penalizacionSalida,
+                score
             };
 
-            if (!mejor || resultado.distanciaOrigenMetros < mejor.distanciaOrigenMetros || (resultado.distanciaOrigenMetros === mejor.distanciaOrigenMetros && resultado.distanciaDestinoMetros < mejor.distanciaDestinoMetros)) {
+            if (!mejor || resultado.score < mejor.score) {
                 mejor = resultado;
             }
         }
@@ -954,7 +1445,9 @@
             direccionCorrecta: nearestAbordaje.properties.index <= nearestDescenso.properties.index,
             distanciaOrigenMetros: Math.round(nearestAbordaje.properties.dist * 1000),
             distanciaDestinoMetros: Math.round(nearestDescenso.properties.dist * 1000),
-            distanciaTotal: Math.round((nearestAbordaje.properties.dist + nearestDescenso.properties.dist) * 1000)
+            distanciaTotal: Math.round((nearestAbordaje.properties.dist + nearestDescenso.properties.dist) * 1000),
+            penalizacionSalida: 0,
+            score: Math.round((nearestAbordaje.properties.dist + nearestDescenso.properties.dist) * 1000)
         };
     }
 
@@ -976,6 +1469,7 @@
         const resultados = [];
 
         for (let ruta of todosLosRamales) {
+            if (!rutaVisibleEnZona(ruta.zona)) continue;
             try {
                 const res = await fetch(ruta.archivo); if (!res.ok) continue;
                 const data = await res.json();
@@ -988,6 +1482,8 @@
                     distanciaOrigenMetros: evaluada.distanciaOrigenMetros,
                     distanciaDestinoMetros: evaluada.distanciaDestinoMetros,
                     distanciaTotal: evaluada.distanciaTotal,
+                    score: evaluada.score,
+                    penalizacionSalida: evaluada.penalizacionSalida,
                     direccionCorrecta: evaluada.direccionCorrecta,
                     coordAbordaje: [evaluada.nearestAbordaje.geometry.coordinates[1], evaluada.nearestAbordaje.geometry.coordinates[0]],
                     coordDescenso: [evaluada.nearestDescenso.geometry.coordinates[1], evaluada.nearestDescenso.geometry.coordinates[0]]
@@ -999,23 +1495,24 @@
         if (resultados.length > 0) {
             resultados.sort((a, b) => {
                 if (a.direccionCorrecta !== b.direccionCorrecta) return a.direccionCorrecta ? -1 : 1;
-                if (a.distanciaOrigenMetros !== b.distanciaOrigenMetros) return a.distanciaOrigenMetros - b.distanciaOrigenMetros;
-                if (a.distanciaDestinoMetros !== b.distanciaDestinoMetros) return a.distanciaDestinoMetros - b.distanciaDestinoMetros;
-                return a.distanciaTotal - b.distanciaTotal;
+                return a.score - b.score;
             });
             const mejoresOpciones = resultados.slice(0, 4);
 
             lista.innerHTML += `<div style="margin-bottom: 15px; padding: 12px; background: rgba(255,255,255,0.05); border-left: 3px solid #3498db; border-radius: 8px; font-size: 0.85rem; color: rgba(255,255,255,0.9);"><i class="fa fa-map-location-dot" style="color: #3498db; margin-right: 5px;"></i><b>Rutas hacia ${nombreDestino}</b></div>`;
 
             mejoresOpciones.forEach((r, index) => {
-                let nivelEsfuerzo = index === 0 ? `<span style="float: right; font-size: 0.65rem; background: #2ecc71; color: #000; padding: 3px 6px; border-radius: 10px; font-weight: bold;"><i class="fa fa-star"></i> M?S CERCANA</span>` : "";
+                const tiempoCaminandoMin = Math.max(1, Math.round(r.distanciaDestinoMetros / 80));
+                let nivelEsfuerzo = index === 0 ? `<span style="float: right; font-size: 0.65rem; background: #2ecc71; color: #000; padding: 3px 6px; border-radius: 10px; font-weight: bold;"><i class="fa fa-star"></i> MEJOR OPCIÓN</span>` : "";
                 lista.innerHTML += `
                     <div class="ramal-item" style="margin-bottom:10px; border-left: 4px solid ${r.color}; flex-direction: column; align-items: flex-start; padding: 12px;"
                          onclick="mostrarRutaGuiada('${r.archivo}', '${r.color}', ${r.coordAbordaje[0]}, ${r.coordAbordaje[1]}, ${r.distanciaOrigenMetros}, ${r.coordDescenso[0]}, ${r.coordDescenso[1]}, this, '${r.nombre}')">
                         <div style="width: 100%; margin-bottom: 8px;"><i class="fa fa-bus" style="color: ${r.color};"></i> <b style="font-size: 0.95rem;">${r.nombre}</b>${nivelEsfuerzo}</div>
                         <div style="font-size: 0.75rem; display: flex; flex-direction: column; gap: 4px;">
                             <span><i class="fa fa-person-walking"></i> Camina <b>${r.distanciaOrigenMetros} metros</b> a la parada.</span>
-                            <span><i class="fa fa-map-pin"></i> Te dejar? a <b>${r.distanciaDestinoMetros} metros</b> de la meta.</span>
+                            <span><i class="fa fa-map-pin"></i> Baja en la parada recomendada para quedar a <b>${r.distanciaDestinoMetros} metros</b> de la meta.</span>
+                            <span><i class="fa fa-clock"></i> Caminata estimada: <b>${tiempoCaminandoMin} min</b>.</span>
+                            <span style="opacity:0.9;"><i class="fa fa-circle-info"></i> Se recomienda descender en esta parada para quedar más cerca de tu destino.</span>
                         </div>
                     </div>`;
             });
@@ -1051,6 +1548,7 @@
             const layer = L.geoJSON(data, { style: { color: color, weight: 6, opacity: 0.9, lineJoin: 'round', lineCap: 'round' } })
                 .bindTooltip(`<div style="font-size:14px;"><i class="fa fa-bus" style="color:${color}"></i> ${nombreLimpio}</div>`, { className: 'custom-tooltip', sticky: true }).addTo(map);
             capasActivas['rutaOptima'] = layer;
+            agregarFlechasRuta(data, color);
 
             const userLat = userMarker.getLatLng().lat; const userLng = userMarker.getLatLng().lng;
             caminataLayer = L.polyline([[userLat, userLng], [latAbordaje, lngAbordaje]], { color: '#fff', weight: 4, dashArray: '5, 10', opacity: 0.8 }).addTo(map);
@@ -1151,6 +1649,24 @@
 
     setTimeout(() => { createUserMarker([18.9218, -99.2347]); }, 1000);
 
+    setTimeout(() => {
+        const splashStage = document.getElementById('splashStage');
+        const zoneStage = document.getElementById('zoneStage');
+
+        if (zonaSeleccionada) {
+            cerrarStartupOverlay();
+            aplicarFiltroZonaUI();
+            return;
+        }
+
+        if (splashStage) splashStage.classList.add('hidden');
+        if (zoneStage) zoneStage.classList.remove('hidden');
+    }, 2400);
+
+    if (zonaSeleccionada) {
+        aplicarFiltroZonaUI();
+    }
+
     // ==========================================
     // NUEVA LÓGICA: BUSCADOR DE TRANSBORDOS
     // ==========================================
@@ -1166,6 +1682,7 @@
         // 1. Buscamos rutas "Alimentadoras" (que pasen a menos de 150m de donde estás)
         const alimentadoras = [];
         for (let r of todosLosRamales) {
+            if (!rutaVisibleEnZona(r.zona)) continue;
             const res = await fetch(r.archivo);
             const data = await res.json();
             const nearest = turf.nearestPointOnLine(data, puntoOrigen);

@@ -126,7 +126,7 @@ const ramalesRuta1 = [
     { id: '1-QukQtPXLNWnZokIVsR7cRJLEAzTRuZA', nombre: 'r19_amador_salazar' },
     { id: '1GL3aRVz7UEruxTqpK2WHdfxyXpDwBWgR', nombre: 'r19_yautepec' },
     { id: '1MNjZ9onG0-7FDK7Q8wis8qpEaVf82VkO', nombre: 'r19_alvaro_leonel_circuito' },
-    // Ruta 20 - CIERRE BETA
+    // Ruta 20 - CIERRE
     { id: '1-xs61YhyjC6jJZ93YLoODiQy1yD9zHmo', nombre: 'r20_tezoyuca_loop' },
     { id: '1vy0u-1IXvVFMk_FhY-O0f7vpjXtACkgn', nombre: 'r20_palo_escrito' },
     { id: '1zkFPLmaOT2HWwpr0sOFeKBgjkcOLOeDR', nombre: 'r20_tetecalita' }
