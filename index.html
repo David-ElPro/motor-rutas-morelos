@@ -795,7 +795,7 @@
         body.theme-light .guide-modal-actions .modal-btn {
             color: #0f172a;
         }
-        body.theme-light .guide-modal-actions .btn-primary {
+        body.theme-light .btn-primary {
             color: #fff;
         }
         body.theme-light .btn-clear {
@@ -1657,7 +1657,7 @@
             guiaObjetivoAnterior = null;
         }
         const guideBackdrop = document.getElementById('guideBackdrop');
-        if (guideBackdrop) guideBackdrop.classList.remove('visible');
+        if (guideBackdrop) guideBackdrop.classList.add('visible');
     }
 
     function actualizarSpotlightGuia(paso) {
@@ -2080,7 +2080,8 @@
         aplicarFiltroZonaUI();
         centrarMapaPorZona();
         cerrarStartupOverlay();
-        mostrarGuiaInicialSiHaceFalta();
+        // The guide will be shown by continuePostZoneSelectionFlow after location permission
+        continuePostZoneSelectionFlow();
     }
 
     function seleccionarZona(zona) {
@@ -2120,20 +2121,12 @@
 
     function aceptarAvisoPrivacidad() {
         privacyAccepted = true;
-        localStorage.setItem('rutapp.privacy.version', '2026-06-11');
+        localStorage.setItem('rutapp.privacy.version', GUIA_VERSION);
         cerrarAvisoPrivacidad();
-        if (zonaSeleccionada) {
-            aplicarFiltroZonaUI();
-            centrarMapaPorZona();
-            setTimeout(() => mostrarPermisoUbicacionSiHaceFalta(), 300);
-            return;
+        if (window._resolvePrivacyPromise) {
+            window._resolvePrivacyPromise();
+            delete window._resolvePrivacyPromise;
         }
-        const overlay = document.getElementById('startupOverlay');
-        const splashStage = document.getElementById('splashStage');
-        const zoneStage = document.getElementById('zoneStage');
-        if (overlay) overlay.classList.remove('hidden');
-        if (splashStage) splashStage.classList.add('hidden');
-        if (zoneStage) zoneStage.classList.remove('hidden');
     }
 
     function rechazarUbicacionInicial() {
@@ -2142,6 +2135,10 @@
         if (!userMarker) {
             alert('Perfecto. Podrás colocar tu ubicación manualmente tocando el mapa o moviendo el marcador cuando se habilite.');
         }
+        if (window._resolveLocationPromise) {
+            window._resolveLocationPromise();
+            delete window._resolveLocationPromise;
+        }
     }
 
     function aceptarUbicacionInicial() {
@@ -2149,38 +2146,10 @@
         cerrarModalPorId('modalPermisoUbicacion');
         requestedInitialLocation = true;
         getUserLocation();
-    }
-
-    function mostrarAvisoPrivacidadInicialSiHaceFalta() {
-        const versionActual = '2026-06-11';
-        const versionAceptada = localStorage.getItem('rutapp.privacy.version');
-        privacyAccepted = versionAceptada === versionActual;
-        if (!privacyAccepted) {
-            abrirAvisoPrivacidad();
-            return true;
+        if (window._resolveLocationPromise) {
+            window._resolveLocationPromise();
+            delete window._resolveLocationPromise;
         }
-        return false;
-    }
-
-    function mostrarPermisoUbicacionSiHaceFalta() {
-        if (locationPromptShown) return;
-        locationPromptShown = true;
-        const preferencia = localStorage.getItem('rutapp.location.preference');
-        if (preferencia === 'manual' || preferencia === 'granted') return;
-        document.getElementById('modalPermisoUbicacion').style.display = 'flex';
-    }
-
-    function prepararFlujoInicial() {
-        if (zonaSeleccionada) {
-            aplicarFiltroZonaUI();
-            setTimeout(() => mostrarPermisoUbicacionSiHaceFalta(), 700);
-            return;
-        }
-
-        const splashStage = document.getElementById('splashStage');
-        const zoneStage = document.getElementById('zoneStage');
-        if (splashStage) splashStage.classList.add('hidden');
-        if (zoneStage) zoneStage.classList.remove('hidden');
     }
 
     function activarAjusteDestinoManual() {
@@ -2810,31 +2779,53 @@
     montarGuiaUsuario();
     aplicarTema(currentTheme);
 
-    setTimeout(() => {
-        const splashStage = document.getElementById('splashStage');
-        const zoneStage = document.getElementById('zoneStage');
+    // New function to handle the sequential display of modals
+    async function handleStartupModals() {
+        // 1. Wait for splash screen to finish
+        await new Promise(resolve => setTimeout(resolve, 2400));
+        document.getElementById('splashStage').classList.add('hidden');
 
-        if (zonaSeleccionada) {
+        // 2. Check and show Privacy Modal
+        const privacyVersion = localStorage.getItem('rutapp.privacy.version');
+        if (privacyVersion !== GUIA_VERSION) {
+            await new Promise(resolve => {
+                window._resolvePrivacyPromise = resolve;
+                abrirAvisoPrivacidad();
+            });
+        }
+
+        // 3. If no zone selected, show zone selector and wait for selection
+        if (!zonaSeleccionada) {
+            document.getElementById('zoneStage').classList.remove('hidden');
+            // The flow will continue from seleccionarZona -> cargarZonaActiva -> continuePostZoneSelectionFlow
+            return;
+        } else {
+            // If zone is already selected, close startup overlay
             cerrarStartupOverlay();
             aplicarFiltroZonaUI();
             centrarMapaPorZona();
-            mostrarPermisoUbicacionSiHaceFalta();
-            return;
+            // Continue to location permission check
+            await continuePostZoneSelectionFlow();
+        }
+    }
+
+    // New function to continue the flow after zone selection (or if already selected)
+    async function continuePostZoneSelectionFlow() {
+        // 4. Check and show Location Permission Modal
+        const locationPreference = localStorage.getItem('rutapp.location.preference');
+        if (!locationPreference) { // If location preference is not set
+            await new Promise(resolve => {
+                window._resolveLocationPromise = resolve;
+                document.getElementById('modalPermisoUbicacion').style.display = 'flex';
+            });
         }
 
-        if (splashStage) splashStage.classList.add('hidden');
-        if (zoneStage) zoneStage.classList.remove('hidden');
-    }, 2400);
-
-    if (mostrarAvisoPrivacidadInicialSiHaceFalta()) {
-        // El flujo se reanuda cuando el usuario acepta el aviso.
-    } else if (zonaSeleccionada) {
-        aplicarFiltroZonaUI();
-        centrarMapaPorZona();
-        setTimeout(() => mostrarPermisoUbicacionSiHaceFalta(), 1500);
-    } else {
-        prepararFlujoInicial();
+        // 5. Finally, show User Guide Modal
+        mostrarGuiaInicialSiHaceFalta();
     }
+
+    // Initial call to start the orchestrated flow
+    handleStartupModals();
 
     // ==========================================
     // NUEVA LÓGICA: BUSCADOR DE TRANSBORDOS
