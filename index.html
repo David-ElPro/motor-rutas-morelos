@@ -108,7 +108,7 @@
             padding: 10px 0 12px; margin-bottom: 15px; z-index: 80;
             backdrop-filter: blur(12px);
         }
-        .search-box input, .search-destination input {
+        .search-box input, .search-destination input, .search-origin input {
             width: 100%; padding: 12px 15px; border-radius: 12px;
             border: 1px solid rgba(255,255,255,0.2);
             background: var(--input-bg); color: var(--text-primary);
@@ -134,13 +134,14 @@
         .startup-overlay {
             position: fixed;
             inset: 0;
-            z-index: 5000;
+            z-index: 2500; /* Bajado para que los modales (3000) queden encima */
             background: linear-gradient(180deg, #ffffff 0%, #f7fff8 55%, #eefbf1 100%);
             color: #0f172a;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
+            overflow-y: auto; /* Permite scroll si hay muchas zonas en móviles */
             padding: 34px 20px 24px;
             box-sizing: border-box;
             transition: opacity 0.35s ease, transform 0.35s ease;
@@ -445,6 +446,8 @@
         body.theme-light .sidebar .zone-active-badge,
         body.theme-light .sidebar .search-destination,
         body.theme-light .sidebar .search-destination *,
+        body.theme-light .sidebar .search-origin,
+        body.theme-light .sidebar .search-origin *,
         body.theme-light .modal-content,
         body.theme-light .modal-content *,
         body.theme-light .data-modal-body,
@@ -454,6 +457,7 @@
         }
         body.theme-light .search-box input,
         body.theme-light .search-destination input,
+        body.theme-light .search-origin input,
         body.theme-light #routeSearch {
             color: #0f172a;
             background: rgba(255, 255, 255, 0.92);
@@ -461,6 +465,7 @@
         }
         body.theme-light .search-box input::placeholder,
         body.theme-light .search-destination input::placeholder,
+        body.theme-light .search-origin input::placeholder,
         body.theme-light #routeSearch::placeholder {
             color: rgba(15, 23, 42, 0.42);
         }
@@ -695,7 +700,7 @@
             pointer-events: none;
             padding-top: 18px;
             box-sizing: border-box;
-            z-index: 5000;
+            z-index: 6000; /* El más alto para la guía */
         }
         #modalGuiaUsuario .modal-content {
             pointer-events: auto;
@@ -810,7 +815,8 @@
             background: rgba(255, 255, 255, 0.55);
             border-radius: 14px;
         }
-        body.theme-light .search-destination {
+        body.theme-light .search-destination,
+        body.theme-light .search-origin {
             background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(248,250,252,0.98)) !important;
             border: 1px solid rgba(15, 23, 42, 0.08);
             box-shadow: 0 12px 24px rgba(15, 23, 42, 0.06);
@@ -989,6 +995,31 @@
     </div>
     <div id="zonaActualBadge" class="zone-active-badge hidden"></div>
 
+    <!-- Nuevo campo de origen -->
+    <div class="search-origin" style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 16px; margin-bottom: 20px;">
+        <label style="font-size: 0.85rem; opacity: 0.9; font-weight: 600;"><i class="fa fa-location-dot"></i> ¿De dónde quieres salir?</label>
+        <div style="margin-top: 10px; position: relative;">
+            <div style="display: flex; gap: 10px; align-items: center;">
+                <div style="position: relative; flex: 1;">
+                    <input type="text" id="originInput" placeholder="Ej: Mi casa, Trabajo, Parque..." autocomplete="off" oninput="buscarLugarOrigenAPI()">
+                    <div id="originSuggestionsBox" class="suggestions-box"></div>
+                </div>
+                <button id="btnUbicacionActual" class="icon-action-btn" onclick="getUserLocation()" title="Usar mi ubicación actual" aria-label="Usar mi ubicación actual">
+                    <i class="fa fa-location-crosshairs"></i>
+                </button>
+                <button id="btnAjustarOrigen" class="icon-action-btn" onclick="activarAjusteOrigenManual()" title="Ajustar origen manualmente" aria-label="Ajustar origen manualmente">
+                    <i class="fa fa-map-pin"></i>
+                </button>
+            </div>
+            <div class="inline-hint"><i class="fa fa-hand-pointer"></i> Si no sabes la dirección, fija el origen manualmente.</div>
+        </div>
+        <div id="adjustOriginControls" class="adjust-controls">
+            <button class="adjust-confirm" onclick="confirmarAjusteOrigen()">Confirmar ubicación</button>
+            <button class="adjust-cancel" onclick="cancelarAjusteOrigen()">Cancelar ajuste</button>
+        </div>
+    </div>
+
+    <!-- Campo de destino existente -->
     <div class="search-destination" style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 16px; margin-bottom: 20px;">
         <label style="font-size: 0.85rem; opacity: 0.9; font-weight: 600;"><i class="fa fa-location-arrow"></i> ¿A dónde quieres ir?</label>
         <div style="margin-top: 10px; position: relative;">
@@ -998,7 +1029,7 @@
                     <div id="suggestionsBox" class="suggestions-box"></div>
                 </div>
                 <button id="btnAjustarDestino" class="icon-action-btn" onclick="activarAjusteDestinoManual()" title="Ajustar destino manualmente" aria-label="Ajustar destino manualmente">
-                    <i class="fa fa-location-crosshairs"></i>
+                    <i class="fa fa-map-pin"></i>
                 </button>
             </div>
             <div class="inline-hint"><i class="fa fa-hand-pointer"></i> Si no aparece la dirección, fija el destino manualmente.</div>
@@ -1267,7 +1298,7 @@
     </div>
 </div>
 
-<button class="btn-location" onclick="getUserLocation()" title="Mi ubicación">
+<button class="btn-location" id="btnMiUbicacionFlotante" onclick="getUserLocation()" title="Mi ubicación">
     <i class="fa fa-location-crosshairs"></i>
 </button>
 
@@ -1423,7 +1454,7 @@
         if (!map.hasLayer(capaBaseActual)) map.addLayer(capaBaseActual);
     }
 
-    const capasActivas = {};
+    let capasActivas = {};
     let caminataLayer = null;
     let abordajeMarker = null;
     let flechasRutaLayer = null;
@@ -1433,6 +1464,21 @@
     let routeCatalogZoneCache = {};
     let requestedInitialLocation = false;
     let currentTheme = localStorage.getItem('rutapp.theme') || 'dark';
+
+    // VARIABLES DE ORIGEN Y DESTINO
+    let originMarker = null; // Marcador para la ubicación del usuario (geolocalización o clic)
+    let accuracyCircle = null; // Círculo de precisión para la geolocalización
+    let origenCoordenadasReal = null; // Coordenadas del origen seleccionado
+    let marcadorOrigenUI = null; // Marcador para el origen cuando se selecciona manualmente por búsqueda
+    let modoAjusteOrigen = false;
+    let origenAnteriorAjuste = null;
+
+    let destinoCoordenadasReal = null; // Coordenadas del destino seleccionado
+    let marcadorDestinoUI = null; // Marcador para el destino
+    let modoAjusteDestino = false;
+    let destinoAnteriorAjuste = null;
+
+    let timeoutBusqueda = null;
 
     // VARIABLES MODO VIAJE
     let puntoDescensoGuardado = null;
@@ -1478,25 +1524,44 @@
         if (abordajeMarker) map.removeLayer(abordajeMarker);
         limpiarFlechasRuta();
         document.getElementById('recomendaciones-panel').style.display = 'none';
+
+        // Limpiar marcadores de origen y destino
         if (marcadorDestinoUI) map.removeLayer(marcadorDestinoUI);
         marcadorDestinoUI = null;
-        if (userMarker) map.removeLayer(userMarker);
-        if (accuracyCircle) map.removeLayer(accuracyCircle);
-        userMarker = null;
-        accuracyCircle = null;
         destinoCoordenadasReal = null;
         destinoAnteriorAjuste = null;
         modoAjusteDestino = false;
-        puntoDescensoGuardado = null;
-        const controls = document.getElementById('adjustDestinationControls');
-        if (controls) controls.classList.remove('active');
         const destinationInput = document.getElementById('destinationInput');
         if (destinationInput) destinationInput.value = '';
+        const destControls = document.getElementById('adjustDestinationControls');
+        if (destControls) destControls.classList.remove('active');
+
+        if (marcadorOrigenUI) map.removeLayer(marcadorOrigenUI);
+        marcadorOrigenUI = null;
+        origenCoordenadasReal = null;
+        origenAnteriorAjuste = null;
+        modoAjusteOrigen = false;
+        const originInput = document.getElementById('originInput');
+        if (originInput) originInput.value = '';
+        const originControls = document.getElementById('adjustOriginControls');
+        if (originControls) originControls.classList.remove('active');
+
+        if (originMarker) map.removeLayer(originMarker);
+        if (accuracyCircle) map.removeLayer(accuracyCircle);
+        originMarker = null;
+        accuracyCircle = null;
+
+        puntoDescensoGuardado = null;
         clearTimeout(timeoutBusqueda);
         const suggestionsBox = document.getElementById('suggestionsBox');
         if (suggestionsBox) {
             suggestionsBox.innerHTML = '';
             suggestionsBox.style.display = 'none';
+        }
+        const originSuggestionsBox = document.getElementById('originSuggestionsBox');
+        if (originSuggestionsBox) {
+            originSuggestionsBox.innerHTML = '';
+            originSuggestionsBox.style.display = 'none';
         }
         const lista = document.getElementById('lista-recomendados');
         if (lista) lista.innerHTML = '';
@@ -1573,9 +1638,21 @@
             ]
         },
         {
+            title: 'Define tu origen',
+            focus: '#originInput',
+            icon: 'fa-location-dot',
+            color: '#22c55e',
+            text: 'Aquí introduces el lugar desde donde quieres salir. Puedes escribir una dirección, un punto conocido, usar tu ubicación actual o fijarlo manualmente en el mapa.',
+            bullets: [
+                'Empieza a escribir y verás sugerencias.',
+                'Usa el botón de ubicación actual para fijar tu posición.',
+                'Usa el pin para fijar el origen manualmente en el mapa.'
+            ]
+        },
+        {
             title: 'Escribe tu destino',
             focus: '#destinationInput',
-            icon: 'fa-location-dot',
+            icon: 'fa-location-arrow',
             color: '#38bdf8',
             text: 'Aquí introduces el lugar al que quieres llegar. Puedes escribir una colonia, un punto conocido o usar una sugerencia para llenar el campo más rápido.',
             bullets: [
@@ -1589,7 +1666,7 @@
             focus: '#btnCalcularRuta',
             icon: 'fa-route',
             color: '#22c55e',
-            text: 'Cuando ya tengas el destino, presiona Calcular Ruta para que la app analice el sentido, la subida, la bajada y la caminata final.',
+            text: 'Cuando ya tengas el origen y el destino, presiona Calcular Ruta para que la app analice el sentido, la subida, la bajada y la caminata final.',
             bullets: [
                 'La app busca la opción más conveniente.',
                 'También evita rutas que se alejan de tu destino.',
@@ -1609,11 +1686,11 @@
             ]
         },
         {
-            title: 'Ajusta el destino manualmente',
-            focus: '#btnAjustarDestino',
-            icon: 'fa-arrows-up-down-left-right',
+            title: 'Ajusta origen o destino manualmente',
+            focus: '#btnAjustarOrigen', // Usaremos el botón de origen como ejemplo para el ajuste manual
+            icon: 'fa-map-pin',
             color: '#a855f7',
-            text: 'Si no sabes la dirección exacta, usa Ajustar destino manualmente para mover el marcador en el mapa. Confirma solo cuando el punto esté bien colocado.',
+            text: 'Si no sabes la dirección exacta, usa los botones de pin para ajustar el origen o el destino manualmente en el mapa. Confirma solo cuando el punto esté bien colocado.',
             bullets: [
                 'Arrastra el pin hasta el lugar correcto.',
                 'Confirma para recalcular la ruta.',
@@ -1634,11 +1711,12 @@
         }
     ];
     const GUIA_RESUMIDA = [
-        { focus: '#destinationInput', text: 'Empieza escribiendo tu destino. La zona ya esta filtrada.' },
-        { focus: '#destinationInput', text: 'Escribe un lugar y toca una sugerencia si aparece.' },
+        { focus: '#originInput', text: 'Empieza escribiendo tu origen o usa tu ubicación actual.' },
+        { focus: '#originInput', text: 'Escribe un lugar y toca una sugerencia si aparece.' },
+        { focus: '#destinationInput', text: 'Ahora escribe tu destino.' },
         { focus: '#btnCalcularRuta', text: 'Pulsa calcular para buscar la ruta conveniente.' },
         { focus: '#recomendaciones-panel', text: 'Aqui aparecera la mejor opcion para subir y bajar.' },
-        { focus: '#btnAjustarDestino', text: 'Si no sabes la direccion, mueve el pin manualmente.' },
+        { focus: '#btnAjustarOrigen', text: 'Si no sabes la direccion, mueve el pin manualmente.' },
         { focus: '#btnLimpiar', text: 'Inicio cambia zona, Guia repite esto y Limpiar reinicia.' }
     ];
     GUIA_TUTORIAL.forEach((paso, index) => {
@@ -1877,29 +1955,40 @@
     }
 
     // 3. GEOLOCALIZACION Y ORIGEN MANUAL
-    let userMarker = null;
-    let accuracyCircle = null;
-
     const userIcon = L.divIcon({
         className: 'custom-user-icon',
         html: '<div style="background:#007aff; width:20px; height:20px; border-radius:50%; border:3px solid white; box-shadow: 0 0 15px rgba(0,122,255,0.8);"></div>',
         iconSize: [26, 26], iconAnchor: [13, 13]
     });
 
-    function createUserMarker(latlng) {
-        if (userMarker) {
-            userMarker.setLatLng(latlng);
+    function setOriginMarker(latlng, nombre = "Mi ubicación") {
+        origenCoordenadasReal = { lat: latlng.lat, lng: latlng.lng };
+
+        if (marcadorOrigenUI) { // Si hay un marcador de origen por búsqueda, lo removemos
+            map.removeLayer(marcadorOrigenUI);
+            marcadorOrigenUI = null;
+        }
+
+        if (originMarker) {
+            originMarker.setLatLng(latlng);
             if (accuracyCircle) accuracyCircle.setLatLng(latlng);
         } else {
-            userMarker = L.marker(latlng, { icon: userIcon, draggable: true, zIndexOffset: 1000 }).addTo(map);
-            userMarker.bindPopup("<div style='text-align:center;'><b>Tu Origen</b><br><span style='font-size:0.8rem; opacity:0.8;'>Arrastra este pin para ajustar tu ubicación</span></div>").openPopup();
-            userMarker.on('dragend', function() {
-                const newPos = userMarker.getLatLng();
+            originMarker = L.marker(latlng, { icon: userIcon, draggable: true, zIndexOffset: 1000 }).addTo(map);
+            originMarker.bindPopup("<div style='text-align:center;'><b>Tu Origen</b><br><span style='font-size:0.8rem; opacity:0.8;'>Arrastra este pin para ajustar tu ubicación</span></div>").openPopup();
+            originMarker.on('dragend', function() {
+                const newPos = originMarker.getLatLng();
                 if (accuracyCircle) accuracyCircle.setLatLng(newPos);
+                origenCoordenadasReal = { lat: newPos.lat, lng: newPos.lng };
                 if (destinoCoordenadasReal && document.getElementById('recomendaciones-panel').style.display === 'block') {
                     recomendarRutas();
                 }
             });
+        }
+        document.getElementById('originInput').value = nombre;
+        document.getElementById('originSuggestionsBox').style.display = 'none';
+
+        if (destinoCoordenadasReal && document.getElementById('recomendaciones-panel').style.display === 'block') {
+            recomendarRutas();
         }
     }
 
@@ -1913,7 +2002,7 @@
 
     map.on('locationfound', function(e) {
         const radius = e.accuracy / 2;
-        createUserMarker(e.latlng);
+        setOriginMarker(e.latlng, "Mi ubicación actual");
         if (!accuracyCircle) {
             accuracyCircle = L.circle(e.latlng, radius, { color: "#007aff", fillColor: "#007aff", fillOpacity: 0.15, weight: 1 }).addTo(map);
         } else { accuracyCircle.setRadius(radius); }
@@ -1927,14 +2016,16 @@
     });
 
     map.on('contextmenu', function(e) {
-        createUserMarker(e.latlng);
-        if (destinoCoordenadasReal && document.getElementById('recomendaciones-panel').style.display === 'block') { recomendarRutas(); }
+        if (!modoAjusteDestino) { // Solo si no estamos ajustando el destino
+            setOriginMarker(e.latlng, "Origen manual");
+            if (destinoCoordenadasReal && document.getElementById('recomendaciones-panel').style.display === 'block') { recomendarRutas(); }
+        }
     });
 
     map.on('click', function(e) {
         const preferenciaUbicacion = localStorage.getItem('rutapp.location.preference');
-        if (preferenciaUbicacion === 'manual' || !userMarker) {
-            createUserMarker(e.latlng);
+        if ((preferenciaUbicacion === 'manual' || !origenCoordenadasReal) && !modoAjusteDestino) {
+            setOriginMarker(e.latlng, "Origen manual");
             if (destinoCoordenadasReal && document.getElementById('recomendaciones-panel').style.display === 'block') {
                 recomendarRutas();
             }
@@ -1960,11 +2051,6 @@
 
     const ZONAS_APP = ['CENTRO', 'ORIENTE', 'SUR'];
     let zonaSeleccionada = sessionStorage.getItem('rutapp.zona') || '';
-    let destinoCoordenadasReal = null;
-    let timeoutBusqueda = null;
-    let marcadorDestinoUI = null;
-    let modoAjusteDestino = false;
-    let destinoAnteriorAjuste = null;
 
     function normalizarZona(valor) {
         return String(valor || '').trim().toUpperCase();
@@ -2052,7 +2138,7 @@
         actualizarBadgeZona();
 
         const panel = document.getElementById('recomendaciones-panel');
-        if (panel && panel.style.display === 'block' && userMarker && destinoCoordenadasReal) {
+        if (panel && panel.style.display === 'block' && origenCoordenadasReal && destinoCoordenadasReal) {
             recomendarRutas();
         }
     }
@@ -2132,7 +2218,7 @@
     function rechazarUbicacionInicial() {
         localStorage.setItem('rutapp.location.preference', 'manual');
         cerrarModalPorId('modalPermisoUbicacion');
-        if (!userMarker) {
+        if (!originMarker) {
             alert('Perfecto. Podrás colocar tu ubicación manualmente tocando el mapa o moviendo el marcador cuando se habilite.');
         }
         if (window._resolveLocationPromise) {
@@ -2150,6 +2236,154 @@
             window._resolveLocationPromise();
             delete window._resolveLocationPromise;
         }
+    }
+
+    function buscarLugarOrigenAPI() {
+        const input = document.getElementById('originInput').value.toLowerCase();
+        const box = document.getElementById('originSuggestionsBox');
+        if (input.length < 2) { box.style.display = 'none'; return; }
+        box.style.display = 'block'; box.innerHTML = '';
+        const resultadosLocales = baseLocal.filter(item => {
+            const coincideTexto = item.nombre.toLowerCase().includes(input);
+            const coincideZona = !zonaSeleccionada || !item.zonas || item.zonas.includes(zonaSeleccionada);
+            return coincideTexto && coincideZona;
+        });
+
+        resultadosLocales.forEach(item => {
+            const div = document.createElement('div'); div.className = 'suggestion-item';
+            div.innerHTML = `<i class="fa fa-location-dot" style="color: #ff4757; margin-right: 8px;"></i> <b>${item.nombre}</b> <span style="opacity:0.5; font-size:0.7rem;">(Frecuente)</span>`;
+            div.onclick = () => seleccionarLugarOrigen(item.lat, item.lon, item.nombre);
+            box.appendChild(div);
+        });
+
+        if (input.length >= 3) {
+            clearTimeout(timeoutBusqueda);
+            timeoutBusqueda = setTimeout(async () => {
+                try {
+                    const loadingDiv = document.createElement('div'); loadingDiv.className = 'suggestion-item';
+                    loadingDiv.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Buscando más...'; box.appendChild(loadingDiv);
+                    const query = encodeURIComponent(input); const viewbox = obtenerViewboxZona();
+                    const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${query}&limit=5&viewbox=${viewbox}&bounded=1`);
+                    const data = await res.json(); box.removeChild(loadingDiv);
+                    data.forEach(lugar => {
+                        const nombreCorto = lugar.display_name.split(',')[0];
+                        if (!resultadosLocales.some(local => local.nombre.includes(nombreCorto))) {
+                            const div = document.createElement('div'); div.className = 'suggestion-item';
+                            div.innerHTML = `<i class="fa fa-map-marker-alt" style="margin-right: 8px;"></i> ${nombreCorto} <br><span style="opacity:0.5; font-size:0.7rem; margin-left: 20px;">${lugar.display_name}</span>`;
+                            div.onclick = () => seleccionarLugarOrigen(lugar.lat, lugar.lon, nombreCorto);
+                            box.appendChild(div);
+                        }
+                    });
+                } catch (e) {}
+            }, 500);
+        }
+    }
+
+    function seleccionarLugarOrigen(lat, lon, nombre) {
+        origenCoordenadasReal = { lat: parseFloat(lat), lng: parseFloat(lon) };
+        document.getElementById('originInput').value = nombre;
+        document.getElementById('originSuggestionsBox').style.display = 'none';
+
+        if (originMarker) { // Si hay un marcador de geolocalización, lo removemos
+            map.removeLayer(originMarker);
+            originMarker = null;
+        }
+        if (accuracyCircle) {
+            map.removeLayer(accuracyCircle);
+            accuracyCircle = null;
+        }
+
+        if (marcadorOrigenUI) map.removeLayer(marcadorOrigenUI);
+        marcadorOrigenUI = L.marker([lat, lon], { draggable: false }).addTo(map).bindPopup(`<b><i class="fa fa-location-dot"></i> Origen:</b><br>${nombre}`).openPopup();
+        if (modoAjusteOrigen && marcadorOrigenUI.dragging) {
+            marcadorOrigenUI.dragging.enable();
+        }
+
+        const targetBounds = L.latLngBounds([lat, lon], [lat, lon]);
+        map.fitBounds(targetBounds, { maxZoom: 15, ...getMapPadding() });
+
+        if (destinoCoordenadasReal) { recomendarRutas(); }
+    }
+
+    function activarAjusteOrigenManual() {
+        if (!origenCoordenadasReal) {
+            alert('Primero selecciona un origen.');
+            return;
+        }
+
+        // Si el origen es el marcador de geolocalización, lo convertimos a marcador UI para que sea arrastrable
+        if (originMarker) {
+            const currentLatLng = originMarker.getLatLng();
+            map.removeLayer(originMarker);
+            originMarker = null;
+            if (accuracyCircle) {
+                map.removeLayer(accuracyCircle);
+                accuracyCircle = null;
+            }
+            marcadorOrigenUI = L.marker(currentLatLng, { draggable: true }).addTo(map).bindPopup(`<b><i class="fa fa-location-dot"></i> Origen:</b><br>Ajusta tu origen manualmente`).openPopup();
+            marcadorOrigenUI.on('dragend', function() {
+                const newPos = marcadorOrigenUI.getLatLng();
+                origenCoordenadasReal = { lat: newPos.lat, lng: newPos.lng };
+                if (destinoCoordenadasReal && document.getElementById('recomendaciones-panel').style.display === 'block') {
+                    recomendarRutas();
+                }
+            });
+        } else if (!marcadorOrigenUI) {
+            // Si no hay ningún marcador de origen, no se puede ajustar
+            alert('Primero selecciona un origen.');
+            return;
+        }
+
+        origenAnteriorAjuste = { ...origenCoordenadasReal };
+        modoAjusteOrigen = true;
+        document.getElementById('adjustOriginControls').classList.add('active');
+
+        if (marcadorOrigenUI.dragging) {
+            marcadorOrigenUI.dragging.enable();
+        }
+
+        marcadorOrigenUI.bindTooltip('Ajusta tu origen manualmente', {
+            permanent: true,
+            direction: 'top',
+            offset: [0, -12],
+            className: 'custom-tooltip'
+        }).openTooltip();
+    }
+
+    function finalizarAjusteOrigen(aplicarCambio) {
+        document.getElementById('adjustOriginControls').classList.remove('active');
+        modoAjusteOrigen = false;
+
+        if (!marcadorOrigenUI) return;
+
+        marcadorOrigenUI.closeTooltip();
+        marcadorOrigenUI.unbindTooltip();
+
+        if (marcadorOrigenUI.dragging) {
+            marcadorOrigenUI.dragging.disable();
+        }
+
+        if (!aplicarCambio && origenAnteriorAjuste) {
+            marcadorOrigenUI.setLatLng([origenAnteriorAjuste.lat, origenAnteriorAjuste.lng]);
+            origenCoordenadasReal = { ...origenAnteriorAjuste };
+        } else {
+            const origenNuevo = marcadorOrigenUI.getLatLng();
+            origenCoordenadasReal = { lat: origenNuevo.lat, lng: origenNuevo.lng };
+        }
+
+        origenAnteriorAjuste = null;
+
+        if (destinoCoordenadasReal) {
+            recomendarRutas();
+        }
+    }
+
+    function confirmarAjusteOrigen() {
+        finalizarAjusteOrigen(true);
+    }
+
+    function cancelarAjusteOrigen() {
+        finalizarAjusteOrigen(false);
     }
 
     function activarAjusteDestinoManual() {
@@ -2197,7 +2431,7 @@
 
         destinoAnteriorAjuste = null;
 
-        if (userMarker) {
+        if (origenCoordenadasReal) {
             recomendarRutas();
         }
     }
@@ -2263,15 +2497,45 @@
         const targetBounds = L.latLngBounds([lat, lon], [lat, lon]);
         map.fitBounds(targetBounds, { maxZoom: 15, ...getMapPadding() });
 
-        if (userMarker) { recomendarRutas(); }
+        if (origenCoordenadasReal) { recomendarRutas(); }
     }
 
     function invertirRuta() {
-        if (!userMarker || !destinoCoordenadasReal) return;
-        const viejaPosUsuario = userMarker.getLatLng();
-        const viejaPosDestino = { ...destinoCoordenadasReal };
-        createUserMarker(L.latLng(viejaPosDestino.lat, viejaPosDestino.lng));
-        seleccionarLugarDestino(viejaPosUsuario.lat, viejaPosUsuario.lng, "Punto de Retorno");
+        if (!origenCoordenadasReal && !destinoCoordenadasReal) return;
+
+        const tempOrigenCoords = origenCoordenadasReal;
+        const tempDestinoCoords = destinoCoordenadasReal;
+
+        const tempOriginInputVal = document.getElementById('originInput').value;
+        const tempDestinationInputVal = document.getElementById('destinationInput').value;
+
+        // Limpiar marcadores existentes
+        if (originMarker) { map.removeLayer(originMarker); originMarker = null; }
+        if (accuracyCircle) { map.removeLayer(accuracyCircle); accuracyCircle = null; }
+        if (marcadorOrigenUI) { map.removeLayer(marcadorOrigenUI); marcadorOrigenUI = null; }
+        if (marcadorDestinoUI) { map.removeLayer(marcadorDestinoUI); marcadorDestinoUI = null; }
+
+        // Intercambiar y establecer nuevo origen
+        if (tempDestinoCoords) {
+            seleccionarLugarOrigen(tempDestinoCoords.lat, tempDestinoCoords.lng, tempDestinationInputVal);
+        } else {
+            origenCoordenadasReal = null;
+            document.getElementById('originInput').value = '';
+        }
+
+        // Intercambiar y establecer nuevo destino
+        if (tempOrigenCoords) {
+            seleccionarLugarDestino(tempOrigenCoords.lat, tempOrigenCoords.lng, tempOriginInputVal);
+        } else {
+            destinoCoordenadasReal = null;
+            document.getElementById('destinationInput').value = '';
+        }
+
+        if (origenCoordenadasReal && destinoCoordenadasReal) {
+            recomendarRutas();
+        } else {
+            clearAllLayers(); // Si uno de los dos queda vacío, limpiar todo
+        }
     }
 
     // 5. EL ASISTENTE INTELIGENTE
@@ -2570,8 +2834,8 @@
 
     async function recomendarRutas() {
         await catalogosAdicionalesPromise;
-        if (!userMarker) { alert("Arrastra el pin azul a tu ubicaci?n."); return; }
-        if (!destinoCoordenadasReal) { alert("Selecciona un destino v?lido."); return; }
+        if (!origenCoordenadasReal) { alert("Selecciona un origen válido."); return; }
+        if (!destinoCoordenadasReal) { alert("Selecciona un destino válido."); return; }
         if (!zonaSeleccionada) { alert("Primero elige una zona para calcular rutas."); return; }
 
         const panel = document.getElementById('recomendaciones-panel');
@@ -2582,7 +2846,7 @@
         panel.style.display = 'block';
         document.getElementById('btnTomarRuta').style.display = 'none';
 
-        const puntoOrigen = turf.point([userMarker.getLatLng().lng, userMarker.getLatLng().lat]);
+        const puntoOrigen = turf.point([origenCoordenadasReal.lng, origenCoordenadasReal.lat]);
         const puntoDestino = turf.point([destinoCoordenadasReal.lng, destinoCoordenadasReal.lat]);
         const resultados = [];
         const rutasEvaluables = obtenerRutasActivas();
@@ -2675,7 +2939,8 @@
             capasActivas['rutaOptima'] = layer;
             agregarFlechasRuta(data, color);
 
-            const userLat = userMarker.getLatLng().lat; const userLng = userMarker.getLatLng().lng;
+            const userLat = origenCoordenadasReal.lat; // Usar origenCoordenadasReal
+            const userLng = origenCoordenadasReal.lng; // Usar origenCoordenadasReal
             caminataLayer = L.polyline([[userLat, userLng], [latAbordaje, lngAbordaje]], { color: '#fff', weight: 4, dashArray: '5, 10', opacity: 0.8 }).addTo(map);
 
             let pinHTML = `<div style="text-align:center;"><b style="color: ${color};"><i class="fa fa-street-view"></i> Parada</b><br><span style="font-size: 12px;">Camina ${metros}m aquí</span></div>`;
@@ -2737,7 +3002,7 @@
             (pos) => {
                 const currentPos = L.latLng(pos.coords.latitude, pos.coords.longitude);
 
-                userMarker.setLatLng(currentPos);
+                originMarker.setLatLng(currentPos);
                 if (accuracyCircle) {
                     accuracyCircle.setLatLng(currentPos);
                     accuracyCircle.setRadius(pos.coords.accuracy / 2);
