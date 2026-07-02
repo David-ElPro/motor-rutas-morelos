@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -59,8 +59,10 @@
         }
         .header-actions {
             display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: nowrap;
             margin-top: 12px;
             margin-bottom: 15px;
         }
@@ -80,6 +82,23 @@
             align-items: center;
             justify-content: center;
         }
+        .header-home-action {
+            flex: 1;
+            justify-content: center;
+            gap: 10px;
+            min-width: 0;
+            padding: 0 14px;
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.18), rgba(56, 189, 248, 0.12));
+            border-color: rgba(56, 189, 248, 0.26);
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+        .header-home-action i {
+            font-size: 1rem;
+        }
+        .header-home-action span {
+            display: inline;
+        }
         .header-action:hover {
             transform: translateY(-1px);
             background: rgba(255, 255, 255, 0.14);
@@ -87,8 +106,102 @@
         body.theme-light .header-action:hover {
             background: rgba(15, 23, 42, 0.08);
         }
-        .header-action span {
+        body.theme-light .header-home-action {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.12), rgba(56, 189, 248, 0.08));
+            border-color: rgba(22, 163, 74, 0.18);
+        }
+        .header-dropdown {
+            position: relative;
+            flex: none;
+        }
+        .header-dropdown-toggle {
+            width: 42px;
+            height: 42px;
+            padding: 0;
+            border-radius: 14px;
+        }
+        .header-dropdown-menu {
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            min-width: 180px;
+            background: var(--surface-strong);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+            padding: 8px;
             display: none;
+            z-index: 1200;
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+        }
+        .header-dropdown-menu.open {
+            display: block;
+            animation: dropdownPop 0.16s ease-out;
+        }
+        .header-dropdown-item {
+            width: 100%;
+            border: none;
+            background: transparent;
+            color: var(--text-primary);
+            border-radius: 12px;
+            padding: 10px 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.92rem;
+            text-align: left;
+            cursor: pointer;
+        }
+        .header-dropdown-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+        body.theme-light .header-dropdown-menu {
+            background: rgba(255, 255, 255, 0.98);
+        }
+        body.theme-light .header-dropdown-item:hover {
+            background: rgba(15, 23, 42, 0.06);
+        }
+        @keyframes dropdownPop {
+            from { opacity: 0; transform: translateY(-6px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .app-top-actions {
+            position: fixed;
+            top: 14px;
+            left: 14px;
+            z-index: 1800;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+            width: fit-content;
+            pointer-events: none;
+        }
+        .app-top-actions > * {
+            pointer-events: auto;
+        }
+        .app-top-home {
+            width: 42px;
+            height: 42px;
+            min-width: 42px;
+            padding: 0;
+            border-radius: 999px;
+            box-shadow: 0 14px 30px rgba(0, 0, 0, 0.22);
+        }
+        .app-top-home span {
+            display: none;
+        }
+        .app-top-menu {
+            box-shadow: 0 14px 30px rgba(0, 0, 0, 0.22);
+        }
+        .app-top-menu .header-dropdown-menu {
+            left: 0;
+            right: auto;
+        }
+        body.theme-light .app-top-home,
+        body.theme-light .app-top-menu {
+            box-shadow: 0 14px 30px rgba(15, 23, 42, 0.12);
         }
 
         h2 { font-size: 1.2rem; margin: 0 0 20px 0; display: flex; align-items: center; gap: 12px; font-weight: 500; }
@@ -215,17 +328,66 @@
         .zone-stage {
             width: min(92vw, 460px);
             margin-top: 12px;
-            background: rgba(255, 255, 255, 0.92);
+            background:
+                radial-gradient(circle at top, rgba(34, 197, 94, 0.12), transparent 42%),
+                linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(246, 255, 247, 0.98) 100%);
             border: 1px solid rgba(15, 23, 42, 0.08);
-            border-radius: 30px;
+            border-radius: 32px;
             padding: 24px 18px 20px;
-            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
+            box-shadow: 0 22px 55px rgba(15, 23, 42, 0.1);
             backdrop-filter: blur(14px);
+            position: relative;
+            overflow: hidden;
+        }
+        .zone-stage::before {
+            content: "";
+            position: absolute;
+            inset: auto -40px -70px auto;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(34, 197, 94, 0.14), transparent 70%);
+            pointer-events: none;
+        }
+        .zone-stage::after {
+            content: "";
+            position: absolute;
+            inset: -35px auto auto -35px;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.12), transparent 70%);
+            pointer-events: none;
+        }
+        .zone-stage-hero {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 10px;
+            margin-bottom: 18px;
         }
         .zone-stage .startup-copy {
             text-align: center;
             max-width: 320px;
             margin: 0 auto;
+        }
+        .zone-title {
+            margin: 0;
+            font-size: 1.65rem;
+            line-height: 1.08;
+            letter-spacing: -0.03em;
+            font-weight: 800;
+            color: #0f172a;
+        }
+        .zone-subtitle {
+            margin: 0;
+            max-width: 360px;
+            color: rgba(15, 23, 42, 0.72);
+            font-size: 0.96rem;
+            line-height: 1.5;
         }
         .splash-bus-track {
             position: relative;
@@ -311,25 +473,28 @@
             grid-template-columns: 1fr;
             gap: 14px;
             margin-top: 20px;
+            position: relative;
+            z-index: 1;
         }
         .zone-card {
             border: 1px solid rgba(15, 23, 42, 0.08);
-            border-radius: 20px;
+            border-radius: 22px;
             padding: 16px 16px;
-            background: linear-gradient(180deg, #ffffff 0%, #f8fff9 100%);
+            background: linear-gradient(135deg, #ffffff 0%, #f7fff8 100%);
             color: #0f172a;
             cursor: pointer;
             text-align: left;
             display: flex;
             align-items: center;
             gap: 14px;
-            transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-            box-shadow: 0 10px 24px rgba(15, 23, 42, 0.07);
+            transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+            box-shadow: 0 12px 26px rgba(15, 23, 42, 0.08);
         }
         .zone-card:hover {
-            transform: translateY(-1px);
+            transform: translateY(-2px);
             border-color: rgba(22, 163, 74, 0.2);
-            box-shadow: 0 14px 28px rgba(15, 23, 42, 0.1);
+            box-shadow: 0 16px 34px rgba(15, 23, 42, 0.11);
+            filter: saturate(1.02);
         }
         .zone-card:active {
             transform: scale(0.99);
@@ -337,7 +502,7 @@
         .zone-card-ico {
             width: 74px;
             height: 74px;
-            border-radius: 18px;
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -346,6 +511,7 @@
             background: #e8f8ee;
             color: var(--accent);
             overflow: hidden;
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.85);
         }
         .zone-card-ico img {
             width: 100%;
@@ -361,13 +527,13 @@
             min-width: 0;
         }
         .zone-card strong {
-            font-size: 1.03rem;
+            font-size: 1.06rem;
             letter-spacing: 0.01em;
             color: #0f172a;
         }
         .zone-card span {
-            font-size: 0.84rem;
-            color: rgba(15, 23, 42, 0.56);
+            font-size: 0.86rem;
+            color: rgba(15, 23, 42, 0.6);
         }
         .zone-card-arrow {
             font-size: 1.15rem;
@@ -381,6 +547,13 @@
         .zone-card[data-zone="CENTRO"] { border-left: 4px solid #38bdf8; }
         .zone-card[data-zone="ORIENTE"] { border-left: 4px solid #f59e0b; }
         .zone-card[data-zone="SUR"] { border-left: 4px solid #22c55e; }
+        .zone-stage .zone-pill {
+            margin-bottom: 0;
+            box-shadow: 0 8px 20px rgba(34, 197, 94, 0.12);
+        }
+        .zone-stage .zone-title {
+            text-wrap: balance;
+        }
         .zone-pill {
             display: inline-flex;
             align-items: center;
@@ -497,7 +670,7 @@
             z-index: 900;
             display: none;
             pointer-events: none;
-            background: rgba(3, 7, 18, 0.34);
+            background: rgba(0, 0, 0, 0.72);
             backdrop-filter: blur(2px);
             -webkit-backdrop-filter: blur(2px);
             --guide-hole-x: 50%;
@@ -510,7 +683,80 @@
             display: block;
         }
         body.theme-light .guide-backdrop {
-            background: rgba(2, 6, 23, 0.28);
+            background: rgba(0, 0, 0, 0.62);
+        }
+        .zone-focus-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 430;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.35s ease;
+            background:
+                radial-gradient(circle at 50% 52%,
+                    rgba(56, 189, 248, 0.20) 0%,
+                    rgba(56, 189, 248, 0.12) 18%,
+                    rgba(56, 189, 248, 0.05) 30%,
+                    rgba(0, 0, 0, 0.04) 48%,
+                    rgba(0, 0, 0, 0.16) 74%,
+                    rgba(0, 0, 0, 0.28) 100%);
+        }
+        .zone-focus-overlay::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 30% 22% at 50% 50%,
+                    rgba(255, 255, 255, 0.12) 0%,
+                    rgba(255, 255, 255, 0.05) 44%,
+                    transparent 72%);
+            opacity: 0.65;
+        }
+        .zone-focus-overlay.visible {
+            opacity: 1;
+        }
+        .zone-focus-overlay[data-zone="ORIENTE"] {
+            background:
+                radial-gradient(circle at 50% 52%,
+                    rgba(245, 158, 11, 0.16) 0%,
+                    rgba(245, 158, 11, 0.10) 18%,
+                    rgba(245, 158, 11, 0.04) 30%,
+                    rgba(0, 0, 0, 0.03) 48%,
+                    rgba(0, 0, 0, 0.16) 74%,
+                    rgba(0, 0, 0, 0.28) 100%);
+        }
+        .zone-focus-overlay[data-zone="ORIENTE"]::before {
+            background:
+                radial-gradient(ellipse 30% 22% at 50% 50%,
+                    rgba(251, 191, 36, 0.14) 0%,
+                    rgba(251, 191, 36, 0.05) 44%,
+                    transparent 72%);
+        }
+        .zone-focus-overlay[data-zone="SUR"] {
+            background:
+                radial-gradient(circle at 50% 52%,
+                    rgba(34, 197, 94, 0.16) 0%,
+                    rgba(34, 197, 94, 0.10) 18%,
+                    rgba(34, 197, 94, 0.04) 30%,
+                    rgba(0, 0, 0, 0.03) 48%,
+                    rgba(0, 0, 0, 0.16) 74%,
+                    rgba(0, 0, 0, 0.28) 100%);
+        }
+        .zone-boundary-path {
+            filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.55));
+        }
+        .zone-boundary-path.zone-boundary-oriente {
+            filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.55));
+        }
+        .zone-boundary-path.zone-boundary-sur {
+            filter: drop-shadow(0 0 8px rgba(34, 197, 94, 0.55));
+        }
+        .zone-focus-overlay[data-zone="SUR"]::before {
+            background:
+                radial-gradient(ellipse 30% 22% at 50% 50%,
+                    rgba(74, 222, 128, 0.14) 0%,
+                    rgba(74, 222, 128, 0.05) 44%,
+                    transparent 72%);
         }
         .adjust-controls {
             display: none;
@@ -527,8 +773,17 @@
         .ruta-arrow-icon div {
             font-size: 16px;
             font-weight: 800;
-            text-shadow: 0 0 8px rgba(0, 0, 0, 0.65);
+            text-shadow: 0 0 8px rgba(0, 0, 0, 0.65), 0 0 10px rgba(255,255,255,0.18);
             transform-origin: center center;
+            will-change: transform, opacity;
+        }
+        .ruta-arrow-icon span {
+            display: inline-block;
+            animation: arrowPulse 1.6s ease-in-out infinite;
+        }
+        @keyframes arrowPulse {
+            0%, 100% { transform: scale(0.92); opacity: 0.72; }
+            50% { transform: scale(1.15); opacity: 1; }
         }
         .adjust-controls button {
             flex: 1;
@@ -766,16 +1021,106 @@
             margin: 0 0 10px;
             color: var(--text-primary);
         }
+        .guide-ghost-panel {
+            margin-top: 12px;
+            padding: 12px;
+            border-radius: 16px;
+            border: 1px solid rgba(56, 189, 248, 0.18);
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.78), rgba(15, 23, 42, 0.92));
+            overflow: hidden;
+            display: none;
+        }
+        .guide-ghost-panel.visible {
+            display: block;
+        }
+        .guide-ghost-card {
+            position: relative;
+            padding: 12px 12px 11px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.24), rgba(34, 197, 94, 0.14));
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.24);
+            overflow: hidden;
+        }
+        .guide-ghost-card::before {
+            content: "";
+            position: absolute;
+            inset: -40% -60%;
+            background: linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, 0.2) 50%, transparent 70%);
+            animation: ghostShine 2.4s ease-in-out infinite;
+        }
+        .guide-ghost-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.12);
+            color: #e0f2fe;
+            font-size: 0.72rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+        .guide-ghost-line {
+            height: 10px;
+            border-radius: 999px;
+            margin: 8px 0;
+            background: linear-gradient(90deg, rgba(255,255,255,0.10), rgba(255,255,255,0.28), rgba(255,255,255,0.10));
+            background-size: 200% 100%;
+            animation: ghostPulse 1.8s ease-in-out infinite;
+            position: relative;
+            z-index: 1;
+        }
+        .guide-ghost-line.short { width: 56%; }
+        .guide-ghost-line.medium { width: 72%; }
+        .guide-ghost-line.long { width: 92%; }
+        .guide-ghost-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-top: 12px;
+            position: relative;
+            z-index: 1;
+        }
+        .guide-ghost-badge {
+            width: 92px;
+            height: 26px;
+            border-radius: 999px;
+            background: rgba(34, 197, 94, 0.9);
+            animation: ghostBadge 1.8s ease-in-out infinite;
+        }
+        .guide-ghost-chip {
+            height: 18px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.12);
+            flex: 1;
+            animation: ghostPulse 1.8s ease-in-out infinite;
+        }
+        @keyframes ghostShine {
+            0% { transform: translateX(-18%) rotate(0.001deg); opacity: 0.2; }
+            50% { transform: translateX(20%) rotate(0.001deg); opacity: 0.7; }
+            100% { transform: translateX(60%) rotate(0.001deg); opacity: 0.2; }
+        }
+        @keyframes ghostPulse {
+            0%, 100% { opacity: 0.65; filter: brightness(0.95); }
+            50% { opacity: 1; filter: brightness(1.15); }
+        }
+        @keyframes ghostBadge {
+            0%, 100% { transform: scale(0.98); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.25); }
+            50% { transform: scale(1.02); box-shadow: 0 0 0 8px rgba(34, 197, 94, 0.08); }
+        }
         .guide-spotlight {
             position: relative;
             z-index: 1100 !important;
-            box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.42), 0 0 22px rgba(34, 197, 94, 0.42) !important;
+            box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.42), 0 0 26px rgba(34, 197, 94, 0.48) !important;
             border-radius: 18px !important;
         }
         .guide-highlight {
             position: relative;
             z-index: 1100 !important;
-            box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.34), 0 0 0 10px rgba(34, 197, 94, 0.14) !important;
+            box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.34), 0 0 0 12px rgba(34, 197, 94, 0.16), 0 0 24px rgba(34, 197, 94, 0.34) !important;
             border-color: #38bdf8 !important;
         }
         body.theme-light .guide-highlight {
@@ -904,7 +1249,7 @@
         .sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
 
         /* ========================================= */
-        /* DISEÑO RESPONSIVO (MÓVILES - MEDIA PANTALLA) */
+        /* DISE�O RESPONSIVO (M�VILES - MEDIA PANTALLA) */
         /* ========================================= */
         @media (max-width: 768px) {
             .sidebar {
@@ -913,6 +1258,21 @@
                 border-radius: 24px 24px 0 0;
                 border-left: none; border-right: none; border-bottom: none;
                 box-sizing: border-box; padding: 15px;
+            }
+            .header-actions {
+                align-items: stretch;
+            }
+            .header-home-action {
+                font-size: 0.88rem;
+            }
+            .app-top-actions {
+                top: 12px;
+                left: 12px;
+            }
+            .app-top-home {
+                width: 42px;
+                height: 42px;
+                min-width: 42px;
             }
             .btn-location {
                 bottom: calc(50vh + 15px); right: 15px;
@@ -945,10 +1305,12 @@
         <p class="startup-copy">Cargando rutas, zonas y recomendaciones inteligentes.</p>
     </div>
 
-    <div id="zoneStage" class="zone-stage hidden">
-        <div class="zone-pill"><i class="fa fa-location-dot"></i> Selección de zona</div>
-        <h2 style="margin: 0 0 8px; font-size: 1.45rem; text-align: center;">Elige tu zona de trabajo</h2>
-        <p class="startup-copy">Filtraremos rutas, caminos, sugerencias y resultados según tu zona durante toda la sesión.</p>
+        <div id="zoneStage" class="zone-stage hidden">
+        <div class="zone-stage-hero">
+            <div class="zone-pill"><i class="fa fa-location-dot"></i> Selección de zona</div>
+            <h2 class="zone-title">Elige tu zona de trabajo</h2>
+            <p class="zone-subtitle">Filtraremos rutas, caminos, sugerencias y resultados según tu zona durante toda la sesión.</p>
+        </div>
         <div class="zone-grid">
             <button class="zone-card" data-zone="CENTRO" onclick="seleccionarZona('CENTRO')">
                 <div class="zone-card-ico"><img src="assets/zones/zona-centro.png" alt="Zona Centro"></div>
@@ -982,16 +1344,22 @@
     <i class="fa fa-bus-simple"></i> <span id="topBannerText">Selecciona una ruta</span>
 </div>
 
+<div class="app-top-actions">
+    <button id="btnInicio" class="header-action header-home-action app-top-home" onclick="volverInicio()" title="Inicio" aria-label="Inicio"><i class="fa fa-house"></i></button>
+    <div class="header-dropdown app-top-menu">
+        <button id="btnMenuAcciones" class="header-action header-dropdown-toggle" onclick="toggleHeaderMenu()" title="Más opciones" aria-label="Más opciones"><i class="fa fa-bars"></i></button>
+        <div id="headerMenuAcciones" class="header-dropdown-menu" aria-hidden="true">
+            <button id="btnGuia" class="header-dropdown-item" onclick="abrirGuiaUsuario(); cerrarHeaderMenu();" title="Guía" aria-label="Guía"><i class="fa fa-circle-question"></i> Guía</button>
+            <button id="btnPrivacidad" class="header-dropdown-item" onclick="abrirAvisoPrivacidad(); cerrarHeaderMenu();" title="Términos y condiciones" aria-label="Términos y condiciones"><i class="fa fa-lock"></i> Términos</button>
+            <button id="themeToggleBtn" class="header-dropdown-item" onclick="toggleTheme(); cerrarHeaderMenu();" title="Modo Claro" aria-label="Modo Claro"><i class="fa fa-sun"></i> <span>Modo claro</span></button>
+        </div>
+    </div>
+</div>
+
 <div class="sidebar">
     <div class="header-controls">
         <h2 style="margin:0; font-size: 1.1rem;"><i class="fa fa-map-marked-alt"></i> RutAPP Morelos</h2>
         <button id="btnLimpiar" class="btn-clear" onclick="clearAllLayers()"><i class="fa fa-trash-can"></i> Limpiar</button>
-    </div>
-    <div class="header-actions">
-        <button id="btnInicio" class="header-action" onclick="volverInicio()" title="Inicio" aria-label="Inicio"><i class="fa fa-house"></i></button>
-        <button id="btnGuia" class="header-action" onclick="abrirGuiaUsuario()" title="Guía" aria-label="Guía"><i class="fa fa-circle-question"></i></button>
-        <button id="btnPrivacidad" class="header-action" onclick="abrirAvisoPrivacidad()" title="Privacidad" aria-label="Privacidad"><i class="fa fa-lock"></i></button>
-        <button id="themeToggleBtn" class="header-action" onclick="toggleTheme()" title="Modo Oscuro" aria-label="Modo Oscuro"><i class="fa fa-moon"></i></button>
     </div>
     <div id="zonaActualBadge" class="zone-active-badge hidden"></div>
 
@@ -1049,6 +1417,18 @@
         </div>
 
         <div id="recomendaciones-panel" style="margin-top: 15px; display: none;">
+            <div id="recomendacionesGhost" class="guide-ghost-panel" aria-hidden="true">
+                <div class="guide-ghost-card">
+                    <div class="guide-ghost-pill"><i class="fa fa-star"></i> Mejor opción</div>
+                    <div class="guide-ghost-line short"></div>
+                    <div class="guide-ghost-line long"></div>
+                    <div class="guide-ghost-line medium"></div>
+                    <div class="guide-ghost-row">
+                        <div class="guide-ghost-badge"></div>
+                        <div class="guide-ghost-chip"></div>
+                    </div>
+                </div>
+            </div>
             <div id="lista-recomendados"></div>
         </div>
     </div>
@@ -1181,7 +1561,7 @@
                 <div class="ramal-item" id="item-r11_die" onclick="toggleLayer('r11_die', 'r11_diez_abril.geojson', '#45aaf2')"><i class="far fa-circle" id="icon-r11_die"></i> Villa de las Flores - 10 Abril</div>
                 <div class="ramal-item" id="item-r11_aca" onclick="toggleLayer('r11_aca', 'r11_acatlipa_loop.geojson', '#2d98da')"><i class="far fa-circle" id="icon-r11_aca"></i> Acatlipa - Loop</div>
                 <div class="ramal-item" id="item-r11_laz" onclick="toggleLayer('r11_laz', 'r11_lazaro_cardenas.geojson', '#4b7bec')"><i class="far fa-circle" id="icon-r11_laz"></i> Lázaro Cárdenas - Lauro Ortega</div>
-                <div class="ramal-item" id="item-r11_urs" onclick="toggleLayer('r11_urs', 'r11_santa_ursula.geojson', '#3867d6')"><i class="far fa-circle" id="icon-r11_urs"></i> Santa Úrsula</div>
+                <div class="ramal-item" id="item-r11_urs" onclick="toggleLayer('r11_urs', 'r11_santa_ursula.geojson', '#3867d6')"><i class="far fa-circle" id="icon-r11_urs"></i> Santa �arsula</div>
             </div>
         </div>
 
@@ -1303,6 +1683,7 @@
 </button>
 
 <div id="map"></div>
+<div id="zoneFocusOverlay" class="zone-focus-overlay" aria-hidden="true"></div>
 
 <button id="btnTomarRuta" class="btn-flotante-viaje btn-tomar-ruta" onclick="abrirModalAvatar()">
     <i class="fa fa-bus"></i> Tomar Ruta
@@ -1339,17 +1720,17 @@
 <div id="modalAvisoPrivacidad" class="modal-overlay">
     <div class="modal-content data-modal">
         <i class="fa fa-lock modal-icon" style="color: #38bdf8;"></i>
-        <h3>Bienvenido a RutAPP Morelos</h3>
+        <h3>Términos y condiciones</h3>
         <div class="data-modal-body">
             <p>RutAPP Morelos es una aplicación de carácter informativo diseñada para ayudar a los usuarios a consultar rutas de transporte público y obtener sugerencias de trayectos dentro de las zonas disponibles de la aplicación.</p>
             <p>La información mostrada se basa en datos recopilados y actualizados periódicamente; sin embargo, puede presentar variaciones por causas ajenas a la aplicación.</p>
             <p>Entre estas circunstancias pueden encontrarse cambios de rutas, obras públicas, accidentes viales, cierres de calles, manifestaciones, eventos especiales, desastres naturales, condiciones climáticas, modificaciones de concesionarios o autoridades, e información desactualizada o incompleta.</p>
             <p>Las recomendaciones de subida, descenso y trayectos deben considerarse únicamente como una guía de apoyo para el usuario.</p>
-            <p>El uso de la aplicación implica la aceptación de este aviso.</p>
+            <p>Al usar la aplicación aceptas estos términos y condiciones.</p>
         </div>
         <div class="data-modal-actions">
             <button class="modal-btn btn-primary" onclick="aceptarAvisoPrivacidad()"><i class="fa fa-check"></i> Aceptar</button>
-            <button class="modal-btn btn-secondary" onclick="abrirAvisoPrivacidadCompleto()"><i class="fa fa-file-lines"></i> Aviso de Privacidad Completo</button>
+            <button class="modal-btn btn-secondary" onclick="abrirAvisoPrivacidadCompleto()"><i class="fa fa-file-lines"></i> Ver aviso completo</button>
         </div>
     </div>
 </div>
@@ -1357,7 +1738,7 @@
 <div id="modalAvisoPrivacidadCompleto" class="modal-overlay">
     <div class="modal-content data-modal">
         <i class="fa fa-lock modal-icon" style="color: #22c55e;"></i>
-        <h3>Aviso de Privacidad Completo</h3>
+        <h3>Aviso completo</h3>
         <div class="data-modal-body">
             <p>La ubicación se utiliza únicamente para calcular rutas y mejorar las recomendaciones. No se comparte con terceros ni se vende información personal.</p>
             <p>El usuario puede revocar los permisos desde la configuración del dispositivo en cualquier momento.</p>
@@ -1414,7 +1795,7 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
 <script>
-    // 1. CAPAS BASE: OSCURO Y SATÉLITE
+    // 1. CAPAS BASE: OSCURO Y SAT�0LITE
     const mapaOscuro = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', { attribution: '&copy; CARTO' });
     const mapaClaro = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', { attribution: '&copy; CARTO' });
     const mapaSatelite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{y}/{x}/{z}', { attribution: 'Tiles &copy; Esri' });
@@ -1422,6 +1803,31 @@
     const MAPA_INICIAL = { center: [18.9218, -99.2347], zoom: 13 };
     const MORELOS_BOUNDS = L.latLngBounds([[18.32, -99.62], [19.16, -98.54]]);
     const MORELOS_VIEWBOX = '-99.62,19.16,-98.54,18.32';
+    const ZONE_FOCUS = {
+        CENTRO: {
+            center: [18.8800, -99.1988],
+            zoom: 12.9,
+            bounds: L.latLngBounds([[18.7210, -99.3257], [19.1233, -99.0281]]),
+            viewbox: '-99.3257,19.1233,-99.0281,18.7210'
+        },
+        SUR: {
+            center: [18.6550, -99.2419],
+            zoom: 12.0,
+            bounds: L.latLngBounds([[18.3815, -99.4938], [18.8775, -98.9512]]),
+            viewbox: '-99.4938,18.8775,-98.9512,18.3815'
+        },
+        ORIENTE: {
+            center: [18.8099, -98.9062],
+            zoom: 11.9,
+            bounds: L.latLngBounds([[18.4410, -99.1255], [19.0516, -98.6650]]),
+            viewbox: '-99.1255,19.0516,-98.6650,18.4410'
+        }
+    };
+    let zonaOverlay = null;
+    let zoneBoundaryLayer = null;
+    let zoneBoundaryDataPromise = null;
+    let previewGuiadoRecomendaciones = false;
+    let recomendacionesRealesVisibles = false;
     const map = L.map('map', {
         center: MAPA_INICIAL.center,
         zoom: MAPA_INICIAL.zoom,
@@ -1432,15 +1838,6 @@
         minZoom: 9
     });
     L.control.zoom({ position: 'topright' }).addTo(map);
-    L.rectangle(MORELOS_BOUNDS, {
-        color: '#22c55e',
-        weight: 2,
-        opacity: 0.8,
-        fillOpacity: 0,
-        dashArray: '8 8',
-        interactive: false
-    }).addTo(map);
-
     const baseMaps = { "Modo Oscuro": mapaOscuro, "Modo Claro": mapaClaro, "Vista Satélite": mapaSatelite };
     L.control.layers(baseMaps, null, { position: 'topright' }).addTo(map);
     let capaBaseActual = mapaOscuro;
@@ -1524,6 +1921,9 @@
         if (abordajeMarker) map.removeLayer(abordajeMarker);
         limpiarFlechasRuta();
         document.getElementById('recomendaciones-panel').style.display = 'none';
+        recomendacionesRealesVisibles = false;
+        previewGuiadoRecomendaciones = false;
+        setGhostRecomendacionesVisible(false);
 
         // Limpiar marcadores de origen y destino
         if (marcadorDestinoUI) map.removeLayer(marcadorDestinoUI);
@@ -1602,9 +2002,9 @@
         const themeBtn = document.getElementById('themeToggleBtn');
         if (themeBtn) {
             themeBtn.innerHTML = currentTheme === 'light'
-                ? '<i class="fa fa-sun"></i>'
-                : '<i class="fa fa-moon"></i>';
-            themeBtn.title = currentTheme === 'light' ? 'Modo Claro' : 'Modo Oscuro';
+                ? '<i class="fa fa-moon"></i> <span>Modo oscuro</span>'
+                : '<i class="fa fa-sun"></i> <span>Modo claro</span>';
+            themeBtn.title = currentTheme === 'light' ? 'Modo Oscuro' : 'Modo Claro';
             themeBtn.setAttribute('aria-label', themeBtn.title);
             themeBtn.classList.toggle('theme-toggle-active', currentTheme === 'light');
         }
@@ -1618,9 +2018,51 @@
         aplicarTema(currentTheme === 'light' ? 'dark' : 'light');
     }
 
+    function toggleHeaderMenu() {
+        const menu = document.getElementById('headerMenuAcciones');
+        const isOpen = menu && menu.classList.contains('open');
+        cerrarHeaderMenu();
+        if (!isOpen && menu) {
+            menu.classList.add('open');
+            menu.setAttribute('aria-hidden', 'false');
+        }
+    }
+
+    function cerrarHeaderMenu() {
+        const menu = document.getElementById('headerMenuAcciones');
+        if (!menu) return;
+        menu.classList.remove('open');
+        menu.setAttribute('aria-hidden', 'true');
+    }
+
     function cerrarModalPorId(id) {
         const modal = document.getElementById(id);
         if (modal) modal.style.display = 'none';
+    }
+
+    document.addEventListener('click', (event) => {
+        const menu = document.getElementById('headerMenuAcciones');
+        const dropdown = document.querySelector('.header-dropdown');
+        if (!menu || !dropdown) return;
+        if (!menu.classList.contains('open')) return;
+        if (!dropdown.contains(event.target)) {
+            cerrarHeaderMenu();
+        }
+    });
+
+    function setGhostRecomendacionesVisible(visible) {
+        const ghost = document.getElementById('recomendacionesGhost');
+        if (!ghost) return;
+        ghost.classList.toggle('visible', !!visible);
+        ghost.setAttribute('aria-hidden', visible ? 'false' : 'true');
+    }
+
+    function actualizarVisibilidadRecomendacionesUI() {
+        const panel = document.getElementById('recomendaciones-panel');
+        if (!panel) return;
+        const debeMostrar = previewGuiadoRecomendaciones || recomendacionesRealesVisibles;
+        panel.style.display = debeMostrar ? 'block' : 'none';
+        setGhostRecomendacionesVisible(previewGuiadoRecomendaciones || (!recomendacionesRealesVisibles && debeMostrar));
     }
 
     const GUIA_VERSION = '2026-06-11';
@@ -1762,18 +2204,32 @@
         const texto = document.getElementById('guideText');
         const lista = document.getElementById('guideList');
         const stepper = document.getElementById('guideStepper');
-        const focusLabel = document.getElementById('guideFocusLabel');
         const btnBack = document.getElementById('guideBackBtn');
         const btnNext = document.getElementById('guideNextBtn');
 
-        if (!paso || !titulo || !texto || !lista || !stepper || !focusLabel) return;
+        if (!paso || !titulo || !texto || !lista || !stepper) return;
 
         titulo.textContent = paso.title;
         texto.textContent = paso.text;
         lista.innerHTML = (paso.bullets || []).map((bullet) => `<li>${bullet}</li>`).join('');
-        focusLabel.innerHTML = `<i class="fa ${paso.icon}"></i> ${paso.focus ? 'Foco activo' : 'Recorrido general'}`;
-        focusLabel.style.color = paso.color;
-        focusLabel.style.background = `${paso.color}1c`;
+        previewGuiadoRecomendaciones = paso.focus === '#recomendaciones-panel';
+        if (previewGuiadoRecomendaciones) {
+            const panel = document.getElementById('recomendaciones-panel');
+            if (panel) {
+                panel.style.display = 'block';
+                if (!recomendacionesRealesVisibles) {
+                    const listaRecomendados = document.getElementById('lista-recomendados');
+                    if (listaRecomendados && !listaRecomendados.dataset.simulado) {
+                        listaRecomendados.innerHTML = '';
+                        listaRecomendados.dataset.simulado = '1';
+                    }
+                }
+            }
+        } else if (!recomendacionesRealesVisibles) {
+            const panel = document.getElementById('recomendaciones-panel');
+            if (panel) panel.style.display = 'none';
+        }
+        actualizarVisibilidadRecomendacionesUI();
 
         stepper.innerHTML = GUIA_TUTORIAL.map((_, index) => `<span class="guide-dot ${index === pasoGuiaActual ? 'active' : ''}"></span>`).join('');
 
@@ -1819,16 +2275,34 @@
 
     function cerrarGuiaUsuario() {
         limpiarResaltadoGuia();
+        previewGuiadoRecomendaciones = false;
+        actualizarVisibilidadRecomendacionesUI();
         localStorage.setItem('rutapp.guide.version', GUIA_VERSION);
         cerrarModalPorId('modalGuiaUsuario');
         const guideBackdrop = document.getElementById('guideBackdrop');
         if (guideBackdrop) guideBackdrop.classList.remove('visible');
+        if (window._resolveGuidePromise) {
+            window._resolveGuidePromise();
+            delete window._resolveGuidePromise;
+        }
     }
 
     function mostrarGuiaInicialSiHaceFalta() {
         const guideVersion = localStorage.getItem('rutapp.guide.version');
-        if (guideVersion === GUIA_VERSION) return;
-        setTimeout(() => abrirGuiaUsuario(), 800);
+        if (guideVersion === GUIA_VERSION) return Promise.resolve();
+        return new Promise(resolve => {
+            window._resolveGuidePromise = resolve;
+            setTimeout(() => abrirGuiaUsuario(), 800);
+        });
+    }
+
+    function mostrarTerminosSiHaceFalta() {
+        const termsVersion = localStorage.getItem('rutapp.terms.version');
+        if (termsVersion === GUIA_VERSION) return Promise.resolve();
+        return new Promise(resolve => {
+            window._resolveTermsPromise = resolve;
+            abrirAvisoPrivacidad();
+        });
     }
 
     function montarGuiaUsuario() {
@@ -1838,7 +2312,6 @@
             <div class="modal-content data-modal">
                 <i class="fa fa-map-location-dot modal-icon" style="color: #22c55e; font-size: 2rem;"></i>
                 <h3 id="guideTitle">Guía de uso</h3>
-                <div id="guideFocusLabel" class="guide-focus-label"><i class="fa fa-bullseye"></i> Foco activo</div>
                 <div id="guideStepper" class="guide-stepper"></div>
                 <div class="data-modal-body">
                     <p id="guideText"></p>
@@ -1908,7 +2381,7 @@
             const rumbo = calcularRumbo(origen, destino);
             const arrowIcon = L.divIcon({
                 className: 'ruta-arrow-icon',
-                html: `<div style="color:${color}; transform: rotate(${rumbo}deg);">➤</div>`,
+                html: `<div style="color:${color}; transform: rotate(${rumbo}deg);"><span>�~�</span></div>`,
                 iconSize: [18, 18],
                 iconAnchor: [9, 9]
             });
@@ -2003,6 +2476,9 @@
     map.on('locationfound', function(e) {
         const radius = e.accuracy / 2;
         setOriginMarker(e.latlng, "Mi ubicación actual");
+        localStorage.setItem('rutapp.location.preference', 'granted');
+        cerrarModalPorId('modalPermisoUbicacion');
+        resolverPromesaUbicacionInicial();
         if (!accuracyCircle) {
             accuracyCircle = L.circle(e.latlng, radius, { color: "#007aff", fillColor: "#007aff", fillOpacity: 0.15, weight: 1 }).addTo(map);
         } else { accuracyCircle.setRadius(radius); }
@@ -2012,6 +2488,8 @@
     map.on('locationerror', function(e) {
         console.warn('Error de ubicación:', e && e.message ? e.message : e);
         localStorage.setItem('rutapp.location.preference', 'manual');
+        cerrarModalPorId('modalPermisoUbicacion');
+        resolverPromesaUbicacionInicial();
         alert('No pudimos obtener tu ubicación. Puedes colocar tu origen manualmente tocando el mapa.');
     });
 
@@ -2086,34 +2564,82 @@
 
     function obtenerViewboxZona() {
         if (!zonaSeleccionada) return MORELOS_VIEWBOX;
-        switch (zonaSeleccionada) {
-            case 'ORIENTE':
-                return '-98.99,18.98,-98.46,18.56';
-            case 'SUR':
-                return '-99.58,18.78,-99.05,18.34';
-            case 'CENTRO':
-            default:
-                return '-99.40,19.05,-98.90,18.70';
-        }
+        return ZONE_FOCUS[zonaSeleccionada]?.viewbox || MORELOS_VIEWBOX;
     }
 
     function obtenerBoundsZona() {
-        switch (zonaSeleccionada) {
-            case 'ORIENTE':
-                return L.latLngBounds([[18.99, -99.08], [18.53, -98.72]]);
-            case 'SUR':
-                return L.latLngBounds([[18.73, -99.42], [18.34, -98.98]]);
-            case 'CENTRO':
-            default:
-                return L.latLngBounds([[19.03, -99.37], [18.70, -98.98]]);
+        if (zoneBoundaryLayer && zoneBoundaryLayer.getBounds && zoneBoundaryLayer.getBounds().isValid()) {
+            return zoneBoundaryLayer.getBounds();
         }
+        return ZONE_FOCUS[zonaSeleccionada]?.bounds || MORELOS_BOUNDS;
     }
 
     function centrarMapaPorZona() {
+        const focus = ZONE_FOCUS[zonaSeleccionada];
+        if (focus) {
+            map.flyTo(focus.center, focus.zoom, { duration: 0.85 });
+            return;
+        }
         const bounds = obtenerBoundsZona();
         if (bounds && bounds.isValid()) {
-            map.fitBounds(bounds, getMapPadding());
+            map.flyToBounds(bounds, { ...getMapPadding(), maxZoom: 13, duration: 0.85 });
         }
+    }
+
+    async function cargarLimitesZona() {
+        if (zoneBoundaryDataPromise) return zoneBoundaryDataPromise;
+        zoneBoundaryDataPromise = fetch('assets/zones/zone-boundaries.geojson')
+            .then((res) => {
+                if (!res.ok) throw new Error('No se pudieron cargar los límites de zona');
+                return res.json();
+            })
+            .catch((error) => {
+                console.warn(error);
+                return null;
+            });
+        return zoneBoundaryDataPromise;
+    }
+
+    async function aplicarFocoZona() {
+        if (!zonaOverlay) {
+            zonaOverlay = document.getElementById('zoneFocusOverlay');
+        }
+        if (!zonaOverlay) return;
+
+        if (zoneBoundaryLayer) {
+            map.removeLayer(zoneBoundaryLayer);
+            zoneBoundaryLayer = null;
+        }
+
+        if (!zonaSeleccionada) {
+            zonaOverlay.classList.remove('visible');
+            delete zonaOverlay.dataset.zone;
+            return;
+        }
+
+        zonaOverlay.dataset.zone = zonaSeleccionada;
+        const boundaryData = await cargarLimitesZona();
+        const feature = boundaryData?.features?.find((item) => normalizarZona(item?.properties?.zone) === zonaSeleccionada);
+
+        if (feature) {
+            zoneBoundaryLayer = L.geoJSON(feature, {
+                style: () => ({
+                    color: zonaSeleccionada === 'ORIENTE' ? '#f59e0b' : zonaSeleccionada === 'SUR' ? '#22c55e' : '#38bdf8',
+                    weight: 5,
+                    opacity: 0.95,
+                    fillColor: zonaSeleccionada === 'ORIENTE' ? '#f59e0b' : zonaSeleccionada === 'SUR' ? '#22c55e' : '#38bdf8',
+                    fillOpacity: 0.10,
+                    lineJoin: 'round',
+                    lineCap: 'round',
+                    className: `zone-boundary-path zone-boundary-${zonaSeleccionada.toLowerCase()}`
+                })
+            }).addTo(map);
+            zoneBoundaryLayer.bringToFront();
+            zonaOverlay.classList.add('visible');
+            return;
+        }
+
+        zonaOverlay.classList.add('visible');
     }
 
     function actualizarBadgeZona() {
@@ -2164,6 +2690,7 @@
         sessionStorage.setItem('rutapp.zona', zonaSeleccionada);
         await asegurarCatalogosZona(zonaSeleccionada);
         aplicarFiltroZonaUI();
+        await aplicarFocoZona();
         centrarMapaPorZona();
         cerrarStartupOverlay();
         // The guide will be shown by continuePostZoneSelectionFlow after location permission
@@ -2184,6 +2711,7 @@
         zonaSeleccionada = '';
         sessionStorage.removeItem('rutapp.zona');
         aplicarFiltroZonaUI();
+        aplicarFocoZona();
         clearAllLayers();
     }
 
@@ -2207,11 +2735,19 @@
 
     function aceptarAvisoPrivacidad() {
         privacyAccepted = true;
+        localStorage.setItem('rutapp.terms.version', GUIA_VERSION);
         localStorage.setItem('rutapp.privacy.version', GUIA_VERSION);
         cerrarAvisoPrivacidad();
-        if (window._resolvePrivacyPromise) {
-            window._resolvePrivacyPromise();
-            delete window._resolvePrivacyPromise;
+        if (window._resolveTermsPromise) {
+            window._resolveTermsPromise();
+            delete window._resolveTermsPromise;
+        }
+    }
+
+    function resolverPromesaUbicacionInicial() {
+        if (window._resolveLocationPromise) {
+            window._resolveLocationPromise();
+            delete window._resolveLocationPromise;
         }
     }
 
@@ -2232,10 +2768,6 @@
         cerrarModalPorId('modalPermisoUbicacion');
         requestedInitialLocation = true;
         getUserLocation();
-        if (window._resolveLocationPromise) {
-            window._resolveLocationPromise();
-            delete window._resolveLocationPromise;
-        }
     }
 
     function buscarLugarOrigenAPI() {
@@ -2763,6 +3295,45 @@
         return copia;
     }
 
+    function calcularPenalizacionTrayectoria(coords, indiceAbordaje, puntoDestino) {
+        if (!Array.isArray(coords) || coords.length < 3) return 0;
+
+        const inicio = Math.max(0, Math.min(coords.length - 1, indiceAbordaje || 0));
+        const ventana = coords.slice(inicio, Math.min(coords.length, inicio + 8));
+        if (ventana.length < 3) return 0;
+
+        const distanciaInicial = turf.distance(turf.point(ventana[0]), puntoDestino, { units: 'kilometers' }) * 1000;
+        let distanciaAnterior = distanciaInicial;
+        let peorAlejamiento = 0;
+
+        for (let i = 1; i < ventana.length; i++) {
+            const distanciaActual = turf.distance(turf.point(ventana[i]), puntoDestino, { units: 'kilometers' }) * 1000;
+            if (distanciaActual > distanciaAnterior) {
+                peorAlejamiento = Math.max(peorAlejamiento, distanciaActual - distanciaInicial);
+            }
+            distanciaAnterior = distanciaActual;
+        }
+
+        return Math.max(0, Math.round(peorAlejamiento - 150));
+    }
+
+    function calcularPenalizacionVueltota(coords, indiceAbordaje, indiceDescenso) {
+        if (!Array.isArray(coords) || coords.length < 2) return 0;
+
+        const inicio = Math.max(0, Math.min(coords.length - 1, indiceAbordaje || 0));
+        const fin = Math.max(0, Math.min(coords.length - 1, indiceDescenso || 0));
+        if (fin <= inicio + 1) return 0;
+
+        const tramo = coords.slice(inicio, fin + 1);
+        if (tramo.length < 2) return 0;
+
+        const longitudRutaMetros = turf.length(turf.lineString(tramo), { units: 'kilometers' }) * 1000;
+        const distanciaRectaMetros = turf.distance(turf.point(coords[inicio]), turf.point(coords[fin]), { units: 'kilometers' }) * 1000;
+        const exceso = longitudRutaMetros - (distanciaRectaMetros * 1.25);
+
+        return Math.max(0, Math.round(exceso));
+    }
+
     function evaluarRuta(data, puntoOrigen, puntoDestino) {
         const lineaOriginal = obtenerLineaPrincipal(data);
         if (!lineaOriginal) return null;
@@ -2781,6 +3352,7 @@
             const distanciaDestinoMetros = Math.round(nearestDescenso.properties.dist * 1000);
             const coords = lineaGeo.geometry.coordinates || [];
             const indiceAbordaje = Math.max(0, Math.min(coords.length - 1, nearestAbordaje.properties.index || 0));
+            const indiceDescenso = Math.max(0, Math.min(coords.length - 1, nearestDescenso.properties.index || 0));
             const siguienteIndice = Math.min(coords.length - 1, indiceAbordaje + 1);
             const puntoActual = turf.point(coords[indiceAbordaje]);
             const puntoSiguiente = turf.point(coords[siguienteIndice] || coords[indiceAbordaje]);
@@ -2791,8 +3363,11 @@
             const rumboDestino = calcularRumbo(coords[indiceAbordaje], [puntoDestino.geometry.coordinates[0], puntoDestino.geometry.coordinates[1]]);
             const diferenciaRumbo = diferenciaAngular(rumboRuta, rumboDestino);
             const penalizacionDireccion = diferenciaRumbo > 90 ? Math.round((diferenciaRumbo - 90) * 12) : 0;
-            const distanciaTotal = distanciaOrigenMetros + distanciaDestinoMetros + penalizacionSalida + penalizacionDireccion;
-            const score = (distanciaOrigenMetros * 1.18) + (distanciaDestinoMetros * 1.08) + (penalizacionSalida * 1.45) + (penalizacionDireccion * 1.25);
+            const penalizacionTrayectoria = calcularPenalizacionTrayectoria(coords, indiceAbordaje, puntoDestino);
+            const penalizacionVueltota = calcularPenalizacionVueltota(coords, indiceAbordaje, indiceDescenso);
+            const penalizacionAbordaje = distanciaOrigenMetros > 1200 ? Math.round((distanciaOrigenMetros - 1200) * 3.4) : 0;
+            const distanciaTotal = distanciaOrigenMetros + distanciaDestinoMetros + penalizacionSalida + penalizacionDireccion + penalizacionTrayectoria + penalizacionVueltota + penalizacionAbordaje;
+            const score = (distanciaOrigenMetros * 4.25) + (distanciaDestinoMetros * 0.95) + (penalizacionSalida * 1.35) + (penalizacionDireccion * 1.65) + (penalizacionTrayectoria * 1.55) + (penalizacionVueltota * 1.7) + penalizacionAbordaje;
 
             const resultado = {
                 lineaGeo,
@@ -2804,6 +3379,9 @@
                 distanciaTotal,
                 penalizacionSalida,
                 penalizacionDireccion,
+                penalizacionTrayectoria,
+                penalizacionVueltota,
+                penalizacionAbordaje,
                 score
             };
 
@@ -2828,6 +3406,9 @@
             distanciaTotal: Math.round((nearestAbordaje.properties.dist + nearestDescenso.properties.dist) * 1000),
             penalizacionSalida: 0,
             penalizacionDireccion: 0,
+            penalizacionTrayectoria: 0,
+            penalizacionVueltota: 0,
+            penalizacionAbordaje: 0,
             score: Math.round((nearestAbordaje.properties.dist + nearestDescenso.properties.dist) * 1000)
         };
     }
@@ -2842,6 +3423,8 @@
         const lista = document.getElementById('lista-recomendados');
         const nombreDestino = document.getElementById('destinationInput').value;
 
+        recomendacionesRealesVisibles = false;
+        setGhostRecomendacionesVisible(true);
         lista.innerHTML = '<div class="ramal-item" style="padding: 15px;"><i class="fa fa-spinner fa-spin"></i> Analizando sentidos de calle y rutas...</div>';
         panel.style.display = 'block';
         document.getElementById('btnTomarRuta').style.display = 'none';
@@ -2867,6 +3450,8 @@
                     score: evaluada.score,
                     penalizacionSalida: evaluada.penalizacionSalida,
                     penalizacionDireccion: evaluada.penalizacionDireccion,
+                    penalizacionTrayectoria: evaluada.penalizacionTrayectoria,
+                    penalizacionAbordaje: evaluada.penalizacionAbordaje,
                     direccionCorrecta: evaluada.direccionCorrecta,
                     coordAbordaje: [evaluada.nearestAbordaje.geometry.coordinates[1], evaluada.nearestAbordaje.geometry.coordinates[0]],
                     coordDescenso: [evaluada.nearestDescenso.geometry.coordinates[1], evaluada.nearestDescenso.geometry.coordinates[0]]
@@ -2878,16 +3463,24 @@
         if (resultados.length > 0) {
             resultados.sort((a, b) => {
                 if (a.direccionCorrecta !== b.direccionCorrecta) return a.direccionCorrecta ? -1 : 1;
+                if (a.penalizacionTrayectoria !== b.penalizacionTrayectoria) return a.penalizacionTrayectoria - b.penalizacionTrayectoria;
+                if (a.penalizacionAbordaje !== b.penalizacionAbordaje) return a.penalizacionAbordaje - b.penalizacionAbordaje;
+                if (a.penalizacionDireccion !== b.penalizacionDireccion) return a.penalizacionDireccion - b.penalizacionDireccion;
                 if (a.distanciaDestinoMetros !== b.distanciaDestinoMetros) return a.distanciaDestinoMetros - b.distanciaDestinoMetros;
+                if (a.distanciaOrigenMetros !== b.distanciaOrigenMetros) return a.distanciaOrigenMetros - b.distanciaOrigenMetros;
                 return a.score - b.score;
             });
-            const mejoresOpciones = resultados.slice(0, 4);
+            const opcionesCorrectas = resultados.filter((r) => r.direccionCorrecta);
+            const mejoresOpciones = (opcionesCorrectas.length > 0 ? opcionesCorrectas : resultados).slice(0, 4);
 
             lista.innerHTML += `<div style="margin-bottom: 15px; padding: 12px; background: rgba(255,255,255,0.05); border-left: 3px solid #3498db; border-radius: 8px; font-size: 0.85rem; color: rgba(255,255,255,0.9);"><i class="fa fa-map-location-dot" style="color: #3498db; margin-right: 5px;"></i><b>Rutas hacia ${nombreDestino}</b></div>`;
+            if (opcionesCorrectas.length === 0) {
+                lista.innerHTML += `<div style="margin-bottom: 12px; padding: 10px 12px; background: rgba(245, 158, 11, 0.12); border-left: 3px solid #f59e0b; border-radius: 8px; font-size: 0.82rem; color: rgba(255,255,255,0.95);"><i class="fa fa-triangle-exclamation" style="margin-right: 5px;"></i>No encontré una ruta claramente en el sentido correcto; mostrando las menos desfavorables.</div>`;
+            }
 
             mejoresOpciones.forEach((r, index) => {
                 const tiempoCaminandoMin = Math.max(1, Math.round(r.distanciaDestinoMetros / 80));
-                let nivelEsfuerzo = index === 0 ? `<span style="float: right; font-size: 0.65rem; background: #2ecc71; color: #000; padding: 3px 6px; border-radius: 10px; font-weight: bold;"><i class="fa fa-star"></i> MEJOR OPCIÓN</span>` : "";
+                let nivelEsfuerzo = index === 0 ? `<span style="float: right; font-size: 0.65rem; background: #2ecc71; color: #000; padding: 3px 6px; border-radius: 10px; font-weight: bold;"><i class="fa fa-star"></i> MEJOR OPCI�N</span>` : "";
                 lista.innerHTML += `
                     <div class="ramal-item" style="margin-bottom:10px; border-left: 4px solid ${r.color}; flex-direction: column; align-items: flex-start; padding: 12px;"
                          onclick="mostrarRutaGuiada('${r.archivo}', '${r.color}', ${r.coordAbordaje[0]}, ${r.coordAbordaje[1]}, ${r.distanciaOrigenMetros}, ${r.coordDescenso[0]}, ${r.coordDescenso[1]}, this, '${r.nombre}')">
@@ -2902,7 +3495,14 @@
             });
 
             buscarTransbordos(puntoOrigen, mejoresOpciones);
+            recomendacionesRealesVisibles = true;
+            setGhostRecomendacionesVisible(false);
+        } else {
+            recomendacionesRealesVisibles = false;
+            lista.innerHTML = '<div class="ramal-item" style="padding: 15px; margin-bottom: 10px; border-left: 4px solid #38bdf8; flex-direction: column; align-items: flex-start;"><div style="font-weight:700; margin-bottom:6px;"><i class="fa fa-sparkles"></i> Vista previa</div><div style="font-size:0.82rem; line-height:1.35; opacity:0.9;">Todavía no hay una recomendación real cargada. Esta simulación muestra cómo se verán las opciones cuando la app encuentre una ruta conveniente.</div></div>';
+            setGhostRecomendacionesVisible(true);
         }
+        actualizarVisibilidadRecomendacionesUI();
     }
     async function mostrarRutaGuiada(archivo, color, latAbordaje, lngAbordaje, metros, latDescenso, lngDescenso, elementDOM, nombreRuta) {
         if (!rutaVisibleEnZona(obtenerZonaRutaPorArchivo(archivo))) {
@@ -2933,11 +3533,24 @@
         try {
             const res = await fetch(archivo); const data = await res.json();
             const nombreLimpio = archivo.replace('.geojson', '').replace(/_/g, ' ').toUpperCase();
+            const puntoAbordaje = turf.point([lngAbordaje, latAbordaje]);
+            const puntoDescenso = turf.point([lngDescenso, latDescenso]);
+            const lineaBase = obtenerLineaPrincipal(data);
+            let tramoVisible = lineaBase || data;
 
-            const layer = L.geoJSON(data, { style: { color: color, weight: 6, opacity: 0.9, lineJoin: 'round', lineCap: 'round' } })
+            try {
+                if (lineaBase) {
+                    const tramoCalculado = turf.lineSlice(puntoAbordaje, puntoDescenso, lineaBase);
+                    if (tramoCalculado && tramoCalculado.geometry && tramoCalculado.geometry.coordinates && tramoCalculado.geometry.coordinates.length >= 2) {
+                        tramoVisible = tramoCalculado;
+                    }
+                }
+            } catch (e) { }
+
+            const layer = L.geoJSON(tramoVisible, { style: { color: color, weight: 6, opacity: 0.95, lineJoin: 'round', lineCap: 'round' } })
                 .bindTooltip(`<div style="font-size:14px;"><i class="fa fa-bus" style="color:${color}"></i> ${nombreLimpio}</div>`, { className: 'custom-tooltip', sticky: true }).addTo(map);
             capasActivas['rutaOptima'] = layer;
-            agregarFlechasRuta(data, color);
+            agregarFlechasRuta(tramoVisible, color);
 
             const userLat = origenCoordenadasReal.lat; // Usar origenCoordenadasReal
             const userLng = origenCoordenadasReal.lng; // Usar origenCoordenadasReal
@@ -3050,16 +3663,7 @@
         await new Promise(resolve => setTimeout(resolve, 2400));
         document.getElementById('splashStage').classList.add('hidden');
 
-        // 2. Check and show Privacy Modal
-        const privacyVersion = localStorage.getItem('rutapp.privacy.version');
-        if (privacyVersion !== GUIA_VERSION) {
-            await new Promise(resolve => {
-                window._resolvePrivacyPromise = resolve;
-                abrirAvisoPrivacidad();
-            });
-        }
-
-        // 3. If no zone selected, show zone selector and wait for selection
+        // 2. If no zone selected, show zone selector and wait for selection
         if (!zonaSeleccionada) {
             document.getElementById('zoneStage').classList.remove('hidden');
             // The flow will continue from seleccionarZona -> cargarZonaActiva -> continuePostZoneSelectionFlow
@@ -3068,32 +3672,38 @@
             // If zone is already selected, close startup overlay
             cerrarStartupOverlay();
             aplicarFiltroZonaUI();
+            await aplicarFocoZona();
             centrarMapaPorZona();
-            // Continue to location permission check
+            // Continue to the first-run sequence
             await continuePostZoneSelectionFlow();
         }
     }
 
     // New function to continue the flow after zone selection (or if already selected)
     async function continuePostZoneSelectionFlow() {
-        // 4. Check and show Location Permission Modal
+        // 3. Show guide first on first run
+        await mostrarGuiaInicialSiHaceFalta();
+
+        // 4. Then show terms and conditions once
+        await mostrarTerminosSiHaceFalta();
+
+        // 5. Then ask for location permission once, automatically
         const locationPreference = localStorage.getItem('rutapp.location.preference');
-        if (!locationPreference) { // If location preference is not set
+        if (!locationPreference) {
             await new Promise(resolve => {
                 window._resolveLocationPromise = resolve;
                 document.getElementById('modalPermisoUbicacion').style.display = 'flex';
+                requestedInitialLocation = true;
+                setTimeout(() => getUserLocation(), 250);
             });
         }
-
-        // 5. Finally, show User Guide Modal
-        mostrarGuiaInicialSiHaceFalta();
     }
 
     // Initial call to start the orchestrated flow
     handleStartupModals();
 
     // ==========================================
-    // NUEVA LÓGICA: BUSCADOR DE TRANSBORDOS
+    // NUEVA L�GICA: BUSCADOR DE TRANSBORDOS
     // ==========================================
 
     async function buscarTransbordos(puntoOrigen, mejoresDirectas) {
@@ -3177,3 +3787,4 @@
 </script>
 </body>
 </html>
+
