@@ -235,6 +235,13 @@
             border: 1px solid var(--input-border); border-radius: 12px;
             margin-top: 5px; z-index: 2000; max-height: 220px; overflow-y: auto;
             display: none; box-shadow: 0 10px 25px var(--shadow-color);
+            -webkit-overflow-scrolling: touch;
+        }
+        .suggestions-box.suggestions-open-up {
+            top: auto;
+            bottom: calc(100% + 6px);
+            margin-top: 0;
+            margin-bottom: 5px;
         }
         .suggestion-item {
             padding: 12px 15px; border-bottom: 1px solid rgba(255,255,255,0.05);
@@ -836,6 +843,22 @@
             background: rgba(255, 255, 255, 0.05); margin-top: 8px;
             border-radius: 12px; padding: 6px; display: none;
         }
+        .grupo-ruta.active > .ruta-master {
+            box-shadow: 0 10px 22px rgba(0, 0, 0, 0.24);
+            filter: saturate(1.08);
+            transform: translateY(-1px);
+            border-color: rgba(255, 255, 255, 0.22);
+            background: linear-gradient(135deg, color-mix(in srgb, var(--route-color, #22c55e) 72%, #ffffff 28%), color-mix(in srgb, var(--route-color, #22c55e) 88%, #000000 12%));
+            color: #000;
+        }
+        .grupo-ruta.active > .ruta-master * {
+            color: #000 !important;
+        }
+        body.theme-light .grupo-ruta.active > .ruta-master {
+            box-shadow: 0 10px 22px rgba(15, 23, 42, 0.12);
+            border-color: rgba(15, 23, 42, 0.12);
+            background: linear-gradient(135deg, color-mix(in srgb, var(--route-color, #22c55e) 78%, #ffffff 22%), color-mix(in srgb, var(--route-color, #22c55e) 90%, #ffffff 10%));
+        }
         .ramal-item {
             padding: 10px 14px; font-size: 0.9rem; cursor: pointer; display: flex;
             align-items: center; gap: 12px; border-radius: 10px; transition: all 0.3s ease;
@@ -845,13 +868,42 @@
 
         /* ESTILO: RUTA SELECCIONADA */
         .ramal-item.selected-route {
-            background: var(--route-color, #fff) !important;
+            background: linear-gradient(135deg, color-mix(in srgb, var(--route-color, #ffffff) 88%, #ffffff 12%), var(--route-color, #ffffff)) !important;
             color: #000 !important;
             transform: scale(1.02);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 0 0 1px rgba(255,255,255,0.25), 0 10px 24px rgba(0,0,0,0.32), 0 0 24px color-mix(in srgb, var(--route-color, #38bdf8) 55%, transparent);
             border-color: transparent !important;
+            outline: 2px solid color-mix(in srgb, var(--route-color, #38bdf8) 70%, #ffffff 30%);
+            animation: routeGlow 1.8s ease-in-out infinite;
         }
         .ramal-item.selected-route * { color: #000 !important; }
+        .ramal-item.active {
+            border-left: 4px solid var(--route-color, #38bdf8);
+            background: rgba(56, 189, 248, 0.12);
+            color: #fff;
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.24);
+            padding-left: 12px;
+        }
+        .ramal-item.active * { color: #fff !important; }
+        .ramal-item.active.selected-route {
+            background: linear-gradient(135deg, color-mix(in srgb, var(--route-color, #ffffff) 88%, #ffffff 12%), var(--route-color, #ffffff)) !important;
+            color: #000 !important;
+            border-left-color: rgba(255,255,255,0.85);
+            box-shadow: 0 0 0 1px rgba(255,255,255,0.25), 0 10px 24px rgba(0,0,0,0.32), 0 0 28px color-mix(in srgb, var(--route-color, #38bdf8) 62%, transparent) !important;
+        }
+        .ramal-item.active.selected-route * { color: #000 !important; }
+        .ramal-item.active.selected-route i {
+            color: #000 !important;
+            text-shadow: 0 0 8px rgba(255,255,255,0.45);
+        }
+        @keyframes routeGlow {
+            0%, 100% {
+                box-shadow: 0 0 0 1px rgba(255,255,255,0.25), 0 10px 24px rgba(0,0,0,0.32), 0 0 22px color-mix(in srgb, var(--route-color, #38bdf8) 48%, transparent);
+            }
+            50% {
+                box-shadow: 0 0 0 1px rgba(255,255,255,0.35), 0 12px 28px rgba(0,0,0,0.38), 0 0 30px color-mix(in srgb, var(--route-color, #38bdf8) 72%, transparent);
+            }
+        }
 
         .ramal-item i { font-size: 1.1rem; width: 22px; text-align: center; }
         body.theme-light .ramales-container {
@@ -867,7 +919,27 @@
             background: #ffffff;
         }
         body.theme-light .ramal-item.selected-route {
-            box-shadow: 0 8px 20px rgba(15, 23, 42, 0.1);
+            box-shadow: 0 0 0 1px rgba(255,255,255,0.5), 0 10px 22px rgba(15, 23, 42, 0.14), 0 0 24px color-mix(in srgb, var(--route-color, #38bdf8) 42%, transparent);
+        }
+        body.theme-light .ramal-item.active.selected-route {
+            background: linear-gradient(135deg, color-mix(in srgb, var(--route-color, #ffffff) 80%, #ffffff 20%), var(--route-color, #ffffff)) !important;
+            color: #0f172a !important;
+            border: 1px solid rgba(255,255,255,0.7);
+            box-shadow: 0 0 0 1px rgba(255,255,255,0.55), 0 12px 24px rgba(15, 23, 42, 0.14), 0 0 28px color-mix(in srgb, var(--route-color, #38bdf8) 55%, transparent) !important;
+        }
+        body.theme-light .ramal-item.active.selected-route * {
+            color: #0f172a !important;
+        }
+        body.theme-light .ramal-item.active.selected-route i {
+            color: #0f172a !important;
+        }
+        body.theme-light .ramal-item.active {
+            background: rgba(56, 189, 248, 0.12);
+            color: #0f172a;
+            border: 1px solid rgba(56, 189, 248, 0.22);
+        }
+        body.theme-light .ramal-item.active * {
+            color: #0f172a !important;
         }
 
         /* Botón Geolocalización */
@@ -1249,7 +1321,7 @@
         .sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
 
         /* ========================================= */
-        /* DISE�O RESPONSIVO (M�VILES - MEDIA PANTALLA) */
+        /* DISEÑO RESPONSIVO (MÓVILES - MEDIA PANTALLA) */
         /* ========================================= */
         @media (max-width: 768px) {
             .sidebar {
@@ -1561,7 +1633,7 @@
                 <div class="ramal-item" id="item-r11_die" onclick="toggleLayer('r11_die', 'r11_diez_abril.geojson', '#45aaf2')"><i class="far fa-circle" id="icon-r11_die"></i> Villa de las Flores - 10 Abril</div>
                 <div class="ramal-item" id="item-r11_aca" onclick="toggleLayer('r11_aca', 'r11_acatlipa_loop.geojson', '#2d98da')"><i class="far fa-circle" id="icon-r11_aca"></i> Acatlipa - Loop</div>
                 <div class="ramal-item" id="item-r11_laz" onclick="toggleLayer('r11_laz', 'r11_lazaro_cardenas.geojson', '#4b7bec')"><i class="far fa-circle" id="icon-r11_laz"></i> Lázaro Cárdenas - Lauro Ortega</div>
-                <div class="ramal-item" id="item-r11_urs" onclick="toggleLayer('r11_urs', 'r11_santa_ursula.geojson', '#3867d6')"><i class="far fa-circle" id="icon-r11_urs"></i> Santa �arsula</div>
+                <div class="ramal-item" id="item-r11_urs" onclick="toggleLayer('r11_urs', 'r11_santa_ursula.geojson', '#3867d6')"><i class="far fa-circle" id="icon-r11_urs"></i> Santa Úrsula</div>
             </div>
         </div>
 
@@ -1795,7 +1867,7 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
 <script>
-    // 1. CAPAS BASE: OSCURO Y SAT�0LITE
+    // 1. CAPAS BASE: OSCURO Y SATÉLITE
     const mapaOscuro = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', { attribution: '&copy; CARTO' });
     const mapaClaro = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', { attribution: '&copy; CARTO' });
     const mapaSatelite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{y}/{x}/{z}', { attribution: 'Tiles &copy; Esri' });
@@ -1838,9 +1910,10 @@
         minZoom: 9
     });
     L.control.zoom({ position: 'topright' }).addTo(map);
-    const baseMaps = { "Modo Oscuro": mapaOscuro, "Modo Claro": mapaClaro, "Vista Satélite": mapaSatelite };
-    L.control.layers(baseMaps, null, { position: 'topright' }).addTo(map);
     let capaBaseActual = mapaOscuro;
+    map.on('dragstart zoomstart movestart touchstart', () => {
+        mapFueMovidoManual = true;
+    });
 
     function establecerBaseMapa(capaBase) {
         if (capaBaseActual === capaBase && map.hasLayer(capaBaseActual)) return;
@@ -1861,6 +1934,7 @@
     let routeCatalogZoneCache = {};
     let requestedInitialLocation = false;
     let currentTheme = localStorage.getItem('rutapp.theme') || 'dark';
+    let mapFueMovidoManual = false;
 
     // VARIABLES DE ORIGEN Y DESTINO
     let originMarker = null; // Marcador para la ubicación del usuario (geolocalización o clic)
@@ -1886,9 +1960,62 @@
     function toggleMenu(id) {
         const menu = document.getElementById(id);
         const arrow = menu.previousElementSibling.querySelector('.fa-chevron-down');
+        const grupo = menu.closest('.grupo-ruta');
         const isVisible = menu.style.display === 'block';
         menu.style.display = isVisible ? 'none' : 'block';
         arrow.style.transform = isVisible ? 'rotate(0deg)' : 'rotate(180deg)';
+        if (grupo) grupo.classList.toggle('active', !isVisible);
+    }
+
+    function actualizarEstadoGrupoRuta(item) {
+        const grupo = item?.closest('.grupo-ruta');
+        if (!grupo) return;
+        const tieneActivas = !!grupo.querySelector('.ramal-item.active');
+        grupo.classList.toggle('active', tieneActivas);
+        const menu = grupo.querySelector('.ramales-container');
+        const arrow = grupo.querySelector('.ruta-master .fa-chevron-down');
+        if (tieneActivas && menu) {
+            menu.style.display = 'block';
+            if (arrow) arrow.style.transform = 'rotate(180deg)';
+        }
+    }
+
+    function aplicarEstadoSeleccionadoRamal(item, color) {
+        if (!item) return;
+        item.style.setProperty('--route-color', color);
+        item.classList.add('active');
+        item.classList.add('selected-route');
+        item.style.position = 'relative';
+        item.style.zIndex = '2';
+        item.style.border = `2px solid ${color}`;
+        item.style.background = `linear-gradient(135deg, color-mix(in srgb, ${color} 84%, #ffffff 16%), ${color})`;
+        item.style.boxShadow = `0 0 0 1px rgba(255,255,255,0.22), 0 12px 28px rgba(0,0,0,0.34), 0 0 28px color-mix(in srgb, ${color} 70%, transparent)`;
+    }
+
+    function quitarEstadoSeleccionadoRamal(item) {
+        if (!item) return;
+        item.classList.remove('active');
+        item.classList.remove('selected-route');
+        item.style.removeProperty('--route-color');
+        item.style.removeProperty('position');
+        item.style.removeProperty('z-index');
+        item.style.removeProperty('border');
+        item.style.removeProperty('background');
+        item.style.removeProperty('box-shadow');
+    }
+
+    function limpiarMarcadoresRutaGuiada() {
+        if (caminataLayer) {
+            map.removeLayer(caminataLayer);
+            caminataLayer = null;
+        }
+        if (abordajeMarker) {
+            map.removeLayer(abordajeMarker);
+            abordajeMarker = null;
+        }
+        puntoDescensoGuardado = null;
+        document.getElementById('btnTomarRuta').style.display = 'none';
+        document.getElementById('btnCancelarRuta').style.display = 'none';
     }
 
     function filterRoutes() {
@@ -1904,11 +2031,12 @@
     }
 
     function clearAllLayers() {
+        limpiarMarcadoresRutaGuiada();
         for (let key in capasActivas) {
             map.removeLayer(capasActivas[key]);
             const item = document.getElementById(`item-${key}`);
             const icon = document.getElementById(`icon-${key}`);
-            if (item) { item.classList.remove('active'); item.classList.remove('selected-route'); }
+            if (item) { quitarEstadoSeleccionadoRamal(item); }
             if (icon) { icon.className = 'far fa-circle'; icon.style.color = 'inherit'; }
         }
         for (let prop in capasActivas) delete capasActivas[prop];
@@ -1917,8 +2045,6 @@
         const recItems = document.querySelectorAll('#lista-recomendados .ramal-item');
         recItems.forEach(el => el.classList.remove('selected-route'));
 
-        if (caminataLayer) map.removeLayer(caminataLayer);
-        if (abordajeMarker) map.removeLayer(abordajeMarker);
         limpiarFlechasRuta();
         document.getElementById('recomendaciones-panel').style.display = 'none';
         recomendacionesRealesVisibles = false;
@@ -2144,10 +2270,10 @@
             focus: '#btnLimpiar',
             icon: 'fa-screwdriver-wrench',
             color: '#ef4444',
-            text: 'Usa Inicio para cambiar de zona, Privacidad para consultar el aviso, Guía para volver a este tutorial y Limpiar para reiniciar todo el mapa.',
+            text: 'Usa Inicio para cambiar de zona, Términos para consultar el aviso, Guía para volver a este tutorial y Limpiar para reiniciar todo el mapa.',
             bullets: [
                 'Inicio regresa al selector de zonas.',
-                'Privacidad muestra el aviso completo.',
+                'Términos muestra el aviso completo.',
                 'Limpiar borra origen, destino y resultados.'
             ]
         }
@@ -2157,9 +2283,9 @@
         { focus: '#originInput', text: 'Escribe un lugar y toca una sugerencia si aparece.' },
         { focus: '#destinationInput', text: 'Ahora escribe tu destino.' },
         { focus: '#btnCalcularRuta', text: 'Pulsa calcular para buscar la ruta conveniente.' },
-        { focus: '#recomendaciones-panel', text: 'Aqui aparecera la mejor opcion para subir y bajar.' },
-        { focus: '#btnAjustarOrigen', text: 'Si no sabes la direccion, mueve el pin manualmente.' },
-        { focus: '#btnLimpiar', text: 'Inicio cambia zona, Guia repite esto y Limpiar reinicia.' }
+        { focus: '#recomendaciones-panel', text: 'Aquí aparecerá la mejor opción para subir y bajar.' },
+        { focus: '#btnAjustarOrigen', text: 'Si no sabes la dirección, mueve el pin manualmente.' },
+        { focus: '#btnLimpiar', text: 'Inicio cambia zona, Términos consulta el aviso, Guía repite esto y Limpiar reinicia.' }
     ];
     GUIA_TUTORIAL.forEach((paso, index) => {
         if (!GUIA_RESUMIDA[index]) return;
@@ -2381,7 +2507,7 @@
             const rumbo = calcularRumbo(origen, destino);
             const arrowIcon = L.divIcon({
                 className: 'ruta-arrow-icon',
-                html: `<div style="color:${color}; transform: rotate(${rumbo}deg);"><span>�~�</span></div>`,
+        html: `<div style="color:${color}; transform: rotate(${rumbo}deg); font-size: 16px; line-height: 1;">&#10148;</div>`,
                 iconSize: [18, 18],
                 iconAnchor: [9, 9]
             });
@@ -2406,8 +2532,9 @@
         if (capasActivas[key]) {
             map.removeLayer(capasActivas[key]);
             delete capasActivas[key];
-            if(item) { item.classList.remove('active'); item.classList.remove('selected-route'); }
+            if(item) { quitarEstadoSeleccionadoRamal(item); }
             if(icon) { icon.className = 'far fa-circle'; icon.style.color = 'inherit'; }
+            actualizarEstadoGrupoRuta(item);
         } else {
             try {
                 const res = await fetch(archivo);
@@ -2419,10 +2546,18 @@
                 }).bindTooltip(`<div style="font-size:14px;"><i class="fa fa-bus" style="color:${color}"></i> ${nombreRutaLimpio}</div>`, { className: 'custom-tooltip', sticky: true, direction: "auto" }).addTo(map);
 
                 capasActivas[key] = layer;
-                if(item) { item.classList.add('active'); }
+                if(item) {
+                    aplicarEstadoSeleccionadoRamal(item, color);
+                    const grupo = item.closest('.grupo-ruta');
+                    if (grupo) {
+                        grupo.style.setProperty('--route-color', color);
+                    }
+                    actualizarEstadoGrupoRuta(item);
+                }
                 if(icon) { icon.className = 'fas fa-check-circle'; icon.style.color = color; }
 
-                map.fitBounds(layer.getBounds(), getMapPadding());
+                const layerCenter = layer.getBounds().getCenter();
+                map.panTo(layerCenter, { animate: true, duration: 0.45 });
             } catch (e) { alert("Asegúrate de que el archivo " + archivo + " esté descargado."); }
         }
     }
@@ -2471,6 +2606,33 @@
             return;
         }
         map.locate({ setView: true, maxZoom: 16, enableHighAccuracy: true });
+    }
+
+    function ajustarCajaSugerencias(box, input) {
+        if (!box || !input) return;
+        const viewport = window.visualViewport;
+        const viewportHeight = viewport ? viewport.height : window.innerHeight;
+        const viewportTop = viewport ? viewport.offsetTop : 0;
+        const rect = input.getBoundingClientRect();
+        const espacioAbajo = (viewportTop + viewportHeight) - rect.bottom;
+        const espacioArriba = rect.top - viewportTop;
+        const tecladoVisible = viewport ? viewportHeight < (window.innerHeight - 60) : false;
+        const abrirArriba = tecladoVisible && espacioAbajo < 230 && espacioArriba > espacioAbajo;
+        box.classList.toggle('suggestions-open-up', abrirArriba);
+        box.style.maxHeight = abrirArriba
+            ? `${Math.max(140, Math.min(220, Math.floor(espacioArriba - 20)))}px`
+            : `${Math.max(140, Math.min(220, Math.floor(espacioAbajo - 20)))}px`;
+    }
+
+    function actualizarPosicionSugerenciasActivas() {
+        const originBox = document.getElementById('originSuggestionsBox');
+        const destinationBox = document.getElementById('suggestionsBox');
+        if (originBox && originBox.style.display === 'block') {
+            ajustarCajaSugerencias(originBox, document.getElementById('originInput'));
+        }
+        if (destinationBox && destinationBox.style.display === 'block') {
+            ajustarCajaSugerencias(destinationBox, document.getElementById('destinationInput'));
+        }
     }
 
     map.on('locationfound', function(e) {
@@ -2575,6 +2737,7 @@
     }
 
     function centrarMapaPorZona() {
+        mapFueMovidoManual = false;
         const focus = ZONE_FOCUS[zonaSeleccionada];
         if (focus) {
             map.flyTo(focus.center, focus.zoom, { duration: 0.85 });
@@ -2710,6 +2873,7 @@
     function zoneSessionReset() {
         zonaSeleccionada = '';
         sessionStorage.removeItem('rutapp.zona');
+        mapFueMovidoManual = false;
         aplicarFiltroZonaUI();
         aplicarFocoZona();
         clearAllLayers();
@@ -2775,6 +2939,7 @@
         const box = document.getElementById('originSuggestionsBox');
         if (input.length < 2) { box.style.display = 'none'; return; }
         box.style.display = 'block'; box.innerHTML = '';
+        ajustarCajaSugerencias(box, document.getElementById('originInput'));
         const resultadosLocales = baseLocal.filter(item => {
             const coincideTexto = item.nombre.toLowerCase().includes(input);
             const coincideZona = !zonaSeleccionada || !item.zonas || item.zonas.includes(zonaSeleccionada);
@@ -2976,11 +3141,34 @@
         finalizarAjusteDestino(false);
     }
 
+    const originInputEl = document.getElementById('originInput');
+    const destinationInputEl = document.getElementById('destinationInput');
+    if (originInputEl) {
+        originInputEl.addEventListener('focus', () => {
+            setTimeout(() => originInputEl.scrollIntoView({ block: 'center', behavior: 'smooth' }), 120);
+            actualizarPosicionSugerenciasActivas();
+        });
+        originInputEl.addEventListener('input', actualizarPosicionSugerenciasActivas);
+    }
+    if (destinationInputEl) {
+        destinationInputEl.addEventListener('focus', () => {
+            setTimeout(() => destinationInputEl.scrollIntoView({ block: 'center', behavior: 'smooth' }), 120);
+            actualizarPosicionSugerenciasActivas();
+        });
+        destinationInputEl.addEventListener('input', actualizarPosicionSugerenciasActivas);
+    }
+    window.addEventListener('resize', actualizarPosicionSugerenciasActivas);
+    if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', actualizarPosicionSugerenciasActivas);
+        window.visualViewport.addEventListener('scroll', actualizarPosicionSugerenciasActivas);
+    }
+
     async function buscarLugarAPI() {
         const input = document.getElementById('destinationInput').value.toLowerCase();
         const box = document.getElementById('suggestionsBox');
         if (input.length < 2) { box.style.display = 'none'; return; }
         box.style.display = 'block'; box.innerHTML = '';
+        ajustarCajaSugerencias(box, document.getElementById('destinationInput'));
         const resultadosLocales = baseLocal.filter(item => {
             const coincideTexto = item.nombre.toLowerCase().includes(input);
             const coincideZona = !zonaSeleccionada || !item.zonas || item.zonas.includes(zonaSeleccionada);
@@ -3212,9 +3400,10 @@
         const colorBase = tonoPorIndice(indiceGrupo, indiceZona * 53);
         const rutas = grupo.routes.map((ruta, indiceRuta) => {
             const colorRuta = tonoPorIndice(indiceRuta, indiceGrupo * 17 + indiceZona * 53);
-            const itemId = `item-${slugSimple(zona)}-${indiceGrupo}-${indiceRuta}`;
-            const iconId = `icon-${slugSimple(zona)}-${indiceGrupo}-${indiceRuta}`;
-            return `<div class="ramal-item" id="${itemId}" onclick="toggleLayer('${itemId}', '${ruta.archivo}', '${colorRuta}')"><i class="far fa-circle" id="${iconId}"></i> ${ruta.label}</div>`;
+            const routeKey = `${slugSimple(zona)}-${indiceGrupo}-${indiceRuta}`;
+            const itemId = `item-${routeKey}`;
+            const iconId = `icon-${routeKey}`;
+            return `<div class="ramal-item" id="${itemId}" onclick="toggleLayer('${routeKey}', '${ruta.archivo}', '${colorRuta}')"><i class="far fa-circle" id="${iconId}"></i> ${ruta.label}</div>`;
         }).join('');
 
         return `
@@ -3480,7 +3669,7 @@
 
             mejoresOpciones.forEach((r, index) => {
                 const tiempoCaminandoMin = Math.max(1, Math.round(r.distanciaDestinoMetros / 80));
-                let nivelEsfuerzo = index === 0 ? `<span style="float: right; font-size: 0.65rem; background: #2ecc71; color: #000; padding: 3px 6px; border-radius: 10px; font-weight: bold;"><i class="fa fa-star"></i> MEJOR OPCI�N</span>` : "";
+                let nivelEsfuerzo = index === 0 ? `<span style="float: right; font-size: 0.65rem; background: #2ecc71; color: #000; padding: 3px 6px; border-radius: 10px; font-weight: bold;"><i class="fa fa-star"></i> MEJOR OPCIÓN</span>` : "";
                 lista.innerHTML += `
                     <div class="ramal-item" style="margin-bottom:10px; border-left: 4px solid ${r.color}; flex-direction: column; align-items: flex-start; padding: 12px;"
                          onclick="mostrarRutaGuiada('${r.archivo}', '${r.color}', ${r.coordAbordaje[0]}, ${r.coordAbordaje[1]}, ${r.distanciaOrigenMetros}, ${r.coordDescenso[0]}, ${r.coordDescenso[1]}, this, '${r.nombre}')">
@@ -3515,8 +3704,7 @@
         todosLosItems.forEach(el => el.classList.remove('selected-route'));
 
         // Agregar estado activo a la seleccionada e inyectar el color por CSS Variable
-        elementDOM.style.setProperty('--route-color', color);
-        elementDOM.classList.add('selected-route');
+        aplicarEstadoSeleccionadoRamal(elementDOM, color);
 
         // Mostrar el Banner Superior
         const topBanner = document.getElementById('topBanner');
@@ -3525,10 +3713,11 @@
         topBanner.style.borderLeft = `5px solid ${color}`;
 
         // Limpiar capas previas
+        if (!document.getElementById('recomendaciones-panel').style.display || document.getElementById('recomendaciones-panel').style.display !== 'block') {
+            limpiarMarcadoresRutaGuiada();
+        }
         for (let key in capasActivas) map.removeLayer(capasActivas[key]);
         for (let prop in capasActivas) delete capasActivas[prop];
-        if (caminataLayer) map.removeLayer(caminataLayer);
-        if (abordajeMarker) map.removeLayer(abordajeMarker);
 
         try {
             const res = await fetch(archivo); const data = await res.json();
@@ -3681,11 +3870,21 @@
 
     // New function to continue the flow after zone selection (or if already selected)
     async function continuePostZoneSelectionFlow() {
-        // 3. Show guide first on first run
-        await mostrarGuiaInicialSiHaceFalta();
+        // 3. Show terms and conditions first on the first run
+        const termsVersion = localStorage.getItem('rutapp.terms.version');
+        const termsNotAccepted = termsVersion !== GUIA_VERSION;
+        if (termsNotAccepted) {
+            await mostrarTerminosSiHaceFalta();
+        }
 
-        // 4. Then show terms and conditions once
-        await mostrarTerminosSiHaceFalta();
+        // 4. Show the guide the first time it has not been seen, even after an update
+        const guideVersion = localStorage.getItem('rutapp.guide.version');
+        if (guideVersion !== GUIA_VERSION) {
+            await new Promise(resolve => {
+                window._resolveGuidePromise = resolve;
+                abrirGuiaUsuario();
+            });
+        }
 
         // 5. Then ask for location permission once, automatically
         const locationPreference = localStorage.getItem('rutapp.location.preference');
@@ -3703,7 +3902,7 @@
     handleStartupModals();
 
     // ==========================================
-    // NUEVA L�GICA: BUSCADOR DE TRANSBORDOS
+    // NUEVA LÓGICA: BUSCADOR DE TRANSBORDOS
     // ==========================================
 
     async function buscarTransbordos(puntoOrigen, mejoresDirectas) {
