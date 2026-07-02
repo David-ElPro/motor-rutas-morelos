@@ -783,14 +783,15 @@
             text-shadow: 0 0 8px rgba(0, 0, 0, 0.65), 0 0 10px rgba(255,255,255,0.18);
             transform-origin: center center;
             will-change: transform, opacity;
+            filter: drop-shadow(0 0 6px rgba(255,255,255,0.18));
         }
         .ruta-arrow-icon span {
             display: inline-block;
-            animation: arrowPulse 1.6s ease-in-out infinite;
+            animation: arrowPulse 1.4s ease-in-out infinite;
         }
         @keyframes arrowPulse {
-            0%, 100% { transform: scale(0.92); opacity: 0.72; }
-            50% { transform: scale(1.15); opacity: 1; }
+            0%, 100% { transform: scale(0.9); opacity: 0.72; }
+            50% { transform: scale(1.22); opacity: 1; }
         }
         .adjust-controls button {
             flex: 1;
@@ -2507,7 +2508,7 @@
             const rumbo = calcularRumbo(origen, destino);
             const arrowIcon = L.divIcon({
                 className: 'ruta-arrow-icon',
-        html: `<div style="color:${color}; transform: rotate(${rumbo}deg); font-size: 16px; line-height: 1;">&#10148;</div>`,
+                html: `<div style="color:${color}; transform: rotate(${rumbo}deg); font-size: 16px; line-height: 1;"><span>&#10148;</span></div>`,
                 iconSize: [18, 18],
                 iconAnchor: [9, 9]
             });
