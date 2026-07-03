@@ -1,0 +1,8 @@
+{
+  "appId": "com.rutapp.morelos",
+  "appName": "RutAPP Morelos",
+  "webDir": "dist/web",
+  "server": {
+    "androidScheme": "https"
+  }
+}

@@ -1,0 +1,173 @@
+{
+  "generated_at": "2026-07-03T07:10:16.468Z",
+  "places": [
+    {
+      "place_id": "place_001",
+      "name": "Mercado Adolfo Lopez Mateos (ALM)",
+      "aliases": [
+        "alm",
+        "mercado alm"
+      ],
+      "lat": 18.9225,
+      "lng": -99.2312,
+      "zones": [
+        "CENTRO"
+      ]
+    },
+    {
+      "place_id": "place_002",
+      "name": "Zocalo de Cuernavaca",
+      "aliases": [
+        "centro cuernavaca",
+        "zocalo cuernavaca"
+      ],
+      "lat": 18.9218,
+      "lng": -99.2347,
+      "zones": [
+        "CENTRO"
+      ]
+    },
+    {
+      "place_id": "place_003",
+      "name": "UAEM Chamilpa",
+      "aliases": [
+        "uaem",
+        "universidad uaem",
+        "chamilpa"
+      ],
+      "lat": 18.9833,
+      "lng": -99.2354,
+      "zones": [
+        "CENTRO"
+      ]
+    },
+    {
+      "place_id": "place_004",
+      "name": "IMSS Plan de Ayala",
+      "aliases": [
+        "imss plan de ayala",
+        "plan de ayala"
+      ],
+      "lat": 18.9189,
+      "lng": -99.2132,
+      "zones": [
+        "CENTRO"
+      ]
+    },
+    {
+      "place_id": "place_005",
+      "name": "Walmart Jiutepec",
+      "aliases": [
+        "walmart jiutepec"
+      ],
+      "lat": 18.8833,
+      "lng": -99.1747,
+      "zones": [
+        "CENTRO"
+      ]
+    },
+    {
+      "place_id": "place_006",
+      "name": "CIVAC Centro",
+      "aliases": [
+        "civac",
+        "civac centro"
+      ],
+      "lat": 18.895,
+      "lng": -99.182,
+      "zones": [
+        "CENTRO"
+      ]
+    },
+    {
+      "place_id": "place_007",
+      "name": "Bodega Aurrera Jiutepec",
+      "aliases": [
+        "aurrera jiutepec",
+        "bodega jiutepec"
+      ],
+      "lat": 18.8856,
+      "lng": -99.1732,
+      "zones": [
+        "CENTRO"
+      ]
+    },
+    {
+      "place_id": "place_008",
+      "name": "Zocalo de Cuautla",
+      "aliases": [
+        "centro cuautla",
+        "zocalo cuautla"
+      ],
+      "lat": 18.81,
+      "lng": -98.935,
+      "zones": [
+        "ORIENTE"
+      ]
+    },
+    {
+      "place_id": "place_009",
+      "name": "Hospital General de Cuautla",
+      "aliases": [
+        "hospital cuautla"
+      ],
+      "lat": 18.8045,
+      "lng": -98.9379,
+      "zones": [
+        "ORIENTE"
+      ]
+    },
+    {
+      "place_id": "place_010",
+      "name": "Centro de Yautepec",
+      "aliases": [
+        "yautepec centro",
+        "centro yautepec"
+      ],
+      "lat": 18.8837,
+      "lng": -99.0597,
+      "zones": [
+        "ORIENTE"
+      ]
+    },
+    {
+      "place_id": "place_011",
+      "name": "Zocalo de Jojutla",
+      "aliases": [
+        "centro jojutla",
+        "zocalo jojutla"
+      ],
+      "lat": 18.6175,
+      "lng": -99.1768,
+      "zones": [
+        "SUR"
+      ]
+    },
+    {
+      "place_id": "place_012",
+      "name": "Centro de Zacatepec",
+      "aliases": [
+        "zacatepec centro",
+        "centro zacatepec"
+      ],
+      "lat": 18.6587,
+      "lng": -99.1901,
+      "zones": [
+        "SUR"
+      ]
+    },
+    {
+      "place_id": "place_013",
+      "name": "Centro de Puente de Ixtla",
+      "aliases": [
+        "puente de ixtla centro",
+        "centro de puente"
+      ],
+      "lat": 18.6129,
+      "lng": -99.3194,
+      "zones": [
+        "SUR"
+      ]
+    }
+  ]
+}

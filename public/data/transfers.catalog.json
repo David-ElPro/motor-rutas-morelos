@@ -1,0 +1,5225 @@
+{
+  "generated_at": "2026-07-03T07:10:16.444Z",
+  "transfers": [
+    {
+      "from_variant_id": "r10_amate_redondo__ida",
+      "to_variant_id": "r12_alta_palmira__vuelta",
+      "from_stop_id": "stop_0027",
+      "to_stop_id": "stop_0027",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r10_amate_redondo__ida",
+      "to_variant_id": "r12_tepuente_independencia__vuelta",
+      "from_stop_id": "stop_0027",
+      "to_stop_id": "stop_0027",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r10_amate_redondo__ida",
+      "to_variant_id": "r16_josefa_carril__vuelta",
+      "from_stop_id": "stop_0027",
+      "to_stop_id": "stop_0027",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r10_amate_redondo__ida",
+      "to_variant_id": "r18_joyas_agua__vuelta",
+      "from_stop_id": "stop_0027",
+      "to_stop_id": "stop_0027",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r10_amate_redondo__vuelta",
+      "to_variant_id": "r11_diez_abril__ida",
+      "from_stop_id": "stop_0039",
+      "to_stop_id": "stop_0039",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r10_amate_redondo__vuelta",
+      "to_variant_id": "r11_santa_ursula__vuelta",
+      "from_stop_id": "stop_0039",
+      "to_stop_id": "stop_0039",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r10_amate_redondo__vuelta",
+      "to_variant_id": "r12_cruz_mision__vuelta",
+      "from_stop_id": "stop_0046",
+      "to_stop_id": "stop_0046",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r10_amate_redondo__vuelta",
+      "to_variant_id": "r16_robles_carril__ida",
+      "from_stop_id": "stop_0039",
+      "to_stop_id": "stop_0039",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r10_barona_aguilas__ida",
+      "to_variant_id": "r11_acatlipa_loop__ida",
+      "from_stop_id": "stop_0036",
+      "to_stop_id": "stop_0036",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r10_barona_aguilas__ida",
+      "to_variant_id": "r11_lazaro_cardenas__ida",
+      "from_stop_id": "stop_0078",
+      "to_stop_id": "stop_0078",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r10_barona_aguilas__ida",
+      "to_variant_id": "r14_granjas__vuelta",
+      "from_stop_id": "stop_0036",
+      "to_stop_id": "stop_0036",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r10_barona_aguilas__ida",
+      "to_variant_id": "r16_robles_mirador__ida",
+      "from_stop_id": "stop_0036",
+      "to_stop_id": "stop_0036",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r10_barona_aguilas__vuelta",
+      "to_variant_id": "r14_bugambilias__ida",
+      "from_stop_id": "stop_0128",
+      "to_stop_id": "stop_0128",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r10_barona_aguilas__vuelta",
+      "to_variant_id": "r16_robles_carril__vuelta",
+      "from_stop_id": "stop_0128",
+      "to_stop_id": "stop_0128",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r10_barona_aguilas__vuelta",
+      "to_variant_id": "r20_tezoyuca_loop__vuelta",
+      "from_stop_id": "stop_0128",
+      "to_stop_id": "stop_0128",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r10_barona_aguilas__vuelta",
+      "to_variant_id": "r6_jardines__ida",
+      "from_stop_id": "stop_0128",
+      "to_stop_id": "stop_0128",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r10_barona_palmas__ida",
+      "to_variant_id": "r11_diez_abril__vuelta",
+      "from_stop_id": "stop_0163",
+      "to_stop_id": "stop_0163",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r10_barona_palmas__ida",
+      "to_variant_id": "r11_lazaro_cardenas__vuelta",
+      "from_stop_id": "stop_0163",
+      "to_stop_id": "stop_0163",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r10_barona_palmas__ida",
+      "to_variant_id": "r11_santa_ursula__ida",
+      "from_stop_id": "stop_0163",
+      "to_stop_id": "stop_0163",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r10_barona_palmas__ida",
+      "to_variant_id": "r16_josefa_carril__ida",
+      "from_stop_id": "stop_0155",
+      "to_stop_id": "stop_0155",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r10_barona_palmas__vuelta",
+      "to_variant_id": "r11_diez_abril__ida",
+      "from_stop_id": "stop_0039",
+      "to_stop_id": "stop_0039",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r10_barona_palmas__vuelta",
+      "to_variant_id": "r11_santa_ursula__vuelta",
+      "from_stop_id": "stop_0039",
+      "to_stop_id": "stop_0039",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r10_barona_palmas__vuelta",
+      "to_variant_id": "r12_cruz_mision__vuelta",
+      "from_stop_id": "stop_0046",
+      "to_stop_id": "stop_0046",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r10_barona_palmas__vuelta",
+      "to_variant_id": "r16_robles_carril__ida",
+      "from_stop_id": "stop_0039",
+      "to_stop_id": "stop_0039",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r11_acatlipa_loop__ida",
+      "to_variant_id": "r10_barona_aguilas__ida",
+      "from_stop_id": "stop_0036",
+      "to_stop_id": "stop_0036",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r11_acatlipa_loop__ida",
+      "to_variant_id": "r14_granjas__vuelta",
+      "from_stop_id": "stop_0036",
+      "to_stop_id": "stop_0036",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r11_acatlipa_loop__ida",
+      "to_variant_id": "r16_robles_mirador__ida",
+      "from_stop_id": "stop_0036",
+      "to_stop_id": "stop_0036",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r11_acatlipa_loop__ida",
+      "to_variant_id": "r16_robles_mirador__vuelta",
+      "from_stop_id": "stop_0036",
+      "to_stop_id": "stop_0036",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r11_acatlipa_loop__vuelta",
+      "to_variant_id": "r14_bugambilias__vuelta",
+      "from_stop_id": "stop_0292",
+      "to_stop_id": "stop_0292",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r11_acatlipa_loop__vuelta",
+      "to_variant_id": "r14_granjas__ida",
+      "from_stop_id": "stop_0293",
+      "to_stop_id": "stop_0293",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r11_acatlipa_loop__vuelta",
+      "to_variant_id": "r15_morelos_maria_alm__ida",
+      "from_stop_id": "stop_0293",
+      "to_stop_id": "stop_0293",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r11_acatlipa_loop__vuelta",
+      "to_variant_id": "r15_morelos_maria_alm__vuelta",
+      "from_stop_id": "stop_0293",
+      "to_stop_id": "stop_0293",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r11_diez_abril__ida",
+      "to_variant_id": "r10_amate_redondo__vuelta",
+      "from_stop_id": "stop_0039",
+      "to_stop_id": "stop_0039",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r11_diez_abril__ida",
+      "to_variant_id": "r10_barona_palmas__vuelta",
+      "from_stop_id": "stop_0039",
+      "to_stop_id": "stop_0039",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r11_diez_abril__ida",
+      "to_variant_id": "r14_bugambilias__ida",
+      "from_stop_id": "stop_0038",
+      "to_stop_id": "stop_0038",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r11_diez_abril__ida",
+      "to_variant_id": "r16_robles_carril__ida",
+      "from_stop_id": "stop_0039",
+      "to_stop_id": "stop_0039",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r11_diez_abril__vuelta",
+      "to_variant_id": "r10_barona_palmas__ida",
+      "from_stop_id": "stop_0163",
+      "to_stop_id": "stop_0163",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r11_diez_abril__vuelta",
+      "to_variant_id": "r14_bugambilias__vuelta",
+      "from_stop_id": "stop_0298",
+      "to_stop_id": "stop_0298",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r11_diez_abril__vuelta",
+      "to_variant_id": "r8_jacarandas__ida",
+      "from_stop_id": "stop_0164",
+      "to_stop_id": "stop_0164",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r11_diez_abril__vuelta",
+      "to_variant_id": "r8_rivera_altavista__vuelta",
+      "from_stop_id": "stop_0164",
+      "to_stop_id": "stop_0164",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r11_lazaro_cardenas__ida",
+      "to_variant_id": "r10_barona_aguilas__ida",
+      "from_stop_id": "stop_0078",
+      "to_stop_id": "stop_0078",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r11_lazaro_cardenas__ida",
+      "to_variant_id": "r14_granjas__vuelta",
+      "from_stop_id": "stop_0402",
+      "to_stop_id": "stop_0402",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r11_lazaro_cardenas__ida",
+      "to_variant_id": "r9_cuauhtemoc__vuelta",
+      "from_stop_id": "stop_0402",
+      "to_stop_id": "stop_0402",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r11_lazaro_cardenas__vuelta",
+      "to_variant_id": "r10_barona_palmas__ida",
+      "from_stop_id": "stop_0163",
+      "to_stop_id": "stop_0163",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r11_lazaro_cardenas__vuelta",
+      "to_variant_id": "r14_bugambilias__vuelta",
+      "from_stop_id": "stop_0298",
+      "to_stop_id": "stop_0298",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r11_lazaro_cardenas__vuelta",
+      "to_variant_id": "r8_jacarandas__ida",
+      "from_stop_id": "stop_0164",
+      "to_stop_id": "stop_0164",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r11_lazaro_cardenas__vuelta",
+      "to_variant_id": "r8_rivera_altavista__vuelta",
+      "from_stop_id": "stop_0164",
+      "to_stop_id": "stop_0164",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r11_santa_ursula__ida",
+      "to_variant_id": "r10_barona_palmas__ida",
+      "from_stop_id": "stop_0163",
+      "to_stop_id": "stop_0163",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r11_santa_ursula__ida",
+      "to_variant_id": "r14_bugambilias__vuelta",
+      "from_stop_id": "stop_0298",
+      "to_stop_id": "stop_0298",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r11_santa_ursula__ida",
+      "to_variant_id": "r8_jacarandas__ida",
+      "from_stop_id": "stop_0164",
+      "to_stop_id": "stop_0164",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r11_santa_ursula__ida",
+      "to_variant_id": "r8_rivera_altavista__vuelta",
+      "from_stop_id": "stop_0164",
+      "to_stop_id": "stop_0164",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r11_santa_ursula__vuelta",
+      "to_variant_id": "r10_amate_redondo__vuelta",
+      "from_stop_id": "stop_0039",
+      "to_stop_id": "stop_0039",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r11_santa_ursula__vuelta",
+      "to_variant_id": "r10_barona_palmas__vuelta",
+      "from_stop_id": "stop_0039",
+      "to_stop_id": "stop_0039",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r11_santa_ursula__vuelta",
+      "to_variant_id": "r14_bugambilias__ida",
+      "from_stop_id": "stop_0038",
+      "to_stop_id": "stop_0038",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r11_santa_ursula__vuelta",
+      "to_variant_id": "r16_robles_carril__ida",
+      "from_stop_id": "stop_0038",
+      "to_stop_id": "stop_0038",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r12_aeropuerto_morelos__ida",
+      "to_variant_id": "r17_calera_chica__vuelta",
+      "from_stop_id": "stop_0469",
+      "to_stop_id": "stop_0469",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r12_aeropuerto_morelos__ida",
+      "to_variant_id": "r17_rosa_campestre__vuelta",
+      "from_stop_id": "stop_0469",
+      "to_stop_id": "stop_0469",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r12_aeropuerto_morelos__ida",
+      "to_variant_id": "r1_acatlipa__vuelta",
+      "from_stop_id": "stop_0469",
+      "to_stop_id": "stop_0469",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r12_aeropuerto_morelos__ida",
+      "to_variant_id": "r1_jerusalen__ida",
+      "from_stop_id": "stop_0469",
+      "to_stop_id": "stop_0469",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r12_aeropuerto_morelos__vuelta",
+      "to_variant_id": "r16_josefa_pueblo__vuelta",
+      "from_stop_id": "stop_0541",
+      "to_stop_id": "stop_0541",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r12_aeropuerto_morelos__vuelta",
+      "to_variant_id": "r17_calera_chica__ida",
+      "from_stop_id": "stop_0541",
+      "to_stop_id": "stop_0541",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r12_aeropuerto_morelos__vuelta",
+      "to_variant_id": "r17_otilio_centro__vuelta",
+      "from_stop_id": "stop_0541",
+      "to_stop_id": "stop_0541",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r12_aeropuerto_morelos__vuelta",
+      "to_variant_id": "r17_rosa_campestre__ida",
+      "from_stop_id": "stop_0541",
+      "to_stop_id": "stop_0541",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r12_alta_palmira__ida",
+      "to_variant_id": "r17_calera_chica__vuelta",
+      "from_stop_id": "stop_0469",
+      "to_stop_id": "stop_0469",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r12_alta_palmira__ida",
+      "to_variant_id": "r17_rosa_campestre__vuelta",
+      "from_stop_id": "stop_0469",
+      "to_stop_id": "stop_0469",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r12_alta_palmira__ida",
+      "to_variant_id": "r1_acatlipa__vuelta",
+      "from_stop_id": "stop_0469",
+      "to_stop_id": "stop_0469",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r12_alta_palmira__ida",
+      "to_variant_id": "r1_jerusalen__ida",
+      "from_stop_id": "stop_0469",
+      "to_stop_id": "stop_0469",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r12_alta_palmira__vuelta",
+      "to_variant_id": "r10_amate_redondo__ida",
+      "from_stop_id": "stop_0027",
+      "to_stop_id": "stop_0027",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r12_alta_palmira__vuelta",
+      "to_variant_id": "r16_josefa_carril__vuelta",
+      "from_stop_id": "stop_0027",
+      "to_stop_id": "stop_0027",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r12_alta_palmira__vuelta",
+      "to_variant_id": "r18_joyas_agua__vuelta",
+      "from_stop_id": "stop_0027",
+      "to_stop_id": "stop_0027",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r12_alta_palmira__vuelta",
+      "to_variant_id": "r4_chulavista__vuelta",
+      "from_stop_id": "stop_0027",
+      "to_stop_id": "stop_0027",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r12_cruz_mision__ida",
+      "to_variant_id": "r17_calera_chica__vuelta",
+      "from_stop_id": "stop_0469",
+      "to_stop_id": "stop_0469",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r12_cruz_mision__ida",
+      "to_variant_id": "r17_rosa_campestre__vuelta",
+      "from_stop_id": "stop_0469",
+      "to_stop_id": "stop_0469",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r12_cruz_mision__ida",
+      "to_variant_id": "r1_acatlipa__vuelta",
+      "from_stop_id": "stop_0469",
+      "to_stop_id": "stop_0469",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r12_cruz_mision__ida",
+      "to_variant_id": "r1_jerusalen__ida",
+      "from_stop_id": "stop_0469",
+      "to_stop_id": "stop_0469",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r12_cruz_mision__vuelta",
+      "to_variant_id": "r10_amate_redondo__vuelta",
+      "from_stop_id": "stop_0046",
+      "to_stop_id": "stop_0046",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r12_cruz_mision__vuelta",
+      "to_variant_id": "r10_barona_palmas__vuelta",
+      "from_stop_id": "stop_0046",
+      "to_stop_id": "stop_0046",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r12_cruz_mision__vuelta",
+      "to_variant_id": "r17_otilio_centro__ida",
+      "from_stop_id": "stop_0046",
+      "to_stop_id": "stop_0046",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r12_cruz_mision__vuelta",
+      "to_variant_id": "r18_francisco_villa__ida",
+      "from_stop_id": "stop_0046",
+      "to_stop_id": "stop_0046",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r12_tepuente_independencia__ida",
+      "to_variant_id": "r17_calera_chica__vuelta",
+      "from_stop_id": "stop_0469",
+      "to_stop_id": "stop_0469",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r12_tepuente_independencia__ida",
+      "to_variant_id": "r17_rosa_campestre__vuelta",
+      "from_stop_id": "stop_0469",
+      "to_stop_id": "stop_0469",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r12_tepuente_independencia__ida",
+      "to_variant_id": "r1_acatlipa__vuelta",
+      "from_stop_id": "stop_0469",
+      "to_stop_id": "stop_0469",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r12_tepuente_independencia__ida",
+      "to_variant_id": "r1_jerusalen__ida",
+      "from_stop_id": "stop_0469",
+      "to_stop_id": "stop_0469",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r12_tepuente_independencia__vuelta",
+      "to_variant_id": "r10_amate_redondo__ida",
+      "from_stop_id": "stop_0027",
+      "to_stop_id": "stop_0027",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r12_tepuente_independencia__vuelta",
+      "to_variant_id": "r16_josefa_carril__vuelta",
+      "from_stop_id": "stop_0027",
+      "to_stop_id": "stop_0027",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r12_tepuente_independencia__vuelta",
+      "to_variant_id": "r18_joyas_agua__vuelta",
+      "from_stop_id": "stop_0027",
+      "to_stop_id": "stop_0027",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r12_tepuente_independencia__vuelta",
+      "to_variant_id": "r4_chulavista__vuelta",
+      "from_stop_id": "stop_0027",
+      "to_stop_id": "stop_0027",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r13_fuentes__ida",
+      "to_variant_id": "r17_calera_chica__ida",
+      "from_stop_id": "stop_0621",
+      "to_stop_id": "stop_0621",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r13_fuentes__ida",
+      "to_variant_id": "r18_pochotal__vuelta",
+      "from_stop_id": "stop_0621",
+      "to_stop_id": "stop_0621",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r13_fuentes__vuelta",
+      "to_variant_id": "r17_calera_chica__ida",
+      "from_stop_id": "stop_0622",
+      "to_stop_id": "stop_0622",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r13_fuentes__vuelta",
+      "to_variant_id": "r18_pochotal__vuelta",
+      "from_stop_id": "stop_0622",
+      "to_stop_id": "stop_0622",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r13_naranjos__ida",
+      "to_variant_id": "r18_parres__vuelta",
+      "from_stop_id": "stop_0661",
+      "to_stop_id": "stop_0661",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r13_naranjos__ida",
+      "to_variant_id": "r18_pochotal__ida",
+      "from_stop_id": "stop_0661",
+      "to_stop_id": "stop_0661",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r13_naranjos__vuelta",
+      "to_variant_id": "r17_calera_chica__ida",
+      "from_stop_id": "stop_0622",
+      "to_stop_id": "stop_0622",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r13_naranjos__vuelta",
+      "to_variant_id": "r18_pochotal__vuelta",
+      "from_stop_id": "stop_0622",
+      "to_stop_id": "stop_0622",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r14_bugambilias__ida",
+      "to_variant_id": "r10_barona_aguilas__vuelta",
+      "from_stop_id": "stop_0128",
+      "to_stop_id": "stop_0128",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r14_bugambilias__ida",
+      "to_variant_id": "r11_diez_abril__ida",
+      "from_stop_id": "stop_0038",
+      "to_stop_id": "stop_0038",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r14_bugambilias__ida",
+      "to_variant_id": "r11_santa_ursula__vuelta",
+      "from_stop_id": "stop_0038",
+      "to_stop_id": "stop_0038",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r14_bugambilias__ida",
+      "to_variant_id": "r16_robles_carril__vuelta",
+      "from_stop_id": "stop_0128",
+      "to_stop_id": "stop_0128",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r14_bugambilias__vuelta",
+      "to_variant_id": "r11_acatlipa_loop__vuelta",
+      "from_stop_id": "stop_0292",
+      "to_stop_id": "stop_0292",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r14_bugambilias__vuelta",
+      "to_variant_id": "r11_diez_abril__vuelta",
+      "from_stop_id": "stop_0298",
+      "to_stop_id": "stop_0298",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r14_bugambilias__vuelta",
+      "to_variant_id": "r11_lazaro_cardenas__vuelta",
+      "from_stop_id": "stop_0298",
+      "to_stop_id": "stop_0298",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r14_bugambilias__vuelta",
+      "to_variant_id": "r11_santa_ursula__ida",
+      "from_stop_id": "stop_0298",
+      "to_stop_id": "stop_0298",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r14_granjas__ida",
+      "to_variant_id": "r11_acatlipa_loop__vuelta",
+      "from_stop_id": "stop_0293",
+      "to_stop_id": "stop_0293",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r14_granjas__ida",
+      "to_variant_id": "r15_morelos_maria_alm__ida",
+      "from_stop_id": "stop_0293",
+      "to_stop_id": "stop_0293",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r14_granjas__ida",
+      "to_variant_id": "r15_morelos_maria_alm__vuelta",
+      "from_stop_id": "stop_0293",
+      "to_stop_id": "stop_0293",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r14_granjas__ida",
+      "to_variant_id": "r20_tezoyuca_loop__ida",
+      "from_stop_id": "stop_0870",
+      "to_stop_id": "stop_0870",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r14_granjas__vuelta",
+      "to_variant_id": "r10_barona_aguilas__ida",
+      "from_stop_id": "stop_0036",
+      "to_stop_id": "stop_0036",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r14_granjas__vuelta",
+      "to_variant_id": "r11_acatlipa_loop__ida",
+      "from_stop_id": "stop_0036",
+      "to_stop_id": "stop_0036",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r14_granjas__vuelta",
+      "to_variant_id": "r11_lazaro_cardenas__ida",
+      "from_stop_id": "stop_0402",
+      "to_stop_id": "stop_0402",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r14_granjas__vuelta",
+      "to_variant_id": "r16_robles_mirador__ida",
+      "from_stop_id": "stop_0036",
+      "to_stop_id": "stop_0036",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r15_morelos_maria_alm__ida",
+      "to_variant_id": "r11_acatlipa_loop__vuelta",
+      "from_stop_id": "stop_0293",
+      "to_stop_id": "stop_0293",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r15_morelos_maria_alm__ida",
+      "to_variant_id": "r14_granjas__ida",
+      "from_stop_id": "stop_0293",
+      "to_stop_id": "stop_0293",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r15_morelos_maria_alm__ida",
+      "to_variant_id": "r20_tezoyuca_loop__ida",
+      "from_stop_id": "stop_0293",
+      "to_stop_id": "stop_0293",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r15_morelos_maria_alm__ida",
+      "to_variant_id": "r6_atlacomulco__ida",
+      "from_stop_id": "stop_0293",
+      "to_stop_id": "stop_0293",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r15_morelos_maria_alm__vuelta",
+      "to_variant_id": "r11_acatlipa_loop__vuelta",
+      "from_stop_id": "stop_0293",
+      "to_stop_id": "stop_0293",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r15_morelos_maria_alm__vuelta",
+      "to_variant_id": "r14_granjas__ida",
+      "from_stop_id": "stop_0293",
+      "to_stop_id": "stop_0293",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r15_morelos_maria_alm__vuelta",
+      "to_variant_id": "r20_tezoyuca_loop__ida",
+      "from_stop_id": "stop_0293",
+      "to_stop_id": "stop_0293",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r15_morelos_maria_alm__vuelta",
+      "to_variant_id": "r6_atlacomulco__ida",
+      "from_stop_id": "stop_0293",
+      "to_stop_id": "stop_0293",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r16_josefa_carril__ida",
+      "to_variant_id": "r10_barona_palmas__ida",
+      "from_stop_id": "stop_0155",
+      "to_stop_id": "stop_0155",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r16_josefa_carril__ida",
+      "to_variant_id": "r18_joyas_agua__ida",
+      "from_stop_id": "stop_0155",
+      "to_stop_id": "stop_0155",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r16_josefa_carril__ida",
+      "to_variant_id": "r18_parres__ida",
+      "from_stop_id": "stop_0155",
+      "to_stop_id": "stop_0155",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r16_josefa_carril__ida",
+      "to_variant_id": "r18_pochotal__ida",
+      "from_stop_id": "stop_0155",
+      "to_stop_id": "stop_0155",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r16_josefa_carril__vuelta",
+      "to_variant_id": "r10_amate_redondo__ida",
+      "from_stop_id": "stop_0027",
+      "to_stop_id": "stop_0027",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r16_josefa_carril__vuelta",
+      "to_variant_id": "r12_alta_palmira__vuelta",
+      "from_stop_id": "stop_0027",
+      "to_stop_id": "stop_0027",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r16_josefa_carril__vuelta",
+      "to_variant_id": "r12_tepuente_independencia__vuelta",
+      "from_stop_id": "stop_0027",
+      "to_stop_id": "stop_0027",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r16_josefa_carril__vuelta",
+      "to_variant_id": "r18_joyas_agua__vuelta",
+      "from_stop_id": "stop_0027",
+      "to_stop_id": "stop_0027",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r16_josefa_pueblo__ida",
+      "to_variant_id": "r18_joyas_agua__ida",
+      "from_stop_id": "stop_0155",
+      "to_stop_id": "stop_0155",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r16_josefa_pueblo__ida",
+      "to_variant_id": "r18_parres__ida",
+      "from_stop_id": "stop_0155",
+      "to_stop_id": "stop_0155",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r16_josefa_pueblo__ida",
+      "to_variant_id": "r18_pochotal__ida",
+      "from_stop_id": "stop_0155",
+      "to_stop_id": "stop_0155",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r16_josefa_pueblo__ida",
+      "to_variant_id": "r1_universidad_guacamayas__ida",
+      "from_stop_id": "stop_0155",
+      "to_stop_id": "stop_0155",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r16_josefa_pueblo__vuelta",
+      "to_variant_id": "r12_aeropuerto_morelos__vuelta",
+      "from_stop_id": "stop_0541",
+      "to_stop_id": "stop_0541",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r16_josefa_pueblo__vuelta",
+      "to_variant_id": "r17_otilio_centro__vuelta",
+      "from_stop_id": "stop_0541",
+      "to_stop_id": "stop_0541",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r16_josefa_pueblo__vuelta",
+      "to_variant_id": "r17_rosa_campestre__ida",
+      "from_stop_id": "stop_0541",
+      "to_stop_id": "stop_0541",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r16_josefa_pueblo__vuelta",
+      "to_variant_id": "r18_parres__vuelta",
+      "from_stop_id": "stop_0541",
+      "to_stop_id": "stop_0541",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r16_robles_carril__ida",
+      "to_variant_id": "r10_amate_redondo__vuelta",
+      "from_stop_id": "stop_0039",
+      "to_stop_id": "stop_0039",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r16_robles_carril__ida",
+      "to_variant_id": "r10_barona_palmas__vuelta",
+      "from_stop_id": "stop_0039",
+      "to_stop_id": "stop_0039",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r16_robles_carril__ida",
+      "to_variant_id": "r11_diez_abril__ida",
+      "from_stop_id": "stop_0039",
+      "to_stop_id": "stop_0039",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r16_robles_carril__ida",
+      "to_variant_id": "r11_santa_ursula__vuelta",
+      "from_stop_id": "stop_0039",
+      "to_stop_id": "stop_0039",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r16_robles_carril__vuelta",
+      "to_variant_id": "r10_barona_aguilas__vuelta",
+      "from_stop_id": "stop_0128",
+      "to_stop_id": "stop_0128",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r16_robles_carril__vuelta",
+      "to_variant_id": "r14_bugambilias__ida",
+      "from_stop_id": "stop_0128",
+      "to_stop_id": "stop_0128",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r16_robles_carril__vuelta",
+      "to_variant_id": "r20_tezoyuca_loop__vuelta",
+      "from_stop_id": "stop_0128",
+      "to_stop_id": "stop_0128",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r16_robles_carril__vuelta",
+      "to_variant_id": "r6_jardines__ida",
+      "from_stop_id": "stop_0128",
+      "to_stop_id": "stop_0128",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r16_robles_mirador__ida",
+      "to_variant_id": "r10_barona_aguilas__ida",
+      "from_stop_id": "stop_0036",
+      "to_stop_id": "stop_0036",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r16_robles_mirador__ida",
+      "to_variant_id": "r11_acatlipa_loop__ida",
+      "from_stop_id": "stop_0036",
+      "to_stop_id": "stop_0036",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r16_robles_mirador__ida",
+      "to_variant_id": "r14_granjas__vuelta",
+      "from_stop_id": "stop_0036",
+      "to_stop_id": "stop_0036",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r16_robles_mirador__ida",
+      "to_variant_id": "r6_atlacomulco__vuelta",
+      "from_stop_id": "stop_0036",
+      "to_stop_id": "stop_0036",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r16_robles_mirador__vuelta",
+      "to_variant_id": "r11_acatlipa_loop__ida",
+      "from_stop_id": "stop_0036",
+      "to_stop_id": "stop_0036",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r16_robles_mirador__vuelta",
+      "to_variant_id": "r6_atlacomulco__vuelta",
+      "from_stop_id": "stop_0036",
+      "to_stop_id": "stop_0036",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r16_robles_mirador__vuelta",
+      "to_variant_id": "r6_tranca__vuelta",
+      "from_stop_id": "stop_0036",
+      "to_stop_id": "stop_0036",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r16_robles_mirador__vuelta",
+      "to_variant_id": "r6_victoria__vuelta",
+      "from_stop_id": "stop_0036",
+      "to_stop_id": "stop_0036",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r16_robles_pueblo__ida",
+      "to_variant_id": "r6_jardines__ida",
+      "from_stop_id": "stop_0038",
+      "to_stop_id": "stop_0038",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r16_robles_pueblo__ida",
+      "to_variant_id": "r6_tranca__ida",
+      "from_stop_id": "stop_0038",
+      "to_stop_id": "stop_0038",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r16_robles_pueblo__vuelta",
+      "to_variant_id": "r6_atlacomulco__vuelta",
+      "from_stop_id": "stop_0036",
+      "to_stop_id": "stop_0036",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r16_robles_pueblo__vuelta",
+      "to_variant_id": "r6_tranca__vuelta",
+      "from_stop_id": "stop_0036",
+      "to_stop_id": "stop_0036",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r16_robles_pueblo__vuelta",
+      "to_variant_id": "r6_victoria__vuelta",
+      "from_stop_id": "stop_0036",
+      "to_stop_id": "stop_0036",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r16_robles_pueblo__vuelta",
+      "to_variant_id": "r8_jacarandas__vuelta",
+      "from_stop_id": "stop_0036",
+      "to_stop_id": "stop_0036",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r17_calera_chica__ida",
+      "to_variant_id": "r12_aeropuerto_morelos__vuelta",
+      "from_stop_id": "stop_0541",
+      "to_stop_id": "stop_0541",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r17_calera_chica__ida",
+      "to_variant_id": "r13_fuentes__ida",
+      "from_stop_id": "stop_0621",
+      "to_stop_id": "stop_0621",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r17_calera_chica__ida",
+      "to_variant_id": "r13_fuentes__vuelta",
+      "from_stop_id": "stop_0621",
+      "to_stop_id": "stop_0621",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r17_calera_chica__ida",
+      "to_variant_id": "r13_naranjos__vuelta",
+      "from_stop_id": "stop_0621",
+      "to_stop_id": "stop_0621",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r17_calera_chica__vuelta",
+      "to_variant_id": "r12_aeropuerto_morelos__ida",
+      "from_stop_id": "stop_0469",
+      "to_stop_id": "stop_0469",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r17_calera_chica__vuelta",
+      "to_variant_id": "r12_alta_palmira__ida",
+      "from_stop_id": "stop_0469",
+      "to_stop_id": "stop_0469",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r17_calera_chica__vuelta",
+      "to_variant_id": "r12_cruz_mision__ida",
+      "from_stop_id": "stop_0469",
+      "to_stop_id": "stop_0469",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r17_calera_chica__vuelta",
+      "to_variant_id": "r12_tepuente_independencia__ida",
+      "from_stop_id": "stop_0469",
+      "to_stop_id": "stop_0469",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r17_otilio_centro__ida",
+      "to_variant_id": "r12_cruz_mision__vuelta",
+      "from_stop_id": "stop_0046",
+      "to_stop_id": "stop_0046",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r17_otilio_centro__ida",
+      "to_variant_id": "r18_francisco_villa__ida",
+      "from_stop_id": "stop_0046",
+      "to_stop_id": "stop_0046",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r17_otilio_centro__ida",
+      "to_variant_id": "r4_elsalto__ida",
+      "from_stop_id": "stop_0046",
+      "to_stop_id": "stop_0046",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r17_otilio_centro__ida",
+      "to_variant_id": "r4_palmas__ida",
+      "from_stop_id": "stop_0046",
+      "to_stop_id": "stop_0046",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r17_otilio_centro__vuelta",
+      "to_variant_id": "r12_aeropuerto_morelos__vuelta",
+      "from_stop_id": "stop_0541",
+      "to_stop_id": "stop_0541",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r17_otilio_centro__vuelta",
+      "to_variant_id": "r16_josefa_pueblo__vuelta",
+      "from_stop_id": "stop_0541",
+      "to_stop_id": "stop_0541",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r17_otilio_centro__vuelta",
+      "to_variant_id": "r18_parres__vuelta",
+      "from_stop_id": "stop_0541",
+      "to_stop_id": "stop_0541",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r17_otilio_centro__vuelta",
+      "to_variant_id": "r1_acatlipa__ida",
+      "from_stop_id": "stop_0541",
+      "to_stop_id": "stop_0541",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r17_rosa_campestre__ida",
+      "to_variant_id": "r12_aeropuerto_morelos__vuelta",
+      "from_stop_id": "stop_0541",
+      "to_stop_id": "stop_0541",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r17_rosa_campestre__ida",
+      "to_variant_id": "r16_josefa_pueblo__vuelta",
+      "from_stop_id": "stop_0541",
+      "to_stop_id": "stop_0541",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r17_rosa_campestre__ida",
+      "to_variant_id": "r18_parres__vuelta",
+      "from_stop_id": "stop_0541",
+      "to_stop_id": "stop_0541",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r17_rosa_campestre__ida",
+      "to_variant_id": "r1_acatlipa__ida",
+      "from_stop_id": "stop_0541",
+      "to_stop_id": "stop_0541",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r17_rosa_campestre__vuelta",
+      "to_variant_id": "r12_aeropuerto_morelos__ida",
+      "from_stop_id": "stop_0469",
+      "to_stop_id": "stop_0469",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r17_rosa_campestre__vuelta",
+      "to_variant_id": "r12_alta_palmira__ida",
+      "from_stop_id": "stop_0469",
+      "to_stop_id": "stop_0469",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r17_rosa_campestre__vuelta",
+      "to_variant_id": "r12_cruz_mision__ida",
+      "from_stop_id": "stop_0469",
+      "to_stop_id": "stop_0469",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r17_rosa_campestre__vuelta",
+      "to_variant_id": "r12_tepuente_independencia__ida",
+      "from_stop_id": "stop_0469",
+      "to_stop_id": "stop_0469",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r18_francisco_villa__ida",
+      "to_variant_id": "r12_cruz_mision__vuelta",
+      "from_stop_id": "stop_0046",
+      "to_stop_id": "stop_0046",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r18_francisco_villa__ida",
+      "to_variant_id": "r17_otilio_centro__ida",
+      "from_stop_id": "stop_0046",
+      "to_stop_id": "stop_0046",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r18_francisco_villa__ida",
+      "to_variant_id": "r4_elsalto__ida",
+      "from_stop_id": "stop_0046",
+      "to_stop_id": "stop_0046",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r18_francisco_villa__ida",
+      "to_variant_id": "r4_palmas__ida",
+      "from_stop_id": "stop_0046",
+      "to_stop_id": "stop_0046",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r18_joyas_agua__ida",
+      "to_variant_id": "r16_josefa_carril__ida",
+      "from_stop_id": "stop_0155",
+      "to_stop_id": "stop_0155",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r18_joyas_agua__ida",
+      "to_variant_id": "r16_josefa_pueblo__ida",
+      "from_stop_id": "stop_0155",
+      "to_stop_id": "stop_0155",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r18_joyas_agua__ida",
+      "to_variant_id": "r1_universidad_guacamayas__ida",
+      "from_stop_id": "stop_0155",
+      "to_stop_id": "stop_0155",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r18_joyas_agua__ida",
+      "to_variant_id": "r2_chipitlan__ida",
+      "from_stop_id": "stop_0155",
+      "to_stop_id": "stop_0155",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r18_joyas_agua__vuelta",
+      "to_variant_id": "r10_amate_redondo__ida",
+      "from_stop_id": "stop_0027",
+      "to_stop_id": "stop_0027",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r18_joyas_agua__vuelta",
+      "to_variant_id": "r12_alta_palmira__vuelta",
+      "from_stop_id": "stop_0027",
+      "to_stop_id": "stop_0027",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r18_joyas_agua__vuelta",
+      "to_variant_id": "r12_tepuente_independencia__vuelta",
+      "from_stop_id": "stop_0027",
+      "to_stop_id": "stop_0027",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r18_joyas_agua__vuelta",
+      "to_variant_id": "r16_josefa_carril__vuelta",
+      "from_stop_id": "stop_0027",
+      "to_stop_id": "stop_0027",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r18_parres__ida",
+      "to_variant_id": "r16_josefa_carril__ida",
+      "from_stop_id": "stop_0155",
+      "to_stop_id": "stop_0155",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r18_parres__ida",
+      "to_variant_id": "r16_josefa_pueblo__ida",
+      "from_stop_id": "stop_0155",
+      "to_stop_id": "stop_0155",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r18_parres__ida",
+      "to_variant_id": "r1_universidad_guacamayas__ida",
+      "from_stop_id": "stop_0155",
+      "to_stop_id": "stop_0155",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r18_parres__ida",
+      "to_variant_id": "r2_chipitlan__ida",
+      "from_stop_id": "stop_0155",
+      "to_stop_id": "stop_0155",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r18_parres__vuelta",
+      "to_variant_id": "r13_naranjos__ida",
+      "from_stop_id": "stop_0661",
+      "to_stop_id": "stop_0661",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r18_parres__vuelta",
+      "to_variant_id": "r16_josefa_pueblo__vuelta",
+      "from_stop_id": "stop_0541",
+      "to_stop_id": "stop_0541",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r18_parres__vuelta",
+      "to_variant_id": "r17_otilio_centro__vuelta",
+      "from_stop_id": "stop_0541",
+      "to_stop_id": "stop_0541",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r18_parres__vuelta",
+      "to_variant_id": "r17_rosa_campestre__ida",
+      "from_stop_id": "stop_0541",
+      "to_stop_id": "stop_0541",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r18_pochotal__ida",
+      "to_variant_id": "r13_naranjos__ida",
+      "from_stop_id": "stop_0661",
+      "to_stop_id": "stop_0661",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r18_pochotal__ida",
+      "to_variant_id": "r16_josefa_carril__ida",
+      "from_stop_id": "stop_0155",
+      "to_stop_id": "stop_0155",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r18_pochotal__ida",
+      "to_variant_id": "r16_josefa_pueblo__ida",
+      "from_stop_id": "stop_0155",
+      "to_stop_id": "stop_0155",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r18_pochotal__ida",
+      "to_variant_id": "r1_universidad_guacamayas__ida",
+      "from_stop_id": "stop_0155",
+      "to_stop_id": "stop_0155",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r18_pochotal__vuelta",
+      "to_variant_id": "r13_fuentes__ida",
+      "from_stop_id": "stop_0622",
+      "to_stop_id": "stop_0622",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r18_pochotal__vuelta",
+      "to_variant_id": "r13_fuentes__vuelta",
+      "from_stop_id": "stop_0622",
+      "to_stop_id": "stop_0622",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r18_pochotal__vuelta",
+      "to_variant_id": "r13_naranjos__vuelta",
+      "from_stop_id": "stop_0622",
+      "to_stop_id": "stop_0622",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r1_acatlipa__ida",
+      "to_variant_id": "r17_otilio_centro__vuelta",
+      "from_stop_id": "stop_0541",
+      "to_stop_id": "stop_0541",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r1_acatlipa__ida",
+      "to_variant_id": "r17_rosa_campestre__ida",
+      "from_stop_id": "stop_0541",
+      "to_stop_id": "stop_0541",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r1_acatlipa__ida",
+      "to_variant_id": "r2_chipitlan__vuelta",
+      "from_stop_id": "stop_0541",
+      "to_stop_id": "stop_0541",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r1_acatlipa__ida",
+      "to_variant_id": "r3_alpuyeca__ida",
+      "from_stop_id": "stop_0541",
+      "to_stop_id": "stop_0541",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r1_acatlipa__vuelta",
+      "to_variant_id": "r12_aeropuerto_morelos__ida",
+      "from_stop_id": "stop_0469",
+      "to_stop_id": "stop_0469",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r1_acatlipa__vuelta",
+      "to_variant_id": "r12_alta_palmira__ida",
+      "from_stop_id": "stop_0469",
+      "to_stop_id": "stop_0469",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r1_acatlipa__vuelta",
+      "to_variant_id": "r12_cruz_mision__ida",
+      "from_stop_id": "stop_0469",
+      "to_stop_id": "stop_0469",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r1_acatlipa__vuelta",
+      "to_variant_id": "r12_tepuente_independencia__ida",
+      "from_stop_id": "stop_0469",
+      "to_stop_id": "stop_0469",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r1_jerusalen__ida",
+      "to_variant_id": "r12_aeropuerto_morelos__ida",
+      "from_stop_id": "stop_0469",
+      "to_stop_id": "stop_0469",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r1_jerusalen__ida",
+      "to_variant_id": "r12_alta_palmira__ida",
+      "from_stop_id": "stop_0469",
+      "to_stop_id": "stop_0469",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r1_jerusalen__ida",
+      "to_variant_id": "r12_cruz_mision__ida",
+      "from_stop_id": "stop_0469",
+      "to_stop_id": "stop_0469",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r1_jerusalen__ida",
+      "to_variant_id": "r12_tepuente_independencia__ida",
+      "from_stop_id": "stop_0469",
+      "to_stop_id": "stop_0469",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r1_jerusalen__vuelta",
+      "to_variant_id": "r9_selva__ida",
+      "from_stop_id": "stop_0469",
+      "to_stop_id": "stop_0469",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r1_jerusalen__vuelta",
+      "to_variant_id": "r9_selva__vuelta",
+      "from_stop_id": "stop_0469",
+      "to_stop_id": "stop_0469",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r1_universidad_guacamayas__ida",
+      "to_variant_id": "r16_josefa_pueblo__ida",
+      "from_stop_id": "stop_0155",
+      "to_stop_id": "stop_0155",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r1_universidad_guacamayas__ida",
+      "to_variant_id": "r18_joyas_agua__ida",
+      "from_stop_id": "stop_0155",
+      "to_stop_id": "stop_0155",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r1_universidad_guacamayas__ida",
+      "to_variant_id": "r18_parres__ida",
+      "from_stop_id": "stop_0155",
+      "to_stop_id": "stop_0155",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r1_universidad_guacamayas__ida",
+      "to_variant_id": "r18_pochotal__ida",
+      "from_stop_id": "stop_0155",
+      "to_stop_id": "stop_0155",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r1_universidad_guacamayas__vuelta",
+      "to_variant_id": "r9_selva__ida",
+      "from_stop_id": "stop_0469",
+      "to_stop_id": "stop_0469",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r1_universidad_guacamayas__vuelta",
+      "to_variant_id": "r9_selva__vuelta",
+      "from_stop_id": "stop_0469",
+      "to_stop_id": "stop_0469",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r20_tezoyuca_loop__ida",
+      "to_variant_id": "r14_granjas__ida",
+      "from_stop_id": "stop_0870",
+      "to_stop_id": "stop_0870",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r20_tezoyuca_loop__ida",
+      "to_variant_id": "r15_morelos_maria_alm__ida",
+      "from_stop_id": "stop_0293",
+      "to_stop_id": "stop_0293",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r20_tezoyuca_loop__ida",
+      "to_variant_id": "r15_morelos_maria_alm__vuelta",
+      "from_stop_id": "stop_0293",
+      "to_stop_id": "stop_0293",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r20_tezoyuca_loop__ida",
+      "to_variant_id": "r6_atlacomulco__ida",
+      "from_stop_id": "stop_0293",
+      "to_stop_id": "stop_0293",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r20_tezoyuca_loop__vuelta",
+      "to_variant_id": "r10_barona_aguilas__vuelta",
+      "from_stop_id": "stop_0128",
+      "to_stop_id": "stop_0128",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r20_tezoyuca_loop__vuelta",
+      "to_variant_id": "r16_robles_carril__vuelta",
+      "from_stop_id": "stop_0128",
+      "to_stop_id": "stop_0128",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r20_tezoyuca_loop__vuelta",
+      "to_variant_id": "r6_jardines__ida",
+      "from_stop_id": "stop_0128",
+      "to_stop_id": "stop_0128",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r20_tezoyuca_loop__vuelta",
+      "to_variant_id": "r6_tunel__vuelta",
+      "from_stop_id": "stop_0128",
+      "to_stop_id": "stop_0128",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r2_chipitlan__ida",
+      "to_variant_id": "r18_joyas_agua__ida",
+      "from_stop_id": "stop_0155",
+      "to_stop_id": "stop_0155",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r2_chipitlan__ida",
+      "to_variant_id": "r18_parres__ida",
+      "from_stop_id": "stop_0155",
+      "to_stop_id": "stop_0155",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r2_chipitlan__ida",
+      "to_variant_id": "r3_alpuyeca__vuelta",
+      "from_stop_id": "stop_0155",
+      "to_stop_id": "stop_0155",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r2_chipitlan__ida",
+      "to_variant_id": "r3_calera__vuelta",
+      "from_stop_id": "stop_0155",
+      "to_stop_id": "stop_0155",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r2_chipitlan__vuelta",
+      "to_variant_id": "r1_acatlipa__ida",
+      "from_stop_id": "stop_0541",
+      "to_stop_id": "stop_0541",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r2_chipitlan__vuelta",
+      "to_variant_id": "r3_alpuyeca__ida",
+      "from_stop_id": "stop_0541",
+      "to_stop_id": "stop_0541",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r2_chipitlan__vuelta",
+      "to_variant_id": "r3_calera__ida",
+      "from_stop_id": "stop_0541",
+      "to_stop_id": "stop_0541",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r3_alpuyeca__ida",
+      "to_variant_id": "r1_acatlipa__ida",
+      "from_stop_id": "stop_0541",
+      "to_stop_id": "stop_0541",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r3_alpuyeca__ida",
+      "to_variant_id": "r2_chipitlan__vuelta",
+      "from_stop_id": "stop_0541",
+      "to_stop_id": "stop_0541",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r3_alpuyeca__vuelta",
+      "to_variant_id": "r2_chipitlan__ida",
+      "from_stop_id": "stop_0155",
+      "to_stop_id": "stop_0155",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r3_alpuyeca__vuelta",
+      "to_variant_id": "r4_chulavista__ida",
+      "from_stop_id": "stop_0155",
+      "to_stop_id": "stop_0155",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r3_alpuyeca__vuelta",
+      "to_variant_id": "r4_palmas__vuelta",
+      "from_stop_id": "stop_0155",
+      "to_stop_id": "stop_0155",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r3_alpuyeca__vuelta",
+      "to_variant_id": "r5_lomas_pedregal__ida",
+      "from_stop_id": "stop_0155",
+      "to_stop_id": "stop_0155",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r3_calera__ida",
+      "to_variant_id": "r2_chipitlan__vuelta",
+      "from_stop_id": "stop_0541",
+      "to_stop_id": "stop_0541",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r3_calera__vuelta",
+      "to_variant_id": "r2_chipitlan__ida",
+      "from_stop_id": "stop_0155",
+      "to_stop_id": "stop_0155",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r3_calera__vuelta",
+      "to_variant_id": "r4_chulavista__ida",
+      "from_stop_id": "stop_0155",
+      "to_stop_id": "stop_0155",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r3_calera__vuelta",
+      "to_variant_id": "r4_palmas__vuelta",
+      "from_stop_id": "stop_0155",
+      "to_stop_id": "stop_0155",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r3_calera__vuelta",
+      "to_variant_id": "r5_lomas_pedregal__ida",
+      "from_stop_id": "stop_0155",
+      "to_stop_id": "stop_0155",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r4_chulavista__ida",
+      "to_variant_id": "r3_alpuyeca__vuelta",
+      "from_stop_id": "stop_0155",
+      "to_stop_id": "stop_0155",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r4_chulavista__ida",
+      "to_variant_id": "r3_calera__vuelta",
+      "from_stop_id": "stop_0155",
+      "to_stop_id": "stop_0155",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r4_chulavista__ida",
+      "to_variant_id": "r5_lomas_pedregal__ida",
+      "from_stop_id": "stop_0155",
+      "to_stop_id": "stop_0155",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r4_chulavista__ida",
+      "to_variant_id": "r5_lomas_pedregal__vuelta",
+      "from_stop_id": "stop_0155",
+      "to_stop_id": "stop_0155",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r4_chulavista__vuelta",
+      "to_variant_id": "r12_alta_palmira__vuelta",
+      "from_stop_id": "stop_0027",
+      "to_stop_id": "stop_0027",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r4_chulavista__vuelta",
+      "to_variant_id": "r12_tepuente_independencia__vuelta",
+      "from_stop_id": "stop_0027",
+      "to_stop_id": "stop_0027",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r4_elsalto__ida",
+      "to_variant_id": "r17_otilio_centro__ida",
+      "from_stop_id": "stop_0046",
+      "to_stop_id": "stop_0046",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r4_elsalto__ida",
+      "to_variant_id": "r18_francisco_villa__ida",
+      "from_stop_id": "stop_0046",
+      "to_stop_id": "stop_0046",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r4_palmas__ida",
+      "to_variant_id": "r17_otilio_centro__ida",
+      "from_stop_id": "stop_0046",
+      "to_stop_id": "stop_0046",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r4_palmas__ida",
+      "to_variant_id": "r18_francisco_villa__ida",
+      "from_stop_id": "stop_0046",
+      "to_stop_id": "stop_0046",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r4_palmas__vuelta",
+      "to_variant_id": "r3_alpuyeca__vuelta",
+      "from_stop_id": "stop_0155",
+      "to_stop_id": "stop_0155",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r4_palmas__vuelta",
+      "to_variant_id": "r3_calera__vuelta",
+      "from_stop_id": "stop_0155",
+      "to_stop_id": "stop_0155",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r4_palmas__vuelta",
+      "to_variant_id": "r5_lomas_pedregal__ida",
+      "from_stop_id": "stop_0155",
+      "to_stop_id": "stop_0155",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r4_palmas__vuelta",
+      "to_variant_id": "r5_lomas_pedregal__vuelta",
+      "from_stop_id": "stop_0155",
+      "to_stop_id": "stop_0155",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r5_lomas_pedregal__ida",
+      "to_variant_id": "r3_alpuyeca__vuelta",
+      "from_stop_id": "stop_0155",
+      "to_stop_id": "stop_0155",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r5_lomas_pedregal__ida",
+      "to_variant_id": "r3_calera__vuelta",
+      "from_stop_id": "stop_0155",
+      "to_stop_id": "stop_0155",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r5_lomas_pedregal__ida",
+      "to_variant_id": "r4_chulavista__ida",
+      "from_stop_id": "stop_0155",
+      "to_stop_id": "stop_0155",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r5_lomas_pedregal__ida",
+      "to_variant_id": "r4_palmas__vuelta",
+      "from_stop_id": "stop_0155",
+      "to_stop_id": "stop_0155",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r5_lomas_pedregal__vuelta",
+      "to_variant_id": "r4_chulavista__ida",
+      "from_stop_id": "stop_0155",
+      "to_stop_id": "stop_0155",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r5_lomas_pedregal__vuelta",
+      "to_variant_id": "r4_palmas__vuelta",
+      "from_stop_id": "stop_0155",
+      "to_stop_id": "stop_0155",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r6_atlacomulco__ida",
+      "to_variant_id": "r15_morelos_maria_alm__ida",
+      "from_stop_id": "stop_0293",
+      "to_stop_id": "stop_0293",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r6_atlacomulco__ida",
+      "to_variant_id": "r15_morelos_maria_alm__vuelta",
+      "from_stop_id": "stop_0293",
+      "to_stop_id": "stop_0293",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r6_atlacomulco__ida",
+      "to_variant_id": "r20_tezoyuca_loop__ida",
+      "from_stop_id": "stop_0293",
+      "to_stop_id": "stop_0293",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r6_atlacomulco__ida",
+      "to_variant_id": "r9_cuauhtemoc__ida",
+      "from_stop_id": "stop_0293",
+      "to_stop_id": "stop_0293",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r6_atlacomulco__vuelta",
+      "to_variant_id": "r16_robles_mirador__ida",
+      "from_stop_id": "stop_0036",
+      "to_stop_id": "stop_0036",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r6_atlacomulco__vuelta",
+      "to_variant_id": "r16_robles_mirador__vuelta",
+      "from_stop_id": "stop_0036",
+      "to_stop_id": "stop_0036",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r6_atlacomulco__vuelta",
+      "to_variant_id": "r16_robles_pueblo__vuelta",
+      "from_stop_id": "stop_0036",
+      "to_stop_id": "stop_0036",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r6_atlacomulco__vuelta",
+      "to_variant_id": "r8_jacarandas__vuelta",
+      "from_stop_id": "stop_0036",
+      "to_stop_id": "stop_0036",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r6_jardines__ida",
+      "to_variant_id": "r10_barona_aguilas__vuelta",
+      "from_stop_id": "stop_0128",
+      "to_stop_id": "stop_0128",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r6_jardines__ida",
+      "to_variant_id": "r16_robles_carril__vuelta",
+      "from_stop_id": "stop_0128",
+      "to_stop_id": "stop_0128",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r6_jardines__ida",
+      "to_variant_id": "r16_robles_pueblo__ida",
+      "from_stop_id": "stop_0038",
+      "to_stop_id": "stop_0038",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r6_jardines__ida",
+      "to_variant_id": "r20_tezoyuca_loop__vuelta",
+      "from_stop_id": "stop_0128",
+      "to_stop_id": "stop_0128",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r6_jardines__vuelta",
+      "to_variant_id": "r9_cuauhtemoc__ida",
+      "from_stop_id": "stop_0293",
+      "to_stop_id": "stop_0293",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r6_tranca__ida",
+      "to_variant_id": "r16_robles_pueblo__ida",
+      "from_stop_id": "stop_0038",
+      "to_stop_id": "stop_0038",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r6_tranca__vuelta",
+      "to_variant_id": "r16_robles_mirador__vuelta",
+      "from_stop_id": "stop_0036",
+      "to_stop_id": "stop_0036",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r6_tranca__vuelta",
+      "to_variant_id": "r16_robles_pueblo__vuelta",
+      "from_stop_id": "stop_0036",
+      "to_stop_id": "stop_0036",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r6_tranca__vuelta",
+      "to_variant_id": "r8_jacarandas__vuelta",
+      "from_stop_id": "stop_0036",
+      "to_stop_id": "stop_0036",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r6_tranca__vuelta",
+      "to_variant_id": "r8_rivera_altavista__ida",
+      "from_stop_id": "stop_0036",
+      "to_stop_id": "stop_0036",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r6_tunel__ida",
+      "to_variant_id": "r9_cuauhtemoc__ida",
+      "from_stop_id": "stop_0293",
+      "to_stop_id": "stop_0293",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r6_tunel__vuelta",
+      "to_variant_id": "r20_tezoyuca_loop__vuelta",
+      "from_stop_id": "stop_0128",
+      "to_stop_id": "stop_0128",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r6_tunel__vuelta",
+      "to_variant_id": "r8_jacarandas__ida",
+      "from_stop_id": "stop_0128",
+      "to_stop_id": "stop_0128",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r6_tunel__vuelta",
+      "to_variant_id": "r8_rivera_altavista__vuelta",
+      "from_stop_id": "stop_0128",
+      "to_stop_id": "stop_0128",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r6_victoria__vuelta",
+      "to_variant_id": "r16_robles_mirador__vuelta",
+      "from_stop_id": "stop_0036",
+      "to_stop_id": "stop_0036",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r6_victoria__vuelta",
+      "to_variant_id": "r16_robles_pueblo__vuelta",
+      "from_stop_id": "stop_0036",
+      "to_stop_id": "stop_0036",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r6_victoria__vuelta",
+      "to_variant_id": "r8_jacarandas__vuelta",
+      "from_stop_id": "stop_0036",
+      "to_stop_id": "stop_0036",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r6_victoria__vuelta",
+      "to_variant_id": "r8_rivera_altavista__ida",
+      "from_stop_id": "stop_0036",
+      "to_stop_id": "stop_0036",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r8_jacarandas__ida",
+      "to_variant_id": "r11_diez_abril__vuelta",
+      "from_stop_id": "stop_0164",
+      "to_stop_id": "stop_0164",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r8_jacarandas__ida",
+      "to_variant_id": "r11_lazaro_cardenas__vuelta",
+      "from_stop_id": "stop_0164",
+      "to_stop_id": "stop_0164",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r8_jacarandas__ida",
+      "to_variant_id": "r11_santa_ursula__ida",
+      "from_stop_id": "stop_0164",
+      "to_stop_id": "stop_0164",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r8_jacarandas__ida",
+      "to_variant_id": "r6_tunel__vuelta",
+      "from_stop_id": "stop_0128",
+      "to_stop_id": "stop_0128",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r8_jacarandas__vuelta",
+      "to_variant_id": "r16_robles_pueblo__vuelta",
+      "from_stop_id": "stop_0036",
+      "to_stop_id": "stop_0036",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r8_jacarandas__vuelta",
+      "to_variant_id": "r6_atlacomulco__vuelta",
+      "from_stop_id": "stop_0036",
+      "to_stop_id": "stop_0036",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r8_jacarandas__vuelta",
+      "to_variant_id": "r6_tranca__vuelta",
+      "from_stop_id": "stop_0036",
+      "to_stop_id": "stop_0036",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r8_jacarandas__vuelta",
+      "to_variant_id": "r6_victoria__vuelta",
+      "from_stop_id": "stop_0036",
+      "to_stop_id": "stop_0036",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r8_rivera_altavista__ida",
+      "to_variant_id": "r6_tranca__vuelta",
+      "from_stop_id": "stop_0036",
+      "to_stop_id": "stop_0036",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r8_rivera_altavista__ida",
+      "to_variant_id": "r6_victoria__vuelta",
+      "from_stop_id": "stop_0036",
+      "to_stop_id": "stop_0036",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r8_rivera_altavista__ida",
+      "to_variant_id": "r9_cuauhtemoc__vuelta",
+      "from_stop_id": "stop_0036",
+      "to_stop_id": "stop_0036",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r8_rivera_altavista__vuelta",
+      "to_variant_id": "r11_diez_abril__vuelta",
+      "from_stop_id": "stop_0164",
+      "to_stop_id": "stop_0164",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r8_rivera_altavista__vuelta",
+      "to_variant_id": "r11_lazaro_cardenas__vuelta",
+      "from_stop_id": "stop_0164",
+      "to_stop_id": "stop_0164",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r8_rivera_altavista__vuelta",
+      "to_variant_id": "r11_santa_ursula__ida",
+      "from_stop_id": "stop_0164",
+      "to_stop_id": "stop_0164",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r8_rivera_altavista__vuelta",
+      "to_variant_id": "r6_tunel__vuelta",
+      "from_stop_id": "stop_0128",
+      "to_stop_id": "stop_0128",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r8_rivera_chulavista__ida",
+      "to_variant_id": "r9_cuauhtemoc__vuelta",
+      "from_stop_id": "stop_0036",
+      "to_stop_id": "stop_0036",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r8_rivera_chulavista__vuelta",
+      "to_variant_id": "r9_cuauhtemoc__vuelta",
+      "from_stop_id": "stop_0036",
+      "to_stop_id": "stop_0036",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r9_cuauhtemoc__ida",
+      "to_variant_id": "r6_atlacomulco__ida",
+      "from_stop_id": "stop_0293",
+      "to_stop_id": "stop_0293",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r9_cuauhtemoc__ida",
+      "to_variant_id": "r6_jardines__vuelta",
+      "from_stop_id": "stop_0293",
+      "to_stop_id": "stop_0293",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r9_cuauhtemoc__ida",
+      "to_variant_id": "r6_tunel__ida",
+      "from_stop_id": "stop_0293",
+      "to_stop_id": "stop_0293",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r9_cuauhtemoc__vuelta",
+      "to_variant_id": "r11_lazaro_cardenas__ida",
+      "from_stop_id": "stop_0402",
+      "to_stop_id": "stop_0402",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r9_cuauhtemoc__vuelta",
+      "to_variant_id": "r8_rivera_altavista__ida",
+      "from_stop_id": "stop_0036",
+      "to_stop_id": "stop_0036",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r9_cuauhtemoc__vuelta",
+      "to_variant_id": "r8_rivera_chulavista__ida",
+      "from_stop_id": "stop_0036",
+      "to_stop_id": "stop_0036",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r9_cuauhtemoc__vuelta",
+      "to_variant_id": "r8_rivera_chulavista__vuelta",
+      "from_stop_id": "stop_0036",
+      "to_stop_id": "stop_0036",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r9_selva__ida",
+      "to_variant_id": "r1_jerusalen__vuelta",
+      "from_stop_id": "stop_0469",
+      "to_stop_id": "stop_0469",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r9_selva__ida",
+      "to_variant_id": "r1_universidad_guacamayas__vuelta",
+      "from_stop_id": "stop_0469",
+      "to_stop_id": "stop_0469",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r9_selva__vuelta",
+      "to_variant_id": "r1_jerusalen__vuelta",
+      "from_stop_id": "stop_0469",
+      "to_stop_id": "stop_0469",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r9_selva__vuelta",
+      "to_variant_id": "r1_universidad_guacamayas__vuelta",
+      "from_stop_id": "stop_0469",
+      "to_stop_id": "stop_0469",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "high"
+    },
+    {
+      "from_variant_id": "r10_plan_aguilas__ida",
+      "to_variant_id": "r13_villa_jiutepec__vuelta",
+      "from_stop_id": "stop_0072",
+      "to_stop_id": "stop_0072",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r10_plan_aguilas__ida",
+      "to_variant_id": "r19_alvaro_leonel_circuito__ida",
+      "from_stop_id": "stop_0072",
+      "to_stop_id": "stop_0072",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r10_plan_aguilas__ida",
+      "to_variant_id": "r19_alvaro_leonel_circuito__vuelta",
+      "from_stop_id": "stop_0072",
+      "to_stop_id": "stop_0072",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r10_plan_aguilas__ida",
+      "to_variant_id": "r19_alvaro_leonel_puerto__ida",
+      "from_stop_id": "stop_0072",
+      "to_stop_id": "stop_0072",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r10_plan_aguilas__vuelta",
+      "to_variant_id": "r13_fuentes__ida",
+      "from_stop_id": "stop_0196",
+      "to_stop_id": "stop_0196",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r10_plan_aguilas__vuelta",
+      "to_variant_id": "r13_fuentes__vuelta",
+      "from_stop_id": "stop_0193",
+      "to_stop_id": "stop_0193",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r10_plan_aguilas__vuelta",
+      "to_variant_id": "r13_naranjos__vuelta",
+      "from_stop_id": "stop_0193",
+      "to_stop_id": "stop_0193",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r10_plan_aguilas__vuelta",
+      "to_variant_id": "r13_pochotal__vuelta",
+      "from_stop_id": "stop_0193",
+      "to_stop_id": "stop_0193",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r13_fuentes__ida",
+      "to_variant_id": "r10_plan_aguilas__vuelta",
+      "from_stop_id": "stop_0198",
+      "to_stop_id": "stop_0198",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r13_fuentes__ida",
+      "to_variant_id": "r15_morelos_martha__ida",
+      "from_stop_id": "stop_0217",
+      "to_stop_id": "stop_0217",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r13_fuentes__vuelta",
+      "to_variant_id": "r10_plan_aguilas__vuelta",
+      "from_stop_id": "stop_0193",
+      "to_stop_id": "stop_0193",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r13_fuentes__vuelta",
+      "to_variant_id": "r15_morelos_martha__ida",
+      "from_stop_id": "stop_0123",
+      "to_stop_id": "stop_0123",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r13_naranjos__ida",
+      "to_variant_id": "r15_chapultepec__ida",
+      "from_stop_id": "stop_0694",
+      "to_stop_id": "stop_0694",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r13_naranjos__ida",
+      "to_variant_id": "r15_chapultepec__vuelta",
+      "from_stop_id": "stop_0694",
+      "to_stop_id": "stop_0694",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r13_naranjos__vuelta",
+      "to_variant_id": "r10_plan_aguilas__vuelta",
+      "from_stop_id": "stop_0193",
+      "to_stop_id": "stop_0193",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r13_naranjos__vuelta",
+      "to_variant_id": "r15_morelos_martha__ida",
+      "from_stop_id": "stop_0123",
+      "to_stop_id": "stop_0123",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r13_pochotal__ida",
+      "to_variant_id": "r15_morelos_martha__ida",
+      "from_stop_id": "stop_0214",
+      "to_stop_id": "stop_0214",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r13_pochotal__ida",
+      "to_variant_id": "r15_morelos_martha__vuelta",
+      "from_stop_id": "stop_0214",
+      "to_stop_id": "stop_0214",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r13_pochotal__ida",
+      "to_variant_id": "r17_modesto_flores__ida",
+      "from_stop_id": "stop_0339",
+      "to_stop_id": "stop_0339",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r13_pochotal__ida",
+      "to_variant_id": "r17_modesto_flores__vuelta",
+      "from_stop_id": "stop_0339",
+      "to_stop_id": "stop_0339",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r13_pochotal__vuelta",
+      "to_variant_id": "r10_plan_aguilas__vuelta",
+      "from_stop_id": "stop_0193",
+      "to_stop_id": "stop_0193",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r13_pochotal__vuelta",
+      "to_variant_id": "r15_morelos_martha__vuelta",
+      "from_stop_id": "stop_0123",
+      "to_stop_id": "stop_0123",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r13_pochotal__vuelta",
+      "to_variant_id": "r17_modesto_flores__ida",
+      "from_stop_id": "stop_0123",
+      "to_stop_id": "stop_0123",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r13_pochotal__vuelta",
+      "to_variant_id": "r17_modesto_flores__vuelta",
+      "from_stop_id": "stop_0123",
+      "to_stop_id": "stop_0123",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r13_rosa_jiutepec__ida",
+      "to_variant_id": "r15_chapultepec__ida",
+      "from_stop_id": "stop_0694",
+      "to_stop_id": "stop_0694",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r13_rosa_jiutepec__ida",
+      "to_variant_id": "r15_chapultepec__vuelta",
+      "from_stop_id": "stop_0694",
+      "to_stop_id": "stop_0694",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r13_rosa_jiutepec__ida",
+      "to_variant_id": "r15_morelos_martha__vuelta",
+      "from_stop_id": "stop_0678",
+      "to_stop_id": "stop_0678",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r13_rosa_jiutepec__ida",
+      "to_variant_id": "r17_modesto_flores__ida",
+      "from_stop_id": "stop_0707",
+      "to_stop_id": "stop_0707",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r13_rosa_jiutepec__vuelta",
+      "to_variant_id": "r15_morelos_martha__vuelta",
+      "from_stop_id": "stop_0123",
+      "to_stop_id": "stop_0123",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r13_rosa_jiutepec__vuelta",
+      "to_variant_id": "r17_modesto_flores__ida",
+      "from_stop_id": "stop_0123",
+      "to_stop_id": "stop_0123",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r13_rosa_jiutepec__vuelta",
+      "to_variant_id": "r17_modesto_flores__vuelta",
+      "from_stop_id": "stop_0123",
+      "to_stop_id": "stop_0123",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r13_rosa_jiutepec__vuelta",
+      "to_variant_id": "r19_alvaro_leonel_puerto__vuelta",
+      "from_stop_id": "stop_0196",
+      "to_stop_id": "stop_0196",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r13_villa_jiutepec__ida",
+      "to_variant_id": "r19_alvaro_leonel_circuito__ida",
+      "from_stop_id": "stop_0144",
+      "to_stop_id": "stop_0144",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r13_villa_jiutepec__ida",
+      "to_variant_id": "r19_alvaro_leonel_puerto__ida",
+      "from_stop_id": "stop_0144",
+      "to_stop_id": "stop_0144",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r13_villa_jiutepec__ida",
+      "to_variant_id": "r19_amador_salazar__ida",
+      "from_stop_id": "stop_0140",
+      "to_stop_id": "stop_0140",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r13_villa_jiutepec__ida",
+      "to_variant_id": "r19_colosio__ida",
+      "from_stop_id": "stop_0144",
+      "to_stop_id": "stop_0144",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r13_villa_jiutepec__vuelta",
+      "to_variant_id": "r10_plan_aguilas__ida",
+      "from_stop_id": "stop_0072",
+      "to_stop_id": "stop_0072",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r13_villa_jiutepec__vuelta",
+      "to_variant_id": "r18_francisco_villa__vuelta",
+      "from_stop_id": "stop_1317",
+      "to_stop_id": "stop_1317",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r13_villa_jiutepec__vuelta",
+      "to_variant_id": "r19_alvaro_leonel_circuito__ida",
+      "from_stop_id": "stop_0412",
+      "to_stop_id": "stop_0412",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r13_villa_jiutepec__vuelta",
+      "to_variant_id": "r19_alvaro_leonel_circuito__vuelta",
+      "from_stop_id": "stop_0072",
+      "to_stop_id": "stop_0072",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r15_chapultepec__ida",
+      "to_variant_id": "r13_naranjos__ida",
+      "from_stop_id": "stop_0694",
+      "to_stop_id": "stop_0694",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r15_chapultepec__ida",
+      "to_variant_id": "r13_rosa_jiutepec__ida",
+      "from_stop_id": "stop_0694",
+      "to_stop_id": "stop_0694",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r15_chapultepec__ida",
+      "to_variant_id": "r18_francisco_villa__vuelta",
+      "from_stop_id": "stop_0941",
+      "to_stop_id": "stop_0941",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r15_chapultepec__ida",
+      "to_variant_id": "r19_alvaro_leonel_circuito__vuelta",
+      "from_stop_id": "stop_0922",
+      "to_stop_id": "stop_0922",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r15_chapultepec__vuelta",
+      "to_variant_id": "r13_naranjos__ida",
+      "from_stop_id": "stop_0694",
+      "to_stop_id": "stop_0694",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r15_chapultepec__vuelta",
+      "to_variant_id": "r13_rosa_jiutepec__ida",
+      "from_stop_id": "stop_0694",
+      "to_stop_id": "stop_0694",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r15_chapultepec__vuelta",
+      "to_variant_id": "r18_francisco_villa__vuelta",
+      "from_stop_id": "stop_0942",
+      "to_stop_id": "stop_0942",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r15_chapultepec__vuelta",
+      "to_variant_id": "r19_alvaro_leonel_circuito__vuelta",
+      "from_stop_id": "stop_0929",
+      "to_stop_id": "stop_0929",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r15_morelos_martha__ida",
+      "to_variant_id": "r13_fuentes__ida",
+      "from_stop_id": "stop_0123",
+      "to_stop_id": "stop_0123",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r15_morelos_martha__ida",
+      "to_variant_id": "r13_fuentes__vuelta",
+      "from_stop_id": "stop_0123",
+      "to_stop_id": "stop_0123",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r15_morelos_martha__ida",
+      "to_variant_id": "r13_naranjos__vuelta",
+      "from_stop_id": "stop_0123",
+      "to_stop_id": "stop_0123",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r15_morelos_martha__ida",
+      "to_variant_id": "r13_pochotal__ida",
+      "from_stop_id": "stop_0123",
+      "to_stop_id": "stop_0123",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r15_morelos_martha__vuelta",
+      "to_variant_id": "r13_pochotal__ida",
+      "from_stop_id": "stop_0214",
+      "to_stop_id": "stop_0214",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r15_morelos_martha__vuelta",
+      "to_variant_id": "r13_pochotal__vuelta",
+      "from_stop_id": "stop_0627",
+      "to_stop_id": "stop_0627",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r15_morelos_martha__vuelta",
+      "to_variant_id": "r13_rosa_jiutepec__ida",
+      "from_stop_id": "stop_0678",
+      "to_stop_id": "stop_0678",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r15_morelos_martha__vuelta",
+      "to_variant_id": "r13_rosa_jiutepec__vuelta",
+      "from_stop_id": "stop_0217",
+      "to_stop_id": "stop_0217",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r17_modesto_flores__ida",
+      "to_variant_id": "r13_pochotal__ida",
+      "from_stop_id": "stop_0123",
+      "to_stop_id": "stop_0123",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r17_modesto_flores__ida",
+      "to_variant_id": "r13_pochotal__vuelta",
+      "from_stop_id": "stop_0123",
+      "to_stop_id": "stop_0123",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r17_modesto_flores__ida",
+      "to_variant_id": "r13_rosa_jiutepec__ida",
+      "from_stop_id": "stop_0707",
+      "to_stop_id": "stop_0707",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r17_modesto_flores__ida",
+      "to_variant_id": "r13_rosa_jiutepec__vuelta",
+      "from_stop_id": "stop_0123",
+      "to_stop_id": "stop_0123",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r17_modesto_flores__vuelta",
+      "to_variant_id": "r13_pochotal__ida",
+      "from_stop_id": "stop_0339",
+      "to_stop_id": "stop_0339",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r17_modesto_flores__vuelta",
+      "to_variant_id": "r13_pochotal__vuelta",
+      "from_stop_id": "stop_0301",
+      "to_stop_id": "stop_0301",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r17_modesto_flores__vuelta",
+      "to_variant_id": "r13_rosa_jiutepec__vuelta",
+      "from_stop_id": "stop_0339",
+      "to_stop_id": "stop_0339",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r17_modesto_flores__vuelta",
+      "to_variant_id": "r18_pochotal__vuelta",
+      "from_stop_id": "stop_0619",
+      "to_stop_id": "stop_0619",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r17_temixco_zapata__ida",
+      "to_variant_id": "r19_alvaro_leonel_circuito__ida",
+      "from_stop_id": "stop_0414",
+      "to_stop_id": "stop_0414",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r17_temixco_zapata__ida",
+      "to_variant_id": "r19_alvaro_leonel_puerto__ida",
+      "from_stop_id": "stop_0414",
+      "to_stop_id": "stop_0414",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r17_temixco_zapata__ida",
+      "to_variant_id": "r19_amador_salazar__ida",
+      "from_stop_id": "stop_0415",
+      "to_stop_id": "stop_0415",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r17_temixco_zapata__ida",
+      "to_variant_id": "r19_colosio__ida",
+      "from_stop_id": "stop_0414",
+      "to_stop_id": "stop_0414",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r17_temixco_zapata__vuelta",
+      "to_variant_id": "r19_alvaro_leonel_puerto__ida",
+      "from_stop_id": "stop_0415",
+      "to_stop_id": "stop_0415",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r17_temixco_zapata__vuelta",
+      "to_variant_id": "r19_amador_salazar__ida",
+      "from_stop_id": "stop_0415",
+      "to_stop_id": "stop_0415",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r17_temixco_zapata__vuelta",
+      "to_variant_id": "r19_colosio__ida",
+      "from_stop_id": "stop_0415",
+      "to_stop_id": "stop_0415",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r17_temixco_zapata__vuelta",
+      "to_variant_id": "r19_jardin_juarez__ida",
+      "from_stop_id": "stop_0415",
+      "to_stop_id": "stop_0415",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r18_francisco_villa__vuelta",
+      "to_variant_id": "r13_villa_jiutepec__vuelta",
+      "from_stop_id": "stop_1317",
+      "to_stop_id": "stop_1317",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r18_francisco_villa__vuelta",
+      "to_variant_id": "r15_chapultepec__ida",
+      "from_stop_id": "stop_0941",
+      "to_stop_id": "stop_0941",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r18_francisco_villa__vuelta",
+      "to_variant_id": "r15_chapultepec__vuelta",
+      "from_stop_id": "stop_0941",
+      "to_stop_id": "stop_0941",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r18_francisco_villa__vuelta",
+      "to_variant_id": "r20_palo_escrito__ida",
+      "from_stop_id": "stop_1290",
+      "to_stop_id": "stop_1290",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r18_pochotal__vuelta",
+      "to_variant_id": "r17_modesto_flores__vuelta",
+      "from_stop_id": "stop_0619",
+      "to_stop_id": "stop_0619",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_alvaro_leonel_circuito__ida",
+      "to_variant_id": "r10_plan_aguilas__ida",
+      "from_stop_id": "stop_0177",
+      "to_stop_id": "stop_0177",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_alvaro_leonel_circuito__ida",
+      "to_variant_id": "r13_villa_jiutepec__ida",
+      "from_stop_id": "stop_0144",
+      "to_stop_id": "stop_0144",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_alvaro_leonel_circuito__ida",
+      "to_variant_id": "r13_villa_jiutepec__vuelta",
+      "from_stop_id": "stop_0177",
+      "to_stop_id": "stop_0177",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_alvaro_leonel_circuito__ida",
+      "to_variant_id": "r17_temixco_zapata__ida",
+      "from_stop_id": "stop_0414",
+      "to_stop_id": "stop_0414",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_alvaro_leonel_circuito__vuelta",
+      "to_variant_id": "r10_plan_aguilas__ida",
+      "from_stop_id": "stop_0072",
+      "to_stop_id": "stop_0072",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_alvaro_leonel_circuito__vuelta",
+      "to_variant_id": "r13_villa_jiutepec__vuelta",
+      "from_stop_id": "stop_0072",
+      "to_stop_id": "stop_0072",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_alvaro_leonel_circuito__vuelta",
+      "to_variant_id": "r15_chapultepec__ida",
+      "from_stop_id": "stop_0922",
+      "to_stop_id": "stop_0922",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_alvaro_leonel_circuito__vuelta",
+      "to_variant_id": "r15_chapultepec__vuelta",
+      "from_stop_id": "stop_0922",
+      "to_stop_id": "stop_0922",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_alvaro_leonel_puerto__ida",
+      "to_variant_id": "r10_plan_aguilas__ida",
+      "from_stop_id": "stop_0177",
+      "to_stop_id": "stop_0177",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_alvaro_leonel_puerto__ida",
+      "to_variant_id": "r13_villa_jiutepec__ida",
+      "from_stop_id": "stop_0144",
+      "to_stop_id": "stop_0144",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_alvaro_leonel_puerto__ida",
+      "to_variant_id": "r17_temixco_zapata__ida",
+      "from_stop_id": "stop_0414",
+      "to_stop_id": "stop_0414",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_alvaro_leonel_puerto__ida",
+      "to_variant_id": "r17_temixco_zapata__vuelta",
+      "from_stop_id": "stop_0414",
+      "to_stop_id": "stop_0414",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_alvaro_leonel_puerto__vuelta",
+      "to_variant_id": "r13_rosa_jiutepec__vuelta",
+      "from_stop_id": "stop_0337",
+      "to_stop_id": "stop_0337",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_alvaro_leonel_puerto__vuelta",
+      "to_variant_id": "r20_palo_escrito__ida",
+      "from_stop_id": "stop_0198",
+      "to_stop_id": "stop_0198",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_alvaro_leonel_puerto__vuelta",
+      "to_variant_id": "r4_cuauchiles__vuelta",
+      "from_stop_id": "stop_1470",
+      "to_stop_id": "stop_1470",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_alvaro_leonel_puerto__vuelta",
+      "to_variant_id": "r5_lomas_oriente__ida",
+      "from_stop_id": "stop_1475",
+      "to_stop_id": "stop_1475",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_amador_salazar__ida",
+      "to_variant_id": "r13_villa_jiutepec__ida",
+      "from_stop_id": "stop_0140",
+      "to_stop_id": "stop_0140",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_amador_salazar__ida",
+      "to_variant_id": "r17_temixco_zapata__ida",
+      "from_stop_id": "stop_0415",
+      "to_stop_id": "stop_0415",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_amador_salazar__ida",
+      "to_variant_id": "r17_temixco_zapata__vuelta",
+      "from_stop_id": "stop_0415",
+      "to_stop_id": "stop_0415",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_amador_salazar__ida",
+      "to_variant_id": "r2_domingo_diez__vuelta",
+      "from_stop_id": "stop_0177",
+      "to_stop_id": "stop_0177",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_amador_salazar__vuelta",
+      "to_variant_id": "r20_palo_escrito__vuelta",
+      "from_stop_id": "stop_1535",
+      "to_stop_id": "stop_1535",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_amador_salazar__vuelta",
+      "to_variant_id": "r2_domingo_diez__ida",
+      "from_stop_id": "stop_0071",
+      "to_stop_id": "stop_0071",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_amador_salazar__vuelta",
+      "to_variant_id": "r2_domingo_diez__vuelta",
+      "from_stop_id": "stop_0071",
+      "to_stop_id": "stop_0071",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_amador_salazar__vuelta",
+      "to_variant_id": "r2_emiliano_zapata__vuelta",
+      "from_stop_id": "stop_0071",
+      "to_stop_id": "stop_0071",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_colosio__ida",
+      "to_variant_id": "r13_villa_jiutepec__ida",
+      "from_stop_id": "stop_0144",
+      "to_stop_id": "stop_0144",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_colosio__ida",
+      "to_variant_id": "r17_temixco_zapata__ida",
+      "from_stop_id": "stop_0414",
+      "to_stop_id": "stop_0414",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_colosio__ida",
+      "to_variant_id": "r17_temixco_zapata__vuelta",
+      "from_stop_id": "stop_0414",
+      "to_stop_id": "stop_0414",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_colosio__ida",
+      "to_variant_id": "r2_domingo_diez__vuelta",
+      "from_stop_id": "stop_0177",
+      "to_stop_id": "stop_0177",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_colosio__vuelta",
+      "to_variant_id": "r20_palo_escrito__ida",
+      "from_stop_id": "stop_0305",
+      "to_stop_id": "stop_0305",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_colosio__vuelta",
+      "to_variant_id": "r4_cuauchiles__vuelta",
+      "from_stop_id": "stop_1470",
+      "to_stop_id": "stop_1470",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_colosio__vuelta",
+      "to_variant_id": "r5_lomas_oriente__ida",
+      "from_stop_id": "stop_1475",
+      "to_stop_id": "stop_1475",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_colosio__vuelta",
+      "to_variant_id": "r5_lomas_oriente__vuelta",
+      "from_stop_id": "stop_1475",
+      "to_stop_id": "stop_1475",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_jardin_juarez__ida",
+      "to_variant_id": "r17_temixco_zapata__vuelta",
+      "from_stop_id": "stop_0414",
+      "to_stop_id": "stop_0414",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_jardin_juarez__ida",
+      "to_variant_id": "r2_domingo_diez__vuelta",
+      "from_stop_id": "stop_0177",
+      "to_stop_id": "stop_0177",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_jardin_juarez__ida",
+      "to_variant_id": "r2_emiliano_zapata__ida",
+      "from_stop_id": "stop_0144",
+      "to_stop_id": "stop_0144",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_jardin_juarez__ida",
+      "to_variant_id": "r4_elsalto__vuelta",
+      "from_stop_id": "stop_0023",
+      "to_stop_id": "stop_0023",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_jardin_juarez__vuelta",
+      "to_variant_id": "r20_palo_escrito__vuelta",
+      "from_stop_id": "stop_0925",
+      "to_stop_id": "stop_0925",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_jardin_juarez__vuelta",
+      "to_variant_id": "r2_domingo_diez__ida",
+      "from_stop_id": "stop_0071",
+      "to_stop_id": "stop_0071",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_jardin_juarez__vuelta",
+      "to_variant_id": "r2_emiliano_zapata__vuelta",
+      "from_stop_id": "stop_0071",
+      "to_stop_id": "stop_0071",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_jardin_juarez__vuelta",
+      "to_variant_id": "r4_cuauchiles__ida",
+      "from_stop_id": "stop_1443",
+      "to_stop_id": "stop_1443",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_tetillas_amador__ida",
+      "to_variant_id": "r2_emiliano_zapata__ida",
+      "from_stop_id": "stop_0144",
+      "to_stop_id": "stop_0144",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_tetillas_amador__ida",
+      "to_variant_id": "r4_elsalto__vuelta",
+      "from_stop_id": "stop_0023",
+      "to_stop_id": "stop_0023",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_tetillas_amador__ida",
+      "to_variant_id": "r7_progreso__ida",
+      "from_stop_id": "stop_0144",
+      "to_stop_id": "stop_0144",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_tetillas_amador__ida",
+      "to_variant_id": "r7_progreso__vuelta",
+      "from_stop_id": "stop_0177",
+      "to_stop_id": "stop_0177",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_tetillas_amador__vuelta",
+      "to_variant_id": "r20_palo_escrito__ida",
+      "from_stop_id": "stop_0305",
+      "to_stop_id": "stop_0305",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_tetillas_amador__vuelta",
+      "to_variant_id": "r2_emiliano_zapata__ida",
+      "from_stop_id": "stop_1529",
+      "to_stop_id": "stop_1529",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_tetillas_amador__vuelta",
+      "to_variant_id": "r4_cuauchiles__ida",
+      "from_stop_id": "stop_1524",
+      "to_stop_id": "stop_1524",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_tetillas_amador__vuelta",
+      "to_variant_id": "r5_tecomulco__ida",
+      "from_stop_id": "stop_1531",
+      "to_stop_id": "stop_1531",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_tetillas_luna__ida",
+      "to_variant_id": "r2_emiliano_zapata__ida",
+      "from_stop_id": "stop_0144",
+      "to_stop_id": "stop_0144",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_tetillas_luna__ida",
+      "to_variant_id": "r4_elsalto__vuelta",
+      "from_stop_id": "stop_0023",
+      "to_stop_id": "stop_0023",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_tetillas_luna__ida",
+      "to_variant_id": "r7_progreso__ida",
+      "from_stop_id": "stop_0143",
+      "to_stop_id": "stop_0143",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_tetillas_luna__ida",
+      "to_variant_id": "r7_progreso__vuelta",
+      "from_stop_id": "stop_0177",
+      "to_stop_id": "stop_0177",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_tetillas_luna__vuelta",
+      "to_variant_id": "r20_palo_escrito__vuelta",
+      "from_stop_id": "stop_1535",
+      "to_stop_id": "stop_1535",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_tetillas_luna__vuelta",
+      "to_variant_id": "r2_domingo_diez__ida",
+      "from_stop_id": "stop_0071",
+      "to_stop_id": "stop_0071",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_tetillas_luna__vuelta",
+      "to_variant_id": "r2_emiliano_zapata__vuelta",
+      "from_stop_id": "stop_0071",
+      "to_stop_id": "stop_0071",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_tetillas_luna__vuelta",
+      "to_variant_id": "r4_cuauchiles__ida",
+      "from_stop_id": "stop_1443",
+      "to_stop_id": "stop_1443",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_yautepec__ida",
+      "to_variant_id": "r20_palo_escrito__vuelta",
+      "from_stop_id": "stop_1535",
+      "to_stop_id": "stop_1535",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_yautepec__ida",
+      "to_variant_id": "r2_domingo_diez__ida",
+      "from_stop_id": "stop_0921",
+      "to_stop_id": "stop_0921",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_yautepec__ida",
+      "to_variant_id": "r2_emiliano_zapata__vuelta",
+      "from_stop_id": "stop_0921",
+      "to_stop_id": "stop_0921",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_yautepec__ida",
+      "to_variant_id": "r4_cuauchiles__ida",
+      "from_stop_id": "stop_1443",
+      "to_stop_id": "stop_1443",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_yautepec__vuelta",
+      "to_variant_id": "r4_cuauchiles__vuelta",
+      "from_stop_id": "stop_0929",
+      "to_stop_id": "stop_0929",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_yautepec__vuelta",
+      "to_variant_id": "r5_lomas_oriente__ida",
+      "from_stop_id": "stop_1563",
+      "to_stop_id": "stop_1563",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_yautepec__vuelta",
+      "to_variant_id": "r5_lomas_oriente__vuelta",
+      "from_stop_id": "stop_1563",
+      "to_stop_id": "stop_1563",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r19_yautepec__vuelta",
+      "to_variant_id": "r5_tecomulco__vuelta",
+      "from_stop_id": "stop_1563",
+      "to_stop_id": "stop_1563",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r20_palo_escrito__ida",
+      "to_variant_id": "r18_francisco_villa__vuelta",
+      "from_stop_id": "stop_1291",
+      "to_stop_id": "stop_1291",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r20_palo_escrito__ida",
+      "to_variant_id": "r19_alvaro_leonel_puerto__vuelta",
+      "from_stop_id": "stop_0188",
+      "to_stop_id": "stop_0188",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r20_palo_escrito__ida",
+      "to_variant_id": "r19_colosio__vuelta",
+      "from_stop_id": "stop_0188",
+      "to_stop_id": "stop_0188",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r20_palo_escrito__ida",
+      "to_variant_id": "r19_tetillas_amador__vuelta",
+      "from_stop_id": "stop_0199",
+      "to_stop_id": "stop_0199",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r20_palo_escrito__vuelta",
+      "to_variant_id": "r19_amador_salazar__vuelta",
+      "from_stop_id": "stop_1535",
+      "to_stop_id": "stop_1535",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r20_palo_escrito__vuelta",
+      "to_variant_id": "r19_jardin_juarez__vuelta",
+      "from_stop_id": "stop_0925",
+      "to_stop_id": "stop_0925",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r20_palo_escrito__vuelta",
+      "to_variant_id": "r19_tetillas_luna__vuelta",
+      "from_stop_id": "stop_1535",
+      "to_stop_id": "stop_1535",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r20_palo_escrito__vuelta",
+      "to_variant_id": "r19_yautepec__ida",
+      "from_stop_id": "stop_1535",
+      "to_stop_id": "stop_1535",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r2_domingo_diez__ida",
+      "to_variant_id": "r19_amador_salazar__vuelta",
+      "from_stop_id": "stop_0071",
+      "to_stop_id": "stop_0071",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r2_domingo_diez__ida",
+      "to_variant_id": "r19_jardin_juarez__vuelta",
+      "from_stop_id": "stop_0071",
+      "to_stop_id": "stop_0071",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r2_domingo_diez__ida",
+      "to_variant_id": "r19_tetillas_luna__vuelta",
+      "from_stop_id": "stop_0071",
+      "to_stop_id": "stop_0071",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r2_domingo_diez__ida",
+      "to_variant_id": "r19_yautepec__ida",
+      "from_stop_id": "stop_0921",
+      "to_stop_id": "stop_0921",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r2_domingo_diez__vuelta",
+      "to_variant_id": "r19_amador_salazar__ida",
+      "from_stop_id": "stop_0177",
+      "to_stop_id": "stop_0177",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r2_domingo_diez__vuelta",
+      "to_variant_id": "r19_amador_salazar__vuelta",
+      "from_stop_id": "stop_0077",
+      "to_stop_id": "stop_0077",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r2_domingo_diez__vuelta",
+      "to_variant_id": "r19_colosio__ida",
+      "from_stop_id": "stop_0177",
+      "to_stop_id": "stop_0177",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r2_domingo_diez__vuelta",
+      "to_variant_id": "r19_jardin_juarez__ida",
+      "from_stop_id": "stop_0177",
+      "to_stop_id": "stop_0177",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r2_emiliano_zapata__ida",
+      "to_variant_id": "r19_jardin_juarez__ida",
+      "from_stop_id": "stop_0144",
+      "to_stop_id": "stop_0144",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r2_emiliano_zapata__ida",
+      "to_variant_id": "r19_tetillas_amador__ida",
+      "from_stop_id": "stop_0144",
+      "to_stop_id": "stop_0144",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r2_emiliano_zapata__ida",
+      "to_variant_id": "r19_tetillas_amador__vuelta",
+      "from_stop_id": "stop_0965",
+      "to_stop_id": "stop_0965",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r2_emiliano_zapata__ida",
+      "to_variant_id": "r19_tetillas_luna__ida",
+      "from_stop_id": "stop_0144",
+      "to_stop_id": "stop_0144",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r2_emiliano_zapata__vuelta",
+      "to_variant_id": "r19_amador_salazar__vuelta",
+      "from_stop_id": "stop_0071",
+      "to_stop_id": "stop_0071",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r2_emiliano_zapata__vuelta",
+      "to_variant_id": "r19_jardin_juarez__vuelta",
+      "from_stop_id": "stop_0071",
+      "to_stop_id": "stop_0071",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r2_emiliano_zapata__vuelta",
+      "to_variant_id": "r19_tetillas_luna__vuelta",
+      "from_stop_id": "stop_0071",
+      "to_stop_id": "stop_0071",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r2_emiliano_zapata__vuelta",
+      "to_variant_id": "r19_yautepec__ida",
+      "from_stop_id": "stop_0921",
+      "to_stop_id": "stop_0921",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r3_mina5__ida",
+      "to_variant_id": "r4_elsalto__vuelta",
+      "from_stop_id": "stop_1873",
+      "to_stop_id": "stop_1873",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r3_mina5__ida",
+      "to_variant_id": "r6_tranca__ida",
+      "from_stop_id": "stop_0543",
+      "to_stop_id": "stop_0543",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r3_mina5__ida",
+      "to_variant_id": "r6_victoria__ida",
+      "from_stop_id": "stop_1875",
+      "to_stop_id": "stop_1875",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r3_mina5__vuelta",
+      "to_variant_id": "r6_tranca__ida",
+      "from_stop_id": "stop_1875",
+      "to_stop_id": "stop_1875",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r3_mina5__vuelta",
+      "to_variant_id": "r6_victoria__ida",
+      "from_stop_id": "stop_1875",
+      "to_stop_id": "stop_1875",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r3_tetela__ida",
+      "to_variant_id": "r5_lomas_oriente__ida",
+      "from_stop_id": "stop_1899",
+      "to_stop_id": "stop_1899",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r3_tetela__ida",
+      "to_variant_id": "r5_lomas_oriente__vuelta",
+      "from_stop_id": "stop_1899",
+      "to_stop_id": "stop_1899",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r3_tetela__ida",
+      "to_variant_id": "r5_tecomulco__vuelta",
+      "from_stop_id": "stop_1899",
+      "to_stop_id": "stop_1899",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r3_tetela__ida",
+      "to_variant_id": "r7_progreso__ida",
+      "from_stop_id": "stop_0547",
+      "to_stop_id": "stop_0547",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r3_tetela__vuelta",
+      "to_variant_id": "r4_elsalto__ida",
+      "from_stop_id": "stop_1907",
+      "to_stop_id": "stop_1907",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r3_tetela__vuelta",
+      "to_variant_id": "r7_progreso__ida",
+      "from_stop_id": "stop_0553",
+      "to_stop_id": "stop_0553",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r3_villa__ida",
+      "to_variant_id": "r5_lomas_oriente__vuelta",
+      "from_stop_id": "stop_1899",
+      "to_stop_id": "stop_1899",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r3_villa__ida",
+      "to_variant_id": "r5_tecomulco__vuelta",
+      "from_stop_id": "stop_1899",
+      "to_stop_id": "stop_1899",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r3_villa__ida",
+      "to_variant_id": "r8_rivera_chulavista__vuelta",
+      "from_stop_id": "stop_1900",
+      "to_stop_id": "stop_1900",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r3_villa__ida",
+      "to_variant_id": "r9_cuauhtemoc__ida",
+      "from_stop_id": "stop_0479",
+      "to_stop_id": "stop_0479",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r3_villa__vuelta",
+      "to_variant_id": "r4_elsalto__ida",
+      "from_stop_id": "stop_1907",
+      "to_stop_id": "stop_1907",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r4_cuauchiles__ida",
+      "to_variant_id": "r19_jardin_juarez__vuelta",
+      "from_stop_id": "stop_0926",
+      "to_stop_id": "stop_0926",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r4_cuauchiles__ida",
+      "to_variant_id": "r19_tetillas_amador__vuelta",
+      "from_stop_id": "stop_1524",
+      "to_stop_id": "stop_1524",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r4_cuauchiles__ida",
+      "to_variant_id": "r19_tetillas_luna__vuelta",
+      "from_stop_id": "stop_0929",
+      "to_stop_id": "stop_0929",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r4_cuauchiles__ida",
+      "to_variant_id": "r19_yautepec__ida",
+      "from_stop_id": "stop_0929",
+      "to_stop_id": "stop_0929",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r4_cuauchiles__vuelta",
+      "to_variant_id": "r19_alvaro_leonel_puerto__vuelta",
+      "from_stop_id": "stop_1470",
+      "to_stop_id": "stop_1470",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r4_cuauchiles__vuelta",
+      "to_variant_id": "r19_colosio__vuelta",
+      "from_stop_id": "stop_1470",
+      "to_stop_id": "stop_1470",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r4_cuauchiles__vuelta",
+      "to_variant_id": "r19_yautepec__vuelta",
+      "from_stop_id": "stop_1566",
+      "to_stop_id": "stop_1566",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r4_cuauchiles__vuelta",
+      "to_variant_id": "r5_lomas_pedregal__vuelta",
+      "from_stop_id": "stop_1974",
+      "to_stop_id": "stop_1974",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r4_elsalto__ida",
+      "to_variant_id": "r3_tetela__vuelta",
+      "from_stop_id": "stop_1909",
+      "to_stop_id": "stop_1909",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r4_elsalto__ida",
+      "to_variant_id": "r3_villa__vuelta",
+      "from_stop_id": "stop_1909",
+      "to_stop_id": "stop_1909",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r4_elsalto__vuelta",
+      "to_variant_id": "r19_jardin_juarez__ida",
+      "from_stop_id": "stop_0024",
+      "to_stop_id": "stop_0024",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r4_elsalto__vuelta",
+      "to_variant_id": "r19_tetillas_amador__ida",
+      "from_stop_id": "stop_0024",
+      "to_stop_id": "stop_0024",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r4_elsalto__vuelta",
+      "to_variant_id": "r19_tetillas_luna__ida",
+      "from_stop_id": "stop_0024",
+      "to_stop_id": "stop_0024",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r4_elsalto__vuelta",
+      "to_variant_id": "r3_mina5__ida",
+      "from_stop_id": "stop_1875",
+      "to_stop_id": "stop_1875",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r4_palmas__ida",
+      "to_variant_id": "r5_tecomulco__vuelta",
+      "from_stop_id": "stop_0051",
+      "to_stop_id": "stop_0051",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r4_palmas__ida",
+      "to_variant_id": "r6_tunel__ida",
+      "from_stop_id": "stop_0049",
+      "to_stop_id": "stop_0049",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r5_lomas_oriente__ida",
+      "to_variant_id": "r19_alvaro_leonel_puerto__vuelta",
+      "from_stop_id": "stop_1475",
+      "to_stop_id": "stop_1475",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r5_lomas_oriente__ida",
+      "to_variant_id": "r19_colosio__vuelta",
+      "from_stop_id": "stop_1475",
+      "to_stop_id": "stop_1475",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r5_lomas_oriente__ida",
+      "to_variant_id": "r19_yautepec__vuelta",
+      "from_stop_id": "stop_1563",
+      "to_stop_id": "stop_1563",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r5_lomas_oriente__ida",
+      "to_variant_id": "r3_tetela__ida",
+      "from_stop_id": "stop_1899",
+      "to_stop_id": "stop_1899",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r5_lomas_oriente__vuelta",
+      "to_variant_id": "r19_colosio__vuelta",
+      "from_stop_id": "stop_1475",
+      "to_stop_id": "stop_1475",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r5_lomas_oriente__vuelta",
+      "to_variant_id": "r19_yautepec__vuelta",
+      "from_stop_id": "stop_1563",
+      "to_stop_id": "stop_1563",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r5_lomas_oriente__vuelta",
+      "to_variant_id": "r3_tetela__ida",
+      "from_stop_id": "stop_1901",
+      "to_stop_id": "stop_1901",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r5_lomas_oriente__vuelta",
+      "to_variant_id": "r3_villa__ida",
+      "from_stop_id": "stop_1901",
+      "to_stop_id": "stop_1901",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r5_lomas_pedregal__vuelta",
+      "to_variant_id": "r4_cuauchiles__vuelta",
+      "from_stop_id": "stop_1974",
+      "to_stop_id": "stop_1974",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r5_tecomulco__ida",
+      "to_variant_id": "r19_tetillas_amador__vuelta",
+      "from_stop_id": "stop_1531",
+      "to_stop_id": "stop_1531",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r5_tecomulco__vuelta",
+      "to_variant_id": "r19_yautepec__vuelta",
+      "from_stop_id": "stop_1563",
+      "to_stop_id": "stop_1563",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r5_tecomulco__vuelta",
+      "to_variant_id": "r3_tetela__ida",
+      "from_stop_id": "stop_1899",
+      "to_stop_id": "stop_1899",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r5_tecomulco__vuelta",
+      "to_variant_id": "r3_villa__ida",
+      "from_stop_id": "stop_1899",
+      "to_stop_id": "stop_1899",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r5_tecomulco__vuelta",
+      "to_variant_id": "r4_palmas__ida",
+      "from_stop_id": "stop_0051",
+      "to_stop_id": "stop_0051",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r6_tranca__ida",
+      "to_variant_id": "r3_mina5__ida",
+      "from_stop_id": "stop_0543",
+      "to_stop_id": "stop_0543",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r6_tranca__ida",
+      "to_variant_id": "r3_mina5__vuelta",
+      "from_stop_id": "stop_0543",
+      "to_stop_id": "stop_0543",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r6_tunel__ida",
+      "to_variant_id": "r4_palmas__ida",
+      "from_stop_id": "stop_0049",
+      "to_stop_id": "stop_0049",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r6_victoria__ida",
+      "to_variant_id": "r3_mina5__ida",
+      "from_stop_id": "stop_1875",
+      "to_stop_id": "stop_1875",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r6_victoria__ida",
+      "to_variant_id": "r3_mina5__vuelta",
+      "from_stop_id": "stop_1875",
+      "to_stop_id": "stop_1875",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r7_progreso__ida",
+      "to_variant_id": "r19_tetillas_amador__ida",
+      "from_stop_id": "stop_1396",
+      "to_stop_id": "stop_1396",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r7_progreso__ida",
+      "to_variant_id": "r19_tetillas_luna__ida",
+      "from_stop_id": "stop_1396",
+      "to_stop_id": "stop_1396",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r7_progreso__ida",
+      "to_variant_id": "r3_tetela__ida",
+      "from_stop_id": "stop_0547",
+      "to_stop_id": "stop_0547",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r7_progreso__ida",
+      "to_variant_id": "r3_tetela__vuelta",
+      "from_stop_id": "stop_0547",
+      "to_stop_id": "stop_0547",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r7_progreso__vuelta",
+      "to_variant_id": "r19_tetillas_amador__ida",
+      "from_stop_id": "stop_0177",
+      "to_stop_id": "stop_0177",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r7_progreso__vuelta",
+      "to_variant_id": "r19_tetillas_luna__ida",
+      "from_stop_id": "stop_0177",
+      "to_stop_id": "stop_0177",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r8_rivera_chulavista__vuelta",
+      "to_variant_id": "r3_villa__ida",
+      "from_stop_id": "stop_1903",
+      "to_stop_id": "stop_1903",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r9_cuauhtemoc__ida",
+      "to_variant_id": "r3_villa__ida",
+      "from_stop_id": "stop_0479",
+      "to_stop_id": "stop_0479",
+      "walk_distance_m": 0,
+      "requires_crossing": false,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r1_jerusalen__vuelta",
+      "to_variant_id": "r2_chipitlan__vuelta",
+      "from_stop_id": "stop_0469",
+      "to_stop_id": "stop_0541",
+      "walk_distance_m": 58,
+      "requires_crossing": true,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r1_jerusalen__vuelta",
+      "to_variant_id": "r3_alpuyeca__ida",
+      "from_stop_id": "stop_0469",
+      "to_stop_id": "stop_0541",
+      "walk_distance_m": 58,
+      "requires_crossing": true,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r1_universidad_guacamayas__vuelta",
+      "to_variant_id": "r3_alpuyeca__ida",
+      "from_stop_id": "stop_0469",
+      "to_stop_id": "stop_0541",
+      "walk_distance_m": 58,
+      "requires_crossing": true,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r1_universidad_guacamayas__vuelta",
+      "to_variant_id": "r3_calera__ida",
+      "from_stop_id": "stop_0469",
+      "to_stop_id": "stop_0541",
+      "walk_distance_m": 58,
+      "requires_crossing": true,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r2_chipitlan__vuelta",
+      "to_variant_id": "r1_jerusalen__vuelta",
+      "from_stop_id": "stop_0541",
+      "to_stop_id": "stop_0469",
+      "walk_distance_m": 58,
+      "requires_crossing": true,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r3_alpuyeca__ida",
+      "to_variant_id": "r1_jerusalen__vuelta",
+      "from_stop_id": "stop_0541",
+      "to_stop_id": "stop_0469",
+      "walk_distance_m": 58,
+      "requires_crossing": true,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r3_alpuyeca__ida",
+      "to_variant_id": "r1_universidad_guacamayas__vuelta",
+      "from_stop_id": "stop_0541",
+      "to_stop_id": "stop_0469",
+      "walk_distance_m": 58,
+      "requires_crossing": true,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r3_calera__ida",
+      "to_variant_id": "r1_universidad_guacamayas__vuelta",
+      "from_stop_id": "stop_0541",
+      "to_stop_id": "stop_0469",
+      "walk_distance_m": 58,
+      "requires_crossing": true,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r3_calera__ida",
+      "to_variant_id": "r9_selva__ida",
+      "from_stop_id": "stop_0541",
+      "to_stop_id": "stop_0469",
+      "walk_distance_m": 58,
+      "requires_crossing": true,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r3_calera__ida",
+      "to_variant_id": "r9_selva__vuelta",
+      "from_stop_id": "stop_0541",
+      "to_stop_id": "stop_0469",
+      "walk_distance_m": 58,
+      "requires_crossing": true,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r9_selva__ida",
+      "to_variant_id": "r3_calera__ida",
+      "from_stop_id": "stop_0469",
+      "to_stop_id": "stop_0541",
+      "walk_distance_m": 58,
+      "requires_crossing": true,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r9_selva__vuelta",
+      "to_variant_id": "r3_calera__ida",
+      "from_stop_id": "stop_0469",
+      "to_stop_id": "stop_0541",
+      "walk_distance_m": 58,
+      "requires_crossing": true,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r16_robles_pueblo__ida",
+      "to_variant_id": "r8_rivera_chulavista__ida",
+      "from_stop_id": "stop_0038",
+      "to_stop_id": "stop_0164",
+      "walk_distance_m": 58,
+      "requires_crossing": true,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r6_tranca__ida",
+      "to_variant_id": "r8_rivera_chulavista__ida",
+      "from_stop_id": "stop_0038",
+      "to_stop_id": "stop_0164",
+      "walk_distance_m": 58,
+      "requires_crossing": true,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r8_rivera_chulavista__ida",
+      "to_variant_id": "r16_robles_pueblo__ida",
+      "from_stop_id": "stop_0164",
+      "to_stop_id": "stop_0038",
+      "walk_distance_m": 58,
+      "requires_crossing": true,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r8_rivera_chulavista__ida",
+      "to_variant_id": "r6_tranca__ida",
+      "from_stop_id": "stop_0164",
+      "to_stop_id": "stop_0038",
+      "walk_distance_m": 58,
+      "requires_crossing": true,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r4_chulavista__vuelta",
+      "to_variant_id": "r9_selva__ida",
+      "from_stop_id": "stop_0027",
+      "to_stop_id": "stop_0469",
+      "walk_distance_m": 60,
+      "requires_crossing": true,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r4_chulavista__vuelta",
+      "to_variant_id": "r9_selva__vuelta",
+      "from_stop_id": "stop_0027",
+      "to_stop_id": "stop_0469",
+      "walk_distance_m": 60,
+      "requires_crossing": true,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r9_selva__ida",
+      "to_variant_id": "r4_chulavista__vuelta",
+      "from_stop_id": "stop_0469",
+      "to_stop_id": "stop_0027",
+      "walk_distance_m": 60,
+      "requires_crossing": true,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r9_selva__vuelta",
+      "to_variant_id": "r4_chulavista__vuelta",
+      "from_stop_id": "stop_0469",
+      "to_stop_id": "stop_0027",
+      "walk_distance_m": 60,
+      "requires_crossing": true,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r16_robles_pueblo__ida",
+      "to_variant_id": "r6_tunel__vuelta",
+      "from_stop_id": "stop_0038",
+      "to_stop_id": "stop_0128",
+      "walk_distance_m": 66,
+      "requires_crossing": true,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r6_tunel__vuelta",
+      "to_variant_id": "r16_robles_pueblo__ida",
+      "from_stop_id": "stop_0128",
+      "to_stop_id": "stop_0038",
+      "walk_distance_m": 66,
+      "requires_crossing": true,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r11_lazaro_cardenas__ida",
+      "to_variant_id": "r8_rivera_altavista__ida",
+      "from_stop_id": "stop_0402",
+      "to_stop_id": "stop_2345",
+      "walk_distance_m": 67,
+      "requires_crossing": true,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r8_rivera_altavista__ida",
+      "to_variant_id": "r11_lazaro_cardenas__ida",
+      "from_stop_id": "stop_2345",
+      "to_stop_id": "stop_0402",
+      "walk_distance_m": 67,
+      "requires_crossing": true,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r6_victoria__ida",
+      "to_variant_id": "r8_rivera_chulavista__ida",
+      "from_stop_id": "stop_0128",
+      "to_stop_id": "stop_0036",
+      "walk_distance_m": 74,
+      "requires_crossing": true,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r6_victoria__ida",
+      "to_variant_id": "r8_rivera_chulavista__vuelta",
+      "from_stop_id": "stop_0128",
+      "to_stop_id": "stop_0036",
+      "walk_distance_m": 74,
+      "requires_crossing": true,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r8_rivera_chulavista__ida",
+      "to_variant_id": "r6_victoria__ida",
+      "from_stop_id": "stop_0036",
+      "to_stop_id": "stop_0128",
+      "walk_distance_m": 74,
+      "requires_crossing": true,
+      "confidence": "estimated"
+    },
+    {
+      "from_variant_id": "r8_rivera_chulavista__vuelta",
+      "to_variant_id": "r6_victoria__ida",
+      "from_stop_id": "stop_0036",
+      "to_stop_id": "stop_0128",
+      "walk_distance_m": 74,
+      "requires_crossing": true,
+      "confidence": "estimated"
+    }
+  ]
+}

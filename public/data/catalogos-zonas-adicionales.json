@@ -1,0 +1,500 @@
+{
+  "generated_at": "2026-07-03T07:10:16.444Z",
+  "zones": [
+    {
+      "zone": "CENTRO",
+      "groups": [
+        {
+          "group": "R10",
+          "routes": [
+            {
+              "label": "Amate Redondo (Amate Redondo -> Amate Redondo Centro)",
+              "archivo": "r10_amate_redondo.geojson",
+              "mid": "r10_amate_redondo__ida"
+            },
+            {
+              "label": "Barona - Centro - Águilas (Barona -> Águilas)",
+              "archivo": "r10_barona_aguilas.geojson",
+              "mid": "r10_barona_aguilas__ida"
+            },
+            {
+              "label": "Barona - Palmas - CCALM (Barona -> CCALM)",
+              "archivo": "r10_barona_palmas.geojson",
+              "mid": "r10_barona_palmas__ida"
+            },
+            {
+              "label": "Plan de Ayala - Águilas (Plan de Ayala -> Águilas)",
+              "archivo": "r10_plan_aguilas.geojson",
+              "mid": "r10_plan_aguilas__ida"
+            }
+          ]
+        },
+        {
+          "group": "R11",
+          "routes": [
+            {
+              "label": "Acatlipa - Loop (Circuito principal)",
+              "archivo": "r11_acatlipa_loop.geojson",
+              "mid": "r11_acatlipa_loop__ida"
+            },
+            {
+              "label": "Villa de las Flores - 10 Abril (Villa de las Flores -> 10 Abril)",
+              "archivo": "r11_diez_abril.geojson",
+              "mid": "r11_diez_abril__ida"
+            },
+            {
+              "label": "Lázaro Cárdenas - Lauro Ortega (Lázaro Cárdenas -> Lauro Ortega)",
+              "archivo": "r11_lazaro_cardenas.geojson",
+              "mid": "r11_lazaro_cardenas__ida"
+            },
+            {
+              "label": "Santa Úrsula (Santa Ursula -> Santa Ursula Centro)",
+              "archivo": "r11_santa_ursula.geojson",
+              "mid": "r11_santa_ursula__ida"
+            }
+          ]
+        },
+        {
+          "group": "R12",
+          "routes": [
+            {
+              "label": "Aeropuerto - Unidad Morelos (Aeropuerto -> Unidad Morelos)",
+              "archivo": "r12_aeropuerto_morelos.geojson",
+              "mid": "r12_aeropuerto_morelos__ida"
+            },
+            {
+              "label": "Ejido - Alta Palmira (Ejido -> Alta Palmira)",
+              "archivo": "r12_alta_palmira.geojson",
+              "mid": "r12_alta_palmira__ida"
+            },
+            {
+              "label": "Cruz de la Misión (Cruz Mision -> Cruz Mision Centro)",
+              "archivo": "r12_cruz_mision.geojson",
+              "mid": "r12_cruz_mision__ida"
+            },
+            {
+              "label": "Tepuente - Independencia (Tepuente -> Independencia)",
+              "archivo": "r12_tepuente_independencia.geojson",
+              "mid": "r12_tepuente_independencia__ida"
+            }
+          ]
+        },
+        {
+          "group": "R13",
+          "routes": [
+            {
+              "label": "Univ. - Fuentes - San Gaspar (Univ. -> San Gaspar)",
+              "archivo": "r13_fuentes.geojson",
+              "mid": "r13_fuentes__ida"
+            },
+            {
+              "label": "Univ. - Naranjos - San Gaspar (Univ. -> San Gaspar)",
+              "archivo": "r13_naranjos.geojson",
+              "mid": "r13_naranjos__ida"
+            },
+            {
+              "label": "Jerusalén - Pochotal (Jerusalén -> Pochotal)",
+              "archivo": "r13_pochotal.geojson",
+              "mid": "r13_pochotal__ida"
+            },
+            {
+              "label": "Universidad - La Rosa (Universidad -> La Rosa)",
+              "archivo": "r13_rosa_jiutepec.geojson",
+              "mid": "r13_rosa_jiutepec__ida"
+            },
+            {
+              "label": "La Rosa - Francisco Villa (La Rosa -> Francisco Villa)",
+              "archivo": "r13_villa_jiutepec.geojson",
+              "mid": "r13_villa_jiutepec__ida"
+            }
+          ]
+        },
+        {
+          "group": "R14",
+          "routes": [
+            {
+              "label": "Campo Sotelo - Bugambilias (Campo Sotelo -> Bugambilias)",
+              "archivo": "r14_bugambilias.geojson",
+              "mid": "r14_bugambilias__ida"
+            },
+            {
+              "label": "Campo Sotelo - Las Granjas (Campo Sotelo -> Las Granjas)",
+              "archivo": "r14_granjas.geojson",
+              "mid": "r14_granjas__ida"
+            }
+          ]
+        },
+        {
+          "group": "R15",
+          "routes": [
+            {
+              "label": "Porvenir - Chapultepec - UAEM (Porvenir -> UAEM)",
+              "archivo": "r15_chapultepec.geojson",
+              "mid": "r15_chapultepec__ida"
+            },
+            {
+              "label": "Porvenir - Sta. María - ALM (Porvenir -> ALM)",
+              "archivo": "r15_morelos_maria_alm.geojson",
+              "mid": "r15_morelos_maria_alm__ida"
+            },
+            {
+              "label": "Porvenir - Sta. Martha - UAEM (Porvenir -> UAEM)",
+              "archivo": "r15_morelos_martha.geojson",
+              "mid": "r15_morelos_martha__ida"
+            }
+          ]
+        },
+        {
+          "group": "R16",
+          "routes": [
+            {
+              "label": "Josefa - Lomas del Carril (Josefa -> Lomas del Carril)",
+              "archivo": "r16_josefa_carril.geojson",
+              "mid": "r16_josefa_carril__ida"
+            },
+            {
+              "label": "Josefa - Pueblo Viejo (Josefa -> Pueblo Viejo)",
+              "archivo": "r16_josefa_pueblo.geojson",
+              "mid": "r16_josefa_pueblo__ida"
+            },
+            {
+              "label": "Robles - Lomas del Carril (Robles -> Lomas del Carril)",
+              "archivo": "r16_robles_carril.geojson",
+              "mid": "r16_robles_carril__ida"
+            },
+            {
+              "label": "Robles - Mirador (Azteca) (Robles -> Mirador (Azteca))",
+              "archivo": "r16_robles_mirador.geojson",
+              "mid": "r16_robles_mirador__ida"
+            },
+            {
+              "label": "Robles - Pueblo Viejo (Robles -> Pueblo Viejo)",
+              "archivo": "r16_robles_pueblo.geojson",
+              "mid": "r16_robles_pueblo__ida"
+            }
+          ]
+        },
+        {
+          "group": "R17",
+          "routes": [
+            {
+              "label": "Calera Chica - Centro (Calera Chica -> Centro)",
+              "archivo": "r17_calera_chica.geojson",
+              "mid": "r17_calera_chica__ida"
+            },
+            {
+              "label": "Modesto Rangel - Flores (Modesto Rangel -> Flores)",
+              "archivo": "r17_modesto_flores.geojson",
+              "mid": "r17_modesto_flores__ida"
+            },
+            {
+              "label": "Otilio Montaño - Centro (Otilio Montaño -> Centro)",
+              "archivo": "r17_otilio_centro.geojson",
+              "mid": "r17_otilio_centro__ida"
+            },
+            {
+              "label": "La Rosa - Campestre (La Rosa -> Campestre)",
+              "archivo": "r17_rosa_campestre.geojson",
+              "mid": "r17_rosa_campestre__ida"
+            },
+            {
+              "label": "Temixco - Zapata - Otilio (Temixco -> Otilio)",
+              "archivo": "r17_temixco_zapata.geojson",
+              "mid": "r17_temixco_zapata__ida"
+            }
+          ]
+        },
+        {
+          "group": "R18",
+          "routes": [
+            {
+              "label": "Chamilpa - Francisco Villa (Chamilpa -> Francisco Villa)",
+              "archivo": "r18_francisco_villa.geojson",
+              "mid": "r18_francisco_villa__ida"
+            },
+            {
+              "label": "Chamilpa - Joyas del Agua (Chamilpa -> Joyas del Agua)",
+              "archivo": "r18_joyas_agua.geojson",
+              "mid": "r18_joyas_agua__ida"
+            },
+            {
+              "label": "Chamilpa - Parres (Chamilpa -> Parres)",
+              "archivo": "r18_parres.geojson",
+              "mid": "r18_parres__ida"
+            },
+            {
+              "label": "Chamilpa - Pochotal (Chamilpa -> Pochotal)",
+              "archivo": "r18_pochotal.geojson",
+              "mid": "r18_pochotal__ida"
+            }
+          ]
+        },
+        {
+          "group": "R19",
+          "routes": [
+            {
+              "label": "Álvaro Leonel - Circuito (Circuito principal)",
+              "archivo": "r19_alvaro_leonel_circuito.geojson",
+              "mid": "r19_alvaro_leonel_circuito__ida"
+            },
+            {
+              "label": "Álvaro Leonel - El Puerto (Álvaro Leonel -> El Puerto)",
+              "archivo": "r19_alvaro_leonel_puerto.geojson",
+              "mid": "r19_alvaro_leonel_puerto__ida"
+            },
+            {
+              "label": "Amador Salazar - Tetillas (Amador Salazar -> Tetillas)",
+              "archivo": "r19_amador_salazar.geojson",
+              "mid": "r19_amador_salazar__ida"
+            },
+            {
+              "label": "Colosio - Chapultepec (Colosio -> Chapultepec)",
+              "archivo": "r19_colosio.geojson",
+              "mid": "r19_colosio__ida"
+            },
+            {
+              "label": "Jardín Juárez (Jardin Juarez -> Jardin Juarez Centro)",
+              "archivo": "r19_jardin_juarez.geojson",
+              "mid": "r19_jardin_juarez__ida"
+            },
+            {
+              "label": "Tetillas - Amador Salazar (Tetillas -> Amador Salazar)",
+              "archivo": "r19_tetillas_amador.geojson",
+              "mid": "r19_tetillas_amador__ida"
+            },
+            {
+              "label": "Tetillas - Luna (Tetillas -> Luna)",
+              "archivo": "r19_tetillas_luna.geojson",
+              "mid": "r19_tetillas_luna__ida"
+            },
+            {
+              "label": "Yautepec - Directo (Yautepec -> Directo)",
+              "archivo": "r19_yautepec.geojson",
+              "mid": "r19_yautepec__ida"
+            }
+          ]
+        },
+        {
+          "group": "R1",
+          "routes": [
+            {
+              "label": "Acatlipa (Acatlipa -> Acatlipa Centro)",
+              "archivo": "r1_acatlipa.geojson",
+              "mid": "r1_acatlipa__ida"
+            },
+            {
+              "label": "Jerusalén (Jerusalen -> Jerusalen Centro)",
+              "archivo": "r1_jerusalen.geojson",
+              "mid": "r1_jerusalen__ida"
+            },
+            {
+              "label": "Universidad - Guacamayas (Universidad -> Guacamayas)",
+              "archivo": "r1_universidad_guacamayas.geojson",
+              "mid": "r1_universidad_guacamayas__ida"
+            }
+          ]
+        },
+        {
+          "group": "R20",
+          "routes": [
+            {
+              "label": "Palo Escrito - Zapata (Palo Escrito -> Zapata)",
+              "archivo": "r20_palo_escrito.geojson",
+              "mid": "r20_palo_escrito__ida"
+            },
+            {
+              "label": "Tezoyuca - Tetecalita (Tezoyuca -> Tetecalita)",
+              "archivo": "r20_tetecalita.geojson",
+              "mid": "r20_tetecalita__ida"
+            },
+            {
+              "label": "Tezoyuca - Zapata - Centro (Circuito principal)",
+              "archivo": "r20_tezoyuca_loop.geojson",
+              "mid": "r20_tezoyuca_loop__ida"
+            }
+          ]
+        },
+        {
+          "group": "R2",
+          "routes": [
+            {
+              "label": "Hdez. Navarro - Chipitlán (Hdez. Navarro -> Chipitlán)",
+              "archivo": "r2_chipitlan.geojson",
+              "mid": "r2_chipitlan__ida"
+            },
+            {
+              "label": "Hdez. Navarro - Domingo Diez (Hdez. Navarro -> Domingo Diez)",
+              "archivo": "r2_domingo_diez.geojson",
+              "mid": "r2_domingo_diez__ida"
+            },
+            {
+              "label": "Hdez. Navarro - E. Zapata (Hdez. Navarro -> E. Zapata)",
+              "archivo": "r2_emiliano_zapata.geojson",
+              "mid": "r2_emiliano_zapata__ida"
+            }
+          ]
+        },
+        {
+          "group": "R3",
+          "routes": [
+            {
+              "label": "Santa María - Alpuyeca (Santa María -> Alpuyeca)",
+              "archivo": "r3_alpuyeca.geojson",
+              "mid": "r3_alpuyeca__ida"
+            },
+            {
+              "label": "Santa María - Calera (Santa María -> Calera)",
+              "archivo": "r3_calera.geojson",
+              "mid": "r3_calera__ida"
+            },
+            {
+              "label": "Santa María - Mina 5 (Santa María -> Mina 5)",
+              "archivo": "r3_mina5.geojson",
+              "mid": "r3_mina5__ida"
+            },
+            {
+              "label": "Tetela del Monte (Tetela -> Tetela Centro)",
+              "archivo": "r3_tetela.geojson",
+              "mid": "r3_tetela__ida"
+            },
+            {
+              "label": "Santa María - Fco. Villa (Santa María -> Fco. Villa)",
+              "archivo": "r3_villa.geojson",
+              "mid": "r3_villa__ida"
+            }
+          ]
+        },
+        {
+          "group": "R4",
+          "routes": [
+            {
+              "label": "Barona - Chulavista (Barona -> Chulavista)",
+              "archivo": "r4_chulavista.geojson",
+              "mid": "r4_chulavista__ida"
+            },
+            {
+              "label": "Barona - Cuauchiles (Barona -> Cuauchiles)",
+              "archivo": "r4_cuauchiles.geojson",
+              "mid": "r4_cuauchiles__ida"
+            },
+            {
+              "label": "Barona - El Salto (Barona -> El Salto)",
+              "archivo": "r4_elsalto.geojson",
+              "mid": "r4_elsalto__ida"
+            },
+            {
+              "label": "Barona - Palmas (Barona -> Palmas)",
+              "archivo": "r4_palmas.geojson",
+              "mid": "r4_palmas__ida"
+            }
+          ]
+        },
+        {
+          "group": "R5",
+          "routes": [
+            {
+              "label": "Lomas de Cortés - Oriente (Lomas de Cortés -> Oriente)",
+              "archivo": "r5_lomas_oriente.geojson",
+              "mid": "r5_lomas_oriente__ida"
+            },
+            {
+              "label": "Lomas de Cortés - Pedregal (Lomas de Cortés -> Pedregal)",
+              "archivo": "r5_lomas_pedregal.geojson",
+              "mid": "r5_lomas_pedregal__ida"
+            },
+            {
+              "label": "Lomas de Cortés - Tecomulco (Lomas de Cortés -> Tecomulco)",
+              "archivo": "r5_tecomulco.geojson",
+              "mid": "r5_tecomulco__ida"
+            }
+          ]
+        },
+        {
+          "group": "R6",
+          "routes": [
+            {
+              "label": "Atlacomulco - Morelos (Atlacomulco -> Morelos)",
+              "archivo": "r6_atlacomulco.geojson",
+              "mid": "r6_atlacomulco__ida"
+            },
+            {
+              "label": "Acapantzingo - Jardines (Acapantzingo -> Jardines)",
+              "archivo": "r6_jardines.geojson",
+              "mid": "r6_jardines__ida"
+            },
+            {
+              "label": "La Tranca (Tranca -> Tranca Centro)",
+              "archivo": "r6_tranca.geojson",
+              "mid": "r6_tranca__ida"
+            },
+            {
+              "label": "Acapantzingo - Túnel (Acapantzingo -> Túnel)",
+              "archivo": "r6_tunel.geojson",
+              "mid": "r6_tunel__ida"
+            },
+            {
+              "label": "Acapantzingo - Victoria (Acapantzingo -> Victoria)",
+              "archivo": "r6_victoria.geojson",
+              "mid": "r6_victoria__ida"
+            }
+          ]
+        },
+        {
+          "group": "R7",
+          "routes": [
+            {
+              "label": "La Joya - Independencia (La Joya -> Independencia)",
+              "archivo": "r7_joya_independencia.geojson",
+              "mid": "r7_joya_independencia__ida"
+            },
+            {
+              "label": "Progreso - Jardín Juárez (Progreso -> Jardín Juárez)",
+              "archivo": "r7_progreso.geojson",
+              "mid": "r7_progreso__ida"
+            },
+            {
+              "label": "Tecnos - Tejalpa (Tecnos -> Tejalpa)",
+              "archivo": "r7_tejalpa.geojson",
+              "mid": "r7_tejalpa__ida"
+            }
+          ]
+        },
+        {
+          "group": "R8",
+          "routes": [
+            {
+              "label": "Jacarandas - Altavista (Jacarandas -> Altavista)",
+              "archivo": "r8_jacarandas.geojson",
+              "mid": "r8_jacarandas__ida"
+            },
+            {
+              "label": "Rivera Crespo - Altavista (Rivera Crespo -> Altavista)",
+              "archivo": "r8_rivera_altavista.geojson",
+              "mid": "r8_rivera_altavista__ida"
+            },
+            {
+              "label": "Rivera - Chulavista (Rivera -> Chulavista)",
+              "archivo": "r8_rivera_chulavista.geojson",
+              "mid": "r8_rivera_chulavista__ida"
+            }
+          ]
+        },
+        {
+          "group": "R9",
+          "routes": [
+            {
+              "label": "Flores Magón - Cuauhtémoc (Flores Magón -> Cuauhtémoc)",
+              "archivo": "r9_cuauhtemoc.geojson",
+              "mid": "r9_cuauhtemoc__ida"
+            },
+            {
+              "label": "Flores Magón - Selva (Flores Magón -> Selva)",
+              "archivo": "r9_selva.geojson",
+              "mid": "r9_selva__ida"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

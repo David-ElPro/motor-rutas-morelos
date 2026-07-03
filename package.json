@@ -2,9 +2,13 @@
   "name": "motor-rutas-morelos",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server/app-server.js",
   "scripts": {
+    "catalogs:build": "node scripts/generate-data.js",
     "build:web": "node scripts/build-web.js",
+    "dev": "node server/app-server.js --root . --port 4173",
+    "serve:dist": "node server/app-server.js --root dist/web --port 4173",
+    "telemetry:db:init": "node server/app-server.js --init-db",
     "cap:sync": "npm run build:web && npx cap sync",
     "cap:add:android": "npm run build:web && npx cap add android",
     "cap:open:android": "npm run build:web && npx cap open android",
@@ -20,7 +24,8 @@
     "@capacitor/core": "^8.4.0",
     "@tmcw/togeojson": "^7.1.2",
     "@xmldom/xmldom": "^0.9.10",
-    "axios": "^1.15.2"
+    "axios": "^1.15.2",
+    "sql.js": "^1.13.0"
   },
   "devDependencies": {
     "@capacitor/assets": "^3.0.5"

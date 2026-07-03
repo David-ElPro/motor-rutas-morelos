@@ -2,6 +2,11 @@ const axios = require('axios');
 const { DOMParser } = require('@xmldom/xmldom');
 const toGeoJSON = require('@tmcw/togeojson');
 const fs = require('fs/promises');
+const path = require('path');
+
+const ROOT = path.resolve(__dirname, '..');
+const ROUTES_DIR = path.join(ROOT, 'public', 'routes');
+const ADDITIONAL_CATALOG_PATH = path.join(ROOT, 'public', 'data', 'catalogos-zonas-adicionales.json');
 
 async function extractRouteData(mapId, routeName, outputFileName) {
     try {
@@ -19,10 +24,12 @@ async function extractRouteData(mapId, routeName, outputFileName) {
 
         // Normalizamos el nombre del archivo para que sea r1_nombre.geojson
         const fileName = outputFileName || `${routeName.toLowerCase().replace(/\s+/g, "_")}.geojson`;
+        const targetPath = path.join(ROUTES_DIR, fileName);
 
-        await fs.writeFile(fileName, JSON.stringify(geoJson, null, 2));
+        await fs.mkdir(ROUTES_DIR, { recursive: true });
+        await fs.writeFile(targetPath, JSON.stringify(geoJson, null, 2));
 
-        console.log(`[SUCCESS] Listo. Trazos guardados en ${fileName}`);
+        console.log(`[SUCCESS] Listo. Trazos guardados en ${targetPath}`);
 
     } catch (error) {
         console.error(`[ERROR] Falló la extracción para ${routeName}:`, error.message);
@@ -136,7 +143,7 @@ const ramalesRuta1 = [
 
 async function cargarRutasAdicionales() {
     try {
-        const manifest = JSON.parse(await fs.readFile('catalogos-zonas-adicionales.json', 'utf8'));
+        const manifest = JSON.parse(await fs.readFile(ADDITIONAL_CATALOG_PATH, 'utf8'));
         return manifest.zones.flatMap((zona) =>
             zona.groups.flatMap((grupo) =>
                 grupo.routes.map((ruta) => ({
