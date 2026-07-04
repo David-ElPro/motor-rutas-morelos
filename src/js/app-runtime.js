@@ -773,7 +773,8 @@
         const paso = Math.max(2, Math.floor(coordinates.length / 5));
         for (let index = 0; index < coordinates.length - 1; index += paso) {
             const origen = coordinates[index];
-            const destino = coordinates[Math.min(index + paso, coordinates.length - 1)];
+            const targetIndex = Math.min(index + paso, coordinates.length - 1);
+            const destino = coordinates[targetIndex];
             if (!origen || !destino) continue;
 
             const rumbo = calcularRumbo(origen, destino);
@@ -792,12 +793,13 @@
                 iconAnchor: [14, 14]
             });
 
-            const puntoMedio = [
-                (origen[1] + destino[1]) / 2,
-                (origen[0] + destino[0]) / 2
-            ];
+            const markerIndex = Math.min(
+                coordinates.length - 1,
+                index + Math.max(1, Math.floor((targetIndex - index) / 2))
+            );
+            const puntoSobreRuta = coordinates[markerIndex] || origen;
 
-            L.marker(puntoMedio, {
+            L.marker([puntoSobreRuta[1], puntoSobreRuta[0]], {
                 icon: arrowIcon,
                 interactive: false
             }).addTo(flechasRutaLayer);
