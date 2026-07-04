@@ -57,8 +57,16 @@ function setSheetExpanded(expanded) {
   syncMapAfterSheetResize();
 }
 
+window.setSheetExpanded = setSheetExpanded;
+
 function setPanel(panel) {
   state.panel = panel;
+  if (panel !== 'catalog') {
+    document.body.classList.remove('catalog-collapsed');
+  }
+  if (panel === 'planner' || panel === 'catalog') {
+    window.restaurarMarcadoresSeleccionBase?.();
+  }
   const sidebar = sidebarElement();
   if (sidebar) {
     sidebar.dataset.panel = panel;
@@ -331,7 +339,7 @@ function renderRecommendations(tripResults) {
     const color = option.type === 'transfer' ? option.legs[0].color : option.color;
     list.insertAdjacentHTML('beforeend', `
       <div class="ramal-item" data-option-id="${option.optionId}" style="margin-bottom:10px; border-left:4px solid ${color}; flex-direction:column; align-items:flex-start; padding:12px;"
-           onclick="mostrarItinerarioRecomendado('${option.optionId}')">
+           onclick="window.__rutappShowOption('${option.optionId}')">
         <div style="width:100%; margin-bottom:8px;">
           <i class="fa fa-bus" style="color:${color};"></i>
           <b style="font-size:0.95rem;">${option.routeName}</b>
@@ -375,6 +383,7 @@ async function runRecommendation() {
   document.getElementById('recomendaciones-panel').style.display = 'block';
   list.innerHTML = '<div class="ramal-item" style="padding:15px;"><i class="fa fa-spinner fa-spin"></i> Analizando variantes, paradas y transbordos...</div>';
   document.getElementById('btnTomarRuta').style.display = 'none';
+  setPanel('results');
 
   const variants = getActiveVariants(state.catalogs, zone);
   const results = recommendTrips(state.catalogs, variants, originPoint, destinationPoint);
@@ -485,20 +494,26 @@ function patchBaseHooks() {
 }
 
 function patchSearchFunctions() {
-  window.buscarLugarOrigenAPI = () => attachSearch('originInput', 'originSuggestionsBox', (result) => {
+  const searchOrigin = () => attachSearch('originInput', 'originSuggestionsBox', (result) => {
     if (typeof window.seleccionarLugarOrigen === 'function') {
       window.seleccionarLugarOrigen(result.lat, result.lng, result.name);
     }
   });
+  window.__rutappSearchOrigin = searchOrigin;
+  window.buscarLugarOrigenAPI = searchOrigin;
 
-  window.buscarLugarAPI = () => attachSearch('destinationInput', 'suggestionsBox', (result) => {
+  const searchDestination = () => attachSearch('destinationInput', 'suggestionsBox', (result) => {
     if (typeof window.seleccionarLugarDestino === 'function') {
       window.seleccionarLugarDestino(result.lat, result.lng, result.name);
     }
   });
+  window.__rutappSearchDestination = searchDestination;
+  window.buscarLugarAPI = searchDestination;
 }
 
 function patchRecommendationFunctions() {
+  window.__rutappRunRecommendation = runRecommendation;
+  window.__rutappShowOption = showOption;
   window.recomendarRutas = runRecommendation;
   window.mostrarItinerarioRecomendado = showOption;
   window.volverAEdicionViaje = () => {
@@ -517,9 +532,12 @@ function patchRecommendationFunctions() {
     setPanel('results');
   };
   window.abrirCatalogoManual = () => {
+    document.body.classList.remove('catalog-collapsed');
     setPanel('catalog');
+    window.setSheetExpanded?.(true);
   };
   window.cerrarCatalogoManual = () => {
+    document.body.classList.remove('catalog-collapsed');
     setPanel(state.selectedOptionId ? 'detail' : (state.results.size ? 'results' : 'planner'));
   };
 }

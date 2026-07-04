@@ -301,6 +301,52 @@
             flex-direction: column;
             gap: 12px;
         }
+        .catalog-selection-summary {
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            padding: 14px 16px;
+            border-radius: 18px;
+            border: 1px solid rgba(255,255,255,0.12);
+            background: rgba(15, 23, 42, 0.92);
+            box-shadow: 0 18px 40px rgba(0,0,0,0.26);
+            cursor: pointer;
+        }
+        .catalog-selection-summary.hidden {
+            display: none !important;
+        }
+        .catalog-selection-main {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 0;
+        }
+        .catalog-selection-main > i:first-child {
+            color: var(--route-color, var(--accent));
+            font-size: 1.05rem;
+        }
+        .catalog-selection-copy {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+        .catalog-selection-copy strong {
+            font-size: 0.92rem;
+            color: var(--text-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .catalog-selection-copy span {
+            font-size: 0.76rem;
+            color: var(--text-secondary);
+        }
+        body.theme-light .catalog-selection-summary {
+            border-color: rgba(15,23,42,0.08);
+            background: rgba(255,255,255,0.96);
+            box-shadow: 0 16px 30px rgba(15,23,42,0.12);
+        }
         .catalog-shell.hidden {
             display: none !important;
         }
@@ -314,6 +360,12 @@
         }
         .sidebar[data-panel="results"] .section-detail,
         .sidebar[data-panel="results"] .catalog-shell {
+            display: none;
+        }
+        .sidebar[data-panel="results"] .search-origin,
+        .sidebar[data-panel="results"] .search-destination,
+        .sidebar[data-panel="detail"] .search-origin,
+        .sidebar[data-panel="detail"] .search-destination {
             display: none;
         }
         .sidebar[data-panel="results"] .planner-summary,
@@ -350,11 +402,42 @@
             padding: 10px 0 12px; margin-bottom: 15px; z-index: 80;
             backdrop-filter: blur(12px);
         }
+        .search-input-shell {
+            position: relative;
+        }
         .search-box input, .search-destination input, .search-origin input {
             width: 100%; padding: 12px 15px; border-radius: 12px;
             border: 1px solid rgba(255,255,255,0.2);
             background: var(--input-bg); color: var(--text-primary);
             box-sizing: border-box; font-size: 14px; outline: none;
+        }
+        .search-box .search-input-shell input {
+            padding-right: 44px;
+        }
+        .search-clear-btn {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            width: 28px;
+            height: 28px;
+            border: none;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.72);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+        }
+        .search-clear-btn:hover {
+            background: rgba(255,255,255,0.18);
+            color: #fff;
+        }
+        .search-clear-btn i {
+            font-size: 0.82rem;
+            pointer-events: none;
         }
 
         /* Sugerencias Autocompletado */
@@ -786,6 +869,14 @@
         body.theme-light #routeSearch::placeholder {
             color: rgba(15, 23, 42, 0.42);
         }
+        body.theme-light .search-clear-btn {
+            background: rgba(15, 23, 42, 0.08);
+            color: rgba(15, 23, 42, 0.58);
+        }
+        body.theme-light .search-clear-btn:hover {
+            background: rgba(15, 23, 42, 0.14);
+            color: #0f172a;
+        }
         body.theme-light .ruta-master,
         body.theme-light .route-master {
             color: #0f172a !important;
@@ -972,10 +1063,25 @@
 
         /* Rutas y Ramales */
         .ruta-master {
-            width: 100%; padding: 14px; margin-top: 10px; border: none;
+            width: 100%; padding: 14px; margin-top: 10px;
             border-radius: 14px; font-weight: 600; cursor: pointer;
             display: flex; justify-content: space-between; align-items: center;
             transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.12);
+            background: rgba(255,255,255,0.08) !important;
+            color: var(--text-primary) !important;
+            box-shadow: 0 10px 22px rgba(0, 0, 0, 0.2);
+        }
+        .ruta-master span {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .ruta-master .fa-bus {
+            color: var(--route-color, var(--accent));
+        }
+        .ruta-master .fa-chevron-down {
+            color: var(--text-secondary);
         }
         .ramales-container {
             background: rgba(255, 255, 255, 0.05); margin-top: 8px;
@@ -983,69 +1089,69 @@
         }
         .grupo-ruta.active > .ruta-master {
             box-shadow: 0 10px 22px rgba(0, 0, 0, 0.24);
-            filter: saturate(1.08);
             transform: translateY(-1px);
-            border-color: rgba(255, 255, 255, 0.22);
-            background: linear-gradient(135deg, color-mix(in srgb, var(--route-color, #22c55e) 72%, #ffffff 28%), color-mix(in srgb, var(--route-color, #22c55e) 88%, #000000 12%));
-            color: #000;
+            border-color: rgba(255,255,255,0.22);
+            background: rgba(255,255,255,0.11) !important;
+            color: var(--text-primary) !important;
         }
         .grupo-ruta.active > .ruta-master * {
-            color: #000 !important;
+            color: inherit !important;
+        }
+        .grupo-ruta.active > .ruta-master .fa-bus {
+            color: var(--route-color, var(--accent)) !important;
         }
         body.theme-light .grupo-ruta.active > .ruta-master {
             box-shadow: 0 10px 22px rgba(15, 23, 42, 0.12);
             border-color: rgba(15, 23, 42, 0.12);
-            background: linear-gradient(135deg, color-mix(in srgb, var(--route-color, #22c55e) 78%, #ffffff 22%), color-mix(in srgb, var(--route-color, #22c55e) 90%, #ffffff 10%));
+            background: rgba(255,255,255,0.96) !important;
         }
         .ramal-item {
             padding: 10px 14px; font-size: 0.9rem; cursor: pointer; display: flex;
             align-items: center; gap: 12px; border-radius: 10px; transition: all 0.3s ease;
-            color: rgba(255, 255, 255, 0.7);
+            color: rgba(255, 255, 255, 0.84);
+            border: 1px solid transparent;
+            background: rgba(255,255,255,0.04);
         }
         .ramal-item:hover { background: rgba(255, 255, 255, 0.08); }
 
         /* ESTILO: RUTA SELECCIONADA */
         .ramal-item.selected-route {
-            background: linear-gradient(135deg, color-mix(in srgb, var(--route-color, #ffffff) 88%, #ffffff 12%), var(--route-color, #ffffff)) !important;
-            color: #000 !important;
-            transform: scale(1.02);
-            box-shadow: 0 0 0 1px rgba(255,255,255,0.25), 0 10px 24px rgba(0,0,0,0.32), 0 0 24px color-mix(in srgb, var(--route-color, #38bdf8) 55%, transparent);
-            border-color: transparent !important;
-            outline: 2px solid color-mix(in srgb, var(--route-color, #38bdf8) 70%, #ffffff 30%);
-            animation: routeGlow 1.8s ease-in-out infinite;
+            background: rgba(255,255,255,0.08) !important;
+            color: var(--text-primary) !important;
+            transform: translateY(-1px);
+            box-shadow: 0 10px 24px rgba(0,0,0,0.24);
+            border-color: rgba(255,255,255,0.18) !important;
+            outline: none;
+            animation: none;
         }
-        .ramal-item.selected-route * { color: #000 !important; }
+        .ramal-item.selected-route * { color: inherit !important; }
         .ramal-item.active {
-            border-left: 4px solid var(--route-color, #38bdf8);
-            background: rgba(56, 189, 248, 0.12);
-            color: #fff;
+            background: rgba(255,255,255,0.08);
+            color: var(--text-primary);
             box-shadow: 0 8px 22px rgba(0, 0, 0, 0.24);
-            padding-left: 12px;
+            padding-left: 14px;
         }
-        .ramal-item.active * { color: #fff !important; }
+        .ramal-item.active * { color: inherit !important; }
         .ramal-item.active.selected-route {
-            background: linear-gradient(135deg, color-mix(in srgb, var(--route-color, #ffffff) 88%, #ffffff 12%), var(--route-color, #ffffff)) !important;
-            color: #000 !important;
-            border-left-color: rgba(255,255,255,0.85);
-            box-shadow: 0 0 0 1px rgba(255,255,255,0.25), 0 10px 24px rgba(0,0,0,0.32), 0 0 28px color-mix(in srgb, var(--route-color, #38bdf8) 62%, transparent) !important;
+            background: rgba(255,255,255,0.08) !important;
+            color: var(--text-primary) !important;
+            box-shadow: 0 10px 24px rgba(0,0,0,0.28) !important;
         }
-        .ramal-item.active.selected-route * { color: #000 !important; }
+        .ramal-item.active.selected-route * { color: inherit !important; }
         .ramal-item.active.selected-route i {
-            color: #000 !important;
-            text-shadow: 0 0 8px rgba(255,255,255,0.45);
-        }
-        @keyframes routeGlow {
-            0%, 100% {
-                box-shadow: 0 0 0 1px rgba(255,255,255,0.25), 0 10px 24px rgba(0,0,0,0.32), 0 0 22px color-mix(in srgb, var(--route-color, #38bdf8) 48%, transparent);
-            }
-            50% {
-                box-shadow: 0 0 0 1px rgba(255,255,255,0.35), 0 12px 28px rgba(0,0,0,0.38), 0 0 30px color-mix(in srgb, var(--route-color, #38bdf8) 72%, transparent);
-            }
+            color: var(--route-color, var(--accent)) !important;
+            text-shadow: none;
         }
 
-        .ramal-item i { font-size: 1.1rem; width: 22px; text-align: center; }
+        .ramal-item i { font-size: 1.1rem; width: 22px; text-align: center; color: rgba(255,255,255,0.56); }
         body.theme-light .ramales-container {
             background: rgba(15, 23, 42, 0.04);
+        }
+        body.theme-light .ruta-master {
+            border-color: rgba(15, 23, 42, 0.08);
+            background: rgba(255,255,255,0.95) !important;
+            color: #0f172a !important;
+            box-shadow: 0 8px 18px rgba(15, 23, 42, 0.08);
         }
         body.theme-light .ramal-item {
             background: rgba(255, 255, 255, 0.94);
@@ -1057,24 +1163,26 @@
             background: #ffffff;
         }
         body.theme-light .ramal-item.selected-route {
-            box-shadow: 0 0 0 1px rgba(255,255,255,0.5), 0 10px 22px rgba(15, 23, 42, 0.14), 0 0 24px color-mix(in srgb, var(--route-color, #38bdf8) 42%, transparent);
+            background: #ffffff !important;
+            box-shadow: 0 10px 22px rgba(15, 23, 42, 0.12);
+            border-color: rgba(15,23,42,0.12) !important;
         }
         body.theme-light .ramal-item.active.selected-route {
-            background: linear-gradient(135deg, color-mix(in srgb, var(--route-color, #ffffff) 80%, #ffffff 20%), var(--route-color, #ffffff)) !important;
+            background: #ffffff !important;
             color: #0f172a !important;
-            border: 1px solid rgba(255,255,255,0.7);
-            box-shadow: 0 0 0 1px rgba(255,255,255,0.55), 0 12px 24px rgba(15, 23, 42, 0.14), 0 0 28px color-mix(in srgb, var(--route-color, #38bdf8) 55%, transparent) !important;
+            border: 1px solid rgba(15,23,42,0.12);
+            box-shadow: 0 12px 24px rgba(15, 23, 42, 0.14) !important;
         }
         body.theme-light .ramal-item.active.selected-route * {
             color: #0f172a !important;
         }
         body.theme-light .ramal-item.active.selected-route i {
-            color: #0f172a !important;
+            color: var(--route-color, var(--accent)) !important;
         }
         body.theme-light .ramal-item.active {
-            background: rgba(56, 189, 248, 0.12);
+            background: #ffffff;
             color: #0f172a;
-            border: 1px solid rgba(56, 189, 248, 0.22);
+            border: 1px solid rgba(15,23,42,0.12);
         }
         body.theme-light .ramal-item.active * {
             color: #0f172a !important;
@@ -1494,6 +1602,12 @@
                 --mobile-sheet-controls-offset: calc(58vh + 15px);
                 --mobile-sheet-leaflet-bottom: 58vh;
             }
+            body.sheet-catalog.catalog-collapsed {
+                --mobile-sheet-height: 16vh;
+                --mobile-sheet-max-height: 16vh;
+                --mobile-sheet-controls-offset: calc(16vh + 15px);
+                --mobile-sheet-leaflet-bottom: 16vh;
+            }
             body.sheet-expanded {
                 --mobile-sheet-height: 75vh;
                 --mobile-sheet-max-height: 75vh;
@@ -1514,9 +1628,17 @@
                 height: 75vh !important;
                 max-height: 75vh !important;
             }
+            body.sheet-catalog.catalog-collapsed #mobileSidebar {
+                height: 16vh !important;
+                max-height: 16vh !important;
+            }
             #mobileSidebar.is-expanded {
                 height: 75vh !important;
                 max-height: 75vh !important;
+            }
+            body.sheet-catalog.catalog-collapsed #mobileSidebar.is-expanded {
+                height: 16vh !important;
+                max-height: 16vh !important;
             }
             .sidebar::before {
                 content: "";
@@ -1560,6 +1682,17 @@
             }
             .section-card-header {
                 margin-bottom: 8px;
+            }
+            body.sheet-catalog.catalog-collapsed .sidebar[data-panel="catalog"] {
+                padding-top: 14px;
+                overflow: hidden;
+            }
+            body.sheet-catalog.catalog-collapsed .sidebar[data-panel="catalog"] .section-card,
+            body.sheet-catalog.catalog-collapsed .sidebar[data-panel="catalog"] #routes-list {
+                display: none;
+            }
+            body.sheet-catalog.catalog-collapsed .sidebar[data-panel="catalog"] .catalog-selection-summary:not(.hidden) {
+                display: flex !important;
             }
         }
 
